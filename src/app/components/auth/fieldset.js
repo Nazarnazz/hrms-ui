@@ -3,5 +3,5 @@ export function Field({ children }) {
 }
 
 export function Label({ children }) {
-  return <label className="text-sm font-medium text-gray-700 dark:text-white">{children}</label>;
+  return <label className="text-sm ml-3 font-medium text-gray-700 dark:text-white">{children}</label>;
 }
