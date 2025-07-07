@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import { useState, useRef } from "react";
 
@@ -32,7 +33,7 @@ export default function Navbar() {
               </a>
             </div>
             <div className="flex items-center">
-              <div className={`flex items-center ms-3`} ref={dropdownRef}>
+              <div className="ml-3 relative" ref={dropdownRef}>
                 <div>
                   <button
                     type="button"
@@ -46,7 +47,7 @@ export default function Navbar() {
                   </button>
                 </div>
                 {isOpen && (
-                  <div className="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-sm shadow-sm dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
+                  <div className="absolute right-0 z-10 py-1 mt-2 w-48 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-sm shadow-sm dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
                     <div className="px-4 py-3" role="none">
                       <p className="text-sm text-gray-900 dark:text-white" role="none">
                         Neil Sims
