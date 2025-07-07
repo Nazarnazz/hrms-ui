@@ -8,7 +8,7 @@ export default function Dashboard() {
       <Navbar />
       <Sidebar />
 
-      <div className="p-4 sm:ml-64">
+      <div className="p-4">
         <div className="p-4 rounded-lg dark:border-gray-700 mt-14">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
             <div className="flex flex-col items-center justify-center h-24 rounded-sm bg-gray-50 dark:bg-gray-800">
