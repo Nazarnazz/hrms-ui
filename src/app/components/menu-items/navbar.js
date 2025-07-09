@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
+import Link from "next/link";
 import { useState, useRef } from "react";
 
 export default function Navbar({ toggleSidebar }) {
@@ -52,31 +53,28 @@ export default function Navbar({ toggleSidebar }) {
                 {isOpen && (
                   <div className="absolute right-0 z-10 py-1 mt-2 w-48 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-sm shadow-sm dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
                     <div className="px-4 py-3" role="none">
-                      <p className="text-sm text-gray-900 dark:text-white" role="none">
-                        Neil Sims
-                      </p>
-                      <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                        neil.sims@flowbite.com
-                      </p>
+                      <Link href="/admin/profile">
+                        <p className="text-sm text-gray-900 dark:text-white" role="none">
+                          Neil Sims
+                        </p>
+                        <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
+                          neil.sims@flowbite.com
+                        </p>
+                      </Link>
                     </div>
                     <ul className="py-1" role="none">
                       <li>
-                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
+                        <Link href="/admin/dashboard" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
                           Dashboard
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
+                        <Link href="/admin/pengaturan" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
                           Settings
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
-                          Earnings
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
+                        <a href="/signout" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
                           Sign out
                         </a>
                       </li>
