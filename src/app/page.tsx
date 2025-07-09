@@ -72,7 +72,9 @@ export default function Auth() {
         </Text>
       </form>
       <Text>
-        <TextLink href="/dashboard">Dashboard</TextLink>
+        <TextLink href="/admin/dashboard">Dashboard</TextLink>
+        <br />
+        <TextLink href="/user/dashboard">Dashboard</TextLink>
       </Text>
     </AuthLayout>
   );

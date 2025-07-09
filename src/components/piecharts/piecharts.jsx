@@ -12,9 +12,13 @@ const pieData = [
 
 const COLORS = ["#1d4ed8", "#22c55e", "#facc15", "#f87171"];
 
-export default function PieChartClient() {
+export default function PieChartClient({ location }) {
   return (
     <div className="w-full h-64 min-w-[300px]">
+      <p className="text-sm mb-2">
+        Menampilkan data untuk: <strong>{location}</strong>
+      </p>
+
       <ResponsiveContainer>
         <PieChart>
           <Pie data={pieData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} label>

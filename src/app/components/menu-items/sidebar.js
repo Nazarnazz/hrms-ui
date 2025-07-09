@@ -7,7 +7,7 @@ export default function Sidebar({ isOpen }) {
         </svg>
       ),
       label: "Dashboard",
-      path: " /dashboard ",
+      path: " /admin/dashboard ",
     },
     {
       icon: (
@@ -22,7 +22,7 @@ export default function Sidebar({ isOpen }) {
         </svg>
       ),
       label: "Riwayat Absensi",
-      path: " /riwayat ",
+      path: " /admin/riwayat ",
     },
     {
       icon: (
@@ -32,7 +32,7 @@ export default function Sidebar({ isOpen }) {
         </svg>
       ),
       label: "Lokasi",
-      path: " /lokasi ",
+      path: " /admin/lokasi ",
     },
     {
       icon: (
@@ -46,7 +46,7 @@ export default function Sidebar({ isOpen }) {
         </svg>
       ),
       label: "Users",
-      path: " /users ",
+      path: " /admin/users ",
     },
     {
       icon: (
