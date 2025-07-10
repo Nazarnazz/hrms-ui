@@ -3,8 +3,9 @@ export default function Riwayat() {
   return (
     <>
       <Layout>
-        <div className="p-4">
-          <div className="p-4 rounded-lg dark:border-gray-700 mt-14">
+        <div className="p-4 mt-12">
+          <span className="text-[25px] mt-4 ">Riwayat Absensi</span>
+          <div className="py-4 rounded-lg dark:border-gray-700 ">
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
               <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

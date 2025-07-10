@@ -1,6 +1,12 @@
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Sidebar({ isOpen }) {
+  const pathname = usePathname();
+  const linkClass = (path) =>
+    pathname === path
+      ? "flex items-center p-2 text-gray-900 rounded-lg bg-gray-200 dark:bg-gray-500 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+      : "flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group";
   const menuItems = [
     {
       icon: (
@@ -9,7 +15,7 @@ export default function Sidebar({ isOpen }) {
         </svg>
       ),
       label: "Dashboard",
-      path: " /admin/dashboard ",
+      path: "/admin/dashboard",
     },
     {
       icon: (
@@ -24,7 +30,7 @@ export default function Sidebar({ isOpen }) {
         </svg>
       ),
       label: "Riwayat Absensi",
-      path: " /admin/riwayat ",
+      path: "/admin/riwayat",
     },
     {
       icon: (
@@ -34,7 +40,7 @@ export default function Sidebar({ isOpen }) {
         </svg>
       ),
       label: "Lokasi",
-      path: " /admin/lokasi ",
+      path: "/admin/lokasi",
     },
     {
       icon: (
@@ -48,7 +54,7 @@ export default function Sidebar({ isOpen }) {
         </svg>
       ),
       label: "Users",
-      path: " /admin/users ",
+      path: "/admin/users",
     },
     {
       icon: (
@@ -57,7 +63,7 @@ export default function Sidebar({ isOpen }) {
         </svg>
       ),
       label: "Log Out",
-      path: " /logout ",
+      path: "/",
     },
   ];
   return (
@@ -71,7 +77,7 @@ export default function Sidebar({ isOpen }) {
           <ul className="space-y-2 font-medium">
             {menuItems.map((item) => (
               <li key={item.path}>
-                <Link href={item.path} className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                <Link href={item.path} className={linkClass(item.path)} data={item.path}>
                   {item.icon}
                   <span className="ms-3">{item.label}</span>
                 </Link>
