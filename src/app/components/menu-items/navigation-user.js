@@ -1,9 +1,40 @@
+"use client";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Navigation() {
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (typeof window !== "undefined") {
+        const currentScrollY = window.scrollY;
+
+        if (currentScrollY > lastScrollY) {
+          // Scroll ke bawah
+          setIsVisible(false);
+        } else {
+          // Scroll ke atas
+          setIsVisible(true);
+        }
+
+        setLastScrollY(currentScrollY);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
+
   return (
     <>
-      <div className="fixed z-50 w-full h-16 max-w-lg -translate-x-1/2 bg-gray-100 border border-gray-200 rounded-full bottom-4 left-1/2 dark:bg-gray-700 dark:border-gray-600">
+      <div
+        className={`fixed z-50 w-full h-16 max-w-lg -translate-x-1/2 bg-gray-100 border border-gray-200 rounded-full bottom-4 left-1/2 dark:bg-gray-700 dark:border-gray-600 transition-transform duration-300 ease-in-out ${
+          isVisible ? "translate-y-0 opacity-100" : "translate-y-24 opacity-0"
+        }`}
+      >
         <div className="grid h-full max-w-lg grid-cols-5 mx-auto">
           <Link href="/user/dashboard" className="inline-flex flex-col items-center justify-center px-5 rounded-s-full hover:bg-gray-50 dark:hover:bg-gray-800 group">
             <button data-tooltip-target="tooltip-home" type="button">
