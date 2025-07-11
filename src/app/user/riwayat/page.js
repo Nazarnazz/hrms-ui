@@ -32,55 +32,73 @@ export default function Riwayat() {
   const Riwayat = [
     {
       id: 1,
-      tanggal: "20-07-2025",
+      tanggal: "20 Juli 2025",
+      waktuMasuk: "07.43",
+      waktuPulang: "17.00",
       keterangan: "Hadir",
       background: "bg-green-500",
     },
     {
       id: 2,
-      tanggal: "19-07-2025",
+      tanggal: "19 Juli 2025",
+      waktuMasuk: "07.50",
+      waktuPulang: "17.08",
       keterangan: "Hadir",
       background: "bg-green-500",
     },
     {
       id: 3,
-      tanggal: "18-07-2025",
+      tanggal: "18 Juli 2025",
+      waktuMasuk: "07.43",
+      waktuPulang: "-",
       keterangan: "Kurang",
       background: "bg-yellow-600",
     },
     {
       id: 4,
-      tanggal: "17-07-2025",
+      tanggal: "17 Juli 2025",
+      waktuMasuk: "-",
+      waktuPulang: "-",
       keterangan: "Nihil",
       background: "bg-red-700",
     },
     {
       id: 6,
-      tanggal: "16-07-2025",
+      tanggal: "16 Juli 2025",
+      waktuMasuk: "07.00",
+      waktuPulang: "17.01",
       keterangan: "Hadir",
       background: "bg-green-500",
     },
     {
       id: 7,
-      tanggal: "15-07-2025",
+      tanggal: "15 Juli 2025",
+      waktuMasuk: "07.43",
+      waktuPulang: "17.30",
       keterangan: "Hadir",
       background: "bg-green-500",
     },
     {
       id: 8,
-      tanggal: "14-07-2025",
+      tanggal: "14 Juli 2025",
+      waktuMasuk: "07.13",
+      waktuPulang: "17.44",
       keterangan: "Hadir",
       background: "bg-green-500",
     },
     {
       id: 9,
-      tanggal: "13-07-2025",
+      tanggal: "13 Juli 2025",
+      waktuMasuk: "07.40",
+      waktuPulang: "17.23",
       keterangan: "Hadir",
       background: "bg-green-500",
     },
     {
       id: 10,
-      tanggal: "12-07-2025",
+      tanggal: "12 Juli 2025",
+      waktuMasuk: "07.39",
+      waktuPulang: "17.05",
       keterangan: "Hadir",
       background: "bg-green-500",
     },
@@ -148,8 +166,28 @@ export default function Riwayat() {
               <DialogTitle>Riwayat Absensi</DialogTitle>
               <DialogDescription>Data lengkap terkait absensi</DialogDescription>
               <DialogBody>
-                <div className="bg-gray-200 text-gray-900 p-4">{selectedItem.tanggal}</div>
-                <div className="bg-gray-200 text-gray-900 p-4">{selectedItem.keterangan}</div>
+                <div className="bg-gray-200 rounded-sm text-gray-900 p-4">
+                  <div className="flex flex-col">
+                    <div className="text-sm">Tanggal</div>
+                    <div className="font-bold">{selectedItem.tanggal}</div>
+                    <div className="mt-3"></div>
+                    <div className="text-sm">Keterangan</div>
+                    <div className="pr-8 mr-10 mt-1">
+                      <div className={`flex justify-center py-1 ${selectedItem.background} text-white rounded-lg`}>{selectedItem.keterangan}</div>
+                    </div>
+                    <div className="flex mt-3 gap-9 justify">
+                      <div className="flex flex-col justify-center">
+                        <div className="text-sm">Waktu Masuk</div>
+                        <div className="font-bold flex justify-center mt-1 rounded-sm">{selectedItem.waktuMasuk}</div>
+                      </div>
+                      <div className="flex flex-col justify-center">
+                        <div className="text-sm">Waktu Keluar</div>
+                        <div className="font-bold flex justify-center mt-1 rounded-sm">{selectedItem.waktuPulang}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex justify-content mt-3 justify-center"></div>
+                </div>
               </DialogBody>
               <div className="sm:hidden">
                 <div className="mt-6 grid grid-cols-2 gap-2">
@@ -163,10 +201,12 @@ export default function Riwayat() {
               </div>
               <div className="hidden sm:block">
                 <DialogActions>
-                  <button className="px-3 py-1 rounded bg-gray-600 text-white hover:bg-gray-700" onClick={() => setIsOpen(false)}>
-                    Batal
-                  </button>
-                  <button className="px-3 py-1 rounded bg-blue-600 text-white hover:bg-blue-950">Simpan</button>
+                  <div className="flex justify-end gap-2">
+                    <button className="px-3 py-1 rounded bg-gray-600 text-white hover:bg-gray-700" onClick={() => setIsOpen(false)}>
+                      Batal
+                    </button>
+                    <button className="px-3 py-1 rounded bg-blue-600 text-white hover:bg-blue-950">Simpan</button>
+                  </div>
                 </DialogActions>
               </div>
             </>
