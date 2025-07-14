@@ -40,6 +40,9 @@ export default function Pengaturan() {
               placeholder="*****"
             />
           </div>
+          <div className="relative flex justify-center mb-6">
+            <button className="transition-colors duration-500 py-2.5 px-4 bg-blue-700 rounded-full font-bold hover:bg-blue-800 text-white m-2">Submit</button>
+          </div>
         </div>
       </div>
       <Navigation />
