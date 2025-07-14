@@ -1,6 +1,7 @@
 "use client";
 import { useRef, useEffect, useState } from "react";
 import Navigation from "@/app/components/menu-items/navigation-user";
+import { useGeolocated } from "react-geolocated";
 
 export default function MulaiAbsen() {
   const videoRef = useRef(null);
@@ -43,6 +44,57 @@ export default function MulaiAbsen() {
     };
   }, []);
 
+  const [isClient, setIsClient] = useState(false);
+  const { coords, isGeolocationAvailable, isGeolocationEnabled } = useGeolocated({
+    positionOptions: {
+      enableHighAccuracy: false,
+    },
+    userDecisionTimeout: 5000,
+  });
+
+  // Pastikan hanya di-render di client
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) return null;
+
+  // Kondisi: Browser tidak mendukung geolocation
+  if (!isGeolocationAvailable) {
+    return (
+      <>
+        <div className="mb-4">
+          <div className="w-full p-4 bg-gray-100 mb-6 dark:bg-gray-700 justify-center items-center font-bold dark:border-gray-600">Lakukan Absensi</div>
+          <div className="p-4 m-2 flex flex-col justify-center max-h-screen items-center">Browser kamu tidak support geolocation</div>
+        </div>
+        <Navigation />
+      </>
+    );
+  }
+
+  // Kondisi: User menolak izin geolocation
+  if (!isGeolocationEnabled) {
+    return (
+      <>
+        <div className="mb-4">
+          <div className="w-full p-4 bg-gray-100 mb-6 dark:bg-gray-700 justify-center items-center font-bold dark:border-gray-600">Lakukan Absensi</div>
+          <div className="p-4 m-2 flex flex-col justify-center max-h-screen items-center">Geolocation tidak diterapkan</div>
+        </div>
+        <Navigation />
+      </>
+    );
+  }
+
+  // Kondisi: Masih memuat lokasi
+  if (!coords) {
+    return (
+      <>
+        <div className="p-4 text-center">Sedang mengambil lokasi...</div>
+        <Navigation />
+      </>
+    );
+  }
+
   return (
     <>
       <div className="">
@@ -80,6 +132,11 @@ export default function MulaiAbsen() {
               )}
             </div>
           </div>
+          {/* Lokasi */}
+          <label className="block mt-10 mb-2 text-sm font-medium text-gray-900 text-center dark:text-white">Longitude</label>
+          <input type="text" value={coords.longitude} disabled className="mb-4 text-center bg-gray-50 border text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+          <label className="block mb-2 text-sm font-medium text-gray-900 text-center dark:text-white">Latitude</label>
+          <input type="text" value={coords.latitude} disabled className="bg-gray-50 border text-center text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
         </div>
       </div>
 
