@@ -71,18 +71,19 @@ export default function Dashboard() {
       color: "bg-purple-500",
     },
     {
-      name: "Ubah Password",
+      name: "Pengaturan",
       icon: (
         <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
+            stroke="currentColor"
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth="2"
-            d="M12 11c1.105 0 2-.672 2-1.5S13.105 8 12 8s-2 .672-2 1.5S10.895 11 12 11zM12 11v2m0 4h.01M12 17v.01M21 12.5A8.38 8.38 0 0112 21a8.38 8.38 0 01-9-8.5A8.38 8.38 0 0112 3a8.38 8.38 0 019 9.5z"
+            d="M4 12.25V1m0 11.25a2.25 2.25 0 0 0 0 4.5m0-4.5a2.25 2.25 0 0 1 0 4.5M4 19v-2.25m6-13.5V1m0 2.25a2.25 2.25 0 0 0 0 4.5m0-4.5a2.25 2.25 0 0 1 0 4.5M10 19V7.75m6 4.5V1m0 11.25a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5ZM16 19v-2"
           />
         </svg>
       ),
-      onClick: () => router.push("/user/ubah-password"),
+      onClick: () => router.push("/user/pengaturan"),
       color: "bg-red-500",
     },
   ];
@@ -100,7 +101,7 @@ export default function Dashboard() {
           ))}
         </div>
         <div className="w-full h-64 p-4 rounded-lg shadow">
-          <h2 className="text-center font-semibold mb-4 text-gray-800 dark:text-white">Statistik Kehadiran</h2>
+          <h2 className="text-center font-semibold mt-6 bg-gray-400 dark:bg-gray-600 p-4 rounded-full mb-4 text-gray-800 dark:text-white">Statistik Kehadiran</h2>
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={data}>
               <XAxis dataKey="name" />
