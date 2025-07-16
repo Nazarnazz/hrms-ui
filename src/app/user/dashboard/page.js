@@ -124,7 +124,7 @@ export default function Dashboard() {
           </div>
 
           {/* peta hanya di-render di browser; tidak mengganggu SSR */}
-          <div className="my-2 h-[400px] bg-gray-300 rounded-md overflow-hidden">
+          <div className="my-2 h-[400px] bg-gray-300 rounded-md z-0">
             <MapClient />
           </div>
         </div>

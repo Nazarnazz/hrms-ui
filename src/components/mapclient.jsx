@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, Circle } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
@@ -27,11 +27,16 @@ export default function MapClient() {
 
   return (
     <div className="h-[400px]">
-      <MapContainer className="h-full w-full rounded-md" center={[coords.lat, coords.lng]} zoom={15} scrollWheelZoom>
+      <MapContainer className="h-full w-full rounded-md" center={[coords.lat, coords.lng]} zoom={17} scrollWheelZoom>
         <TileLayer attribution="&copy; OpenStreetMap contributors" url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         <Marker position={[coords.lat, coords.lng]}>
           <Popup>Lokasi kamu sekarang</Popup>
         </Marker>
+        <Circle
+          center={[coords.lat, coords.lng]}
+          radius={10} // dalam meter, misalnya 100 meter
+          pathOptions={{ color: "blue", fillColor: "#3b82f6", fillOpacity: 0.4 }}
+        />
       </MapContainer>
     </div>
   );
