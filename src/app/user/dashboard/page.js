@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import Navigation from "@/app/components/menu-items/navigation-user";
 import Image from "next/image";
+import dynamic from "next/dynamic";
+const MapClient = dynamic(() => import("@/components/MapClient"), { ssr: false });
 
 export default function Dashboard() {
   const [time, setTime] = useState("");
@@ -115,12 +117,16 @@ export default function Dashboard() {
           </button>
         </div>
       </div>
-      <div className="px-5">
+      <div className="px-5 mb-5">
         <div className="px-6 mx-auto w-full max-w-screen-sm gap-4 rounded-md bg-white dark:bg-gray-950 border-2 border-[#77A4C4] shadow-sm shadow-blue-400 mt-4">
           <div className="flex justify-center">
-            <span className="font-bold">Lokasi Perangkat</span>
+            <span className="font-bold mt-4">Lokasi Perangkat</span>
           </div>
-          <div className="my-2 bg-gray-300">0</div>
+
+          {/* peta hanya di-render di browser; tidak mengganggu SSR */}
+          <div className="my-2 h-[400px] bg-gray-300 rounded-md overflow-hidden">
+            <MapClient />
+          </div>
         </div>
       </div>
 

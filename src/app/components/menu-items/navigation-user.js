@@ -31,7 +31,7 @@ export default function Navigation() {
   return (
     <>
       <div
-        className={`fixed z-50 w-full h-16 max-w-lg -translate-x-1/2 bg-gray-100 border border-gray-200 rounded-full bottom-4 left-1/2 dark:bg-gray-700 dark:border-gray-600 transition-transform duration-300 ease-in-out ${
+        className={`fixed z-[999999] pointer-events-auto w-full h-16 max-w-lg -translate-x-1/2 bg-gray-100 border border-gray-200 rounded-full bottom-4 left-1/2 dark:bg-gray-700 dark:border-gray-600 transition-transform duration-300 ease-in-out ${
           isVisible ? "translate-y-0 opacity-100" : "translate-y-24 opacity-0"
         }`}
       >
