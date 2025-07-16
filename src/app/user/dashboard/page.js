@@ -76,6 +76,7 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
+
       <div className="px-5">
         <div className="px-6 mx-auto w-full max-w-screen-sm rounded-md bg-white dark:bg-gray-950 border-2 border-[#DBE6FF] dark:border-[#77A4C4] shadow-md shadow-gray-400 dark:shadow-gray-700 mt-4">
           <div className="flex justify-center">
@@ -84,8 +85,8 @@ export default function Dashboard() {
             </svg>
             <span className="ml-1 mt-4 text-sm  font-semibold text-[#000757] dark:text-white">Waktu Presensi</span>
           </div>
-          <div className="grid grid-cols-2 justify-center text-center">
-            <div className="grid grid-rows-2 mt-2 mb-6">
+          <div className="grid grid-cols-2 gap-8">
+            <div className="grid grid-rows-2 mt-2 mb-6 text-right">
               <span className="font-semibold text-xs mb-1 text-[#000757] dark:text-white">Jam Masuk</span>
               <span className="font-semibold text-xs text-[#000757] dark:text-white">Jam Keluar</span>
             </div>
@@ -94,6 +95,32 @@ export default function Dashboard() {
               <span className="font-semibold text-xs text-[#000757] dark:text-white">17:00 - 19:00</span>
             </div>
           </div>
+        </div>
+      </div>
+      <div className="px-5">
+        <div className="flex justify-center">
+          <button className="mx-auto px-6 py-3 transition-colors duration-200 font-bold max-w-screen-sm w-full bg-[#77A4C4] hover:bg-[#456175] rounded-full mt-4 text-white">
+            <div className="flex justify-center gap-2">
+              <svg className="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M21 12a28.076 28.076 0 0 1-1.091 9M7.231 4.37a8.994 8.994 0 0 1 12.88 3.73M2.958 15S3 14.577 3 12a8.949 8.949 0 0 1 1.735-5.307m12.84 3.088A5.98 5.98 0 0 1 18 12a30 30 0 0 1-.464 6.232M6 12a6 6 0 0 1 9.352-4.974M4 21a5.964 5.964 0 0 1 1.01-3.328 5.15 5.15 0 0 0 .786-1.926m8.66 2.486a13.96 13.96 0 0 1-.962 2.683M7.5 19.336C9 17.092 9 14.845 9 12a3 3 0 1 1 6 0c0 .749 0 1.521-.031 2.311M12 12c0 3 0 6-2 9"
+                />
+              </svg>
+              <span>Lakukan Presensi</span>
+            </div>
+          </button>
+        </div>
+      </div>
+      <div className="px-5">
+        <div className="px-6 mx-auto w-full max-w-screen-sm gap-4 rounded-md bg-white dark:bg-gray-950 border-2 border-[#77A4C4] shadow-sm shadow-blue-400 mt-4">
+          <div className="flex justify-center">
+            <span className="font-bold">Lokasi Perangkat</span>
+          </div>
+          <div className="my-2 bg-gray-300">0</div>
         </div>
       </div>
 
