@@ -1,125 +1,103 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import Navigation from "@/app/components/menu-items/navigation-user";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from "recharts";
-
-const Riwayat = [
-  { id: 1, tanggal: "20 Juli 2025", waktuMasuk: "07.43", waktuPulang: "17.00", keterangan: "Hadir", background: "bg-green-500" },
-  { id: 2, tanggal: "19 Juli 2025", waktuMasuk: "07.50", waktuPulang: "17.08", keterangan: "Hadir", background: "bg-green-500" },
-  { id: 3, tanggal: "18 Juli 2025", waktuMasuk: "07.43", waktuPulang: "-", keterangan: "Kurang", background: "bg-yellow-600" },
-  { id: 4, tanggal: "17 Juli 2025", waktuMasuk: "-", waktuPulang: "-", keterangan: "Nihil", background: "bg-red-700" },
-  { id: 6, tanggal: "16 Juli 2025", waktuMasuk: "07.00", waktuPulang: "17.01", keterangan: "Hadir", background: "bg-green-500" },
-  { id: 7, tanggal: "15 Juli 2025", waktuMasuk: "07.43", waktuPulang: "17.30", keterangan: "Hadir", background: "bg-green-500" },
-  { id: 8, tanggal: "14 Juli 2025", waktuMasuk: "07.13", waktuPulang: "17.44", keterangan: "Hadir", background: "bg-green-500" },
-  { id: 9, tanggal: "13 Juli 2025", waktuMasuk: "07.40", waktuPulang: "17.23", keterangan: "Hadir", background: "bg-green-500" },
-  { id: 10, tanggal: "12 Juli 2025", waktuMasuk: "07.39", waktuPulang: "17.05", keterangan: "Hadir", background: "bg-green-500" },
-];
+import Image from "next/image";
 
 export default function Dashboard() {
-  const router = useRouter();
+  const [time, setTime] = useState("");
+  const [date, setDate] = useState("");
 
-  const total = Riwayat.length;
+  useEffect(() => {
+    const updateClock = () => {
+      const now = new Date();
+      const jam = now.getHours().toString().padStart(2, "0");
+      const menit = now.getMinutes().toString().padStart(2, "0");
+      const detik = now.getSeconds().toString().padStart(2, "0");
+      setTime(`${jam}:${menit}:${detik}`);
+    };
 
-  const counts = {
-    Hadir: Riwayat.filter((r) => r.keterangan === "Hadir").length,
-    Kurang: Riwayat.filter((r) => r.keterangan === "Kurang").length,
-    Nihil: Riwayat.filter((r) => r.keterangan === "Nihil").length,
-  };
+    updateClock(); // Panggil sekali saat pertama kali render
+    const interval = setInterval(updateClock, 1000); // Update tiap 1 detik
 
-  const data = [
-    { name: "Hadir", value: (counts.Hadir / total) * 100 },
-    { name: "Kurang", value: (counts.Kurang / total) * 100 },
-    { name: "Nihil", value: (counts.Nihil / total) * 100 },
-  ];
+    return () => clearInterval(interval); // Bersihkan interval saat komponen unmount
+  }, []);
 
-  const COLORS = {
-    Hadir: "#22c55e", // Tailwind green-500
-    Kurang: "#eab308", // Tailwind yellow-500
-    Nihil: "#ef4444", // Tailwind red-500
-  };
+  useEffect(() => {
+    const updateDate = () => {
+      const now = new Date();
 
-  const features = [
-    {
-      name: "Absensi",
-      icon: (
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-        </svg>
-      ),
-      onClick: () => router.push("/user/absensi"),
-      color: "bg-blue-500",
-    },
-    {
-      name: "Riwayat",
-      icon: (
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      ),
-      onClick: () => router.push("/user/riwayat"),
-      color: "bg-green-500",
-    },
-    {
-      name: "Profil",
-      icon: (
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5.121 17.804A9 9 0 0112 15a9 9 0 016.879 2.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-        </svg>
-      ),
-      onClick: () => router.push("/user/profil"),
-      color: "bg-purple-500",
-    },
-    {
-      name: "Pengaturan",
-      icon: (
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M4 12.25V1m0 11.25a2.25 2.25 0 0 0 0 4.5m0-4.5a2.25 2.25 0 0 1 0 4.5M4 19v-2.25m6-13.5V1m0 2.25a2.25 2.25 0 0 0 0 4.5m0-4.5a2.25 2.25 0 0 1 0 4.5M10 19V7.75m6 4.5V1m0 11.25a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5ZM16 19v-2"
-          />
-        </svg>
-      ),
-      onClick: () => router.push("/user/pengaturan"),
-      color: "bg-red-500",
-    },
-  ];
+      const hariList = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+      const bulanList = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+
+      const hari = hariList[now.getDay()];
+      const tanggal = now.getDate().toString().padStart(2, "0");
+      const bulan = bulanList[now.getMonth()];
+      const tahun = now.getFullYear();
+
+      setDate(`${hari}, ${tanggal} ${bulan} ${tahun}`);
+    };
+
+    updateDate();
+    const interval = setInterval(updateDate, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <>
-      <div className="w-full p-4 bg-gray-100 mb-6 dark:bg-gray-700 justify-center items-center font-bold dark:border-gray-600">Dashboard</div>
-      <div className="min-h-screen px-4 py-4">
-        <div className="grid grid-cols-2 gap-4">
-          {features.map((feature, idx) => (
-            <button key={idx} onClick={feature.onClick} className={`rounded-xl flex flex-col items-center justify-center p-4 ${feature.color} shadow-lg text-white h-28 transition-transform hover:scale-105`}>
-              {feature.icon}
-              <span className="mt-2 text-sm font-semibold">{feature.name}</span>
-            </button>
-          ))}
+      <div className="w-full z-10 pt-4 px-4 pb-15 bg-[#77A4C4] dark:bg-[#567f9f] justify-center font-bold text-white">
+        <div className="flex justify-center">
+          <span>WPR</span>
         </div>
-        <div className="w-full h-64 p-4 rounded-lg shadow">
-          <h2 className="text-center font-semibold mt-6 bg-gray-400 dark:bg-gray-600 p-4 rounded-full mb-4 text-gray-800 dark:text-white">Statistik Kehadiran</h2>
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={data}>
-              <XAxis dataKey="name" />
-              <YAxis unit="%" />
-              <Tooltip formatter={(value) => `${value.toFixed(1)}%`} />
-              <Bar dataKey="value">
-                {data.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[entry.name]} />
-                ))}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-
-        <div className="fixed bottom-0 left-0 w-full">
-          <Navigation />
+        <div className="flex justify-center">
+          <span className="text-[11px]">Absensi</span>
         </div>
       </div>
+      <div className="relative z-20 -mt-11 px-5">
+        <div className="w-full max-w-screen-sm mx-auto py-4 px-4 bg-[#DBE6FF] dark:bg-gray-950 dark:border-2 dark:border-[#77A4C4] rounded-md shadow-md shadow-gray-400 dark:shadow-gray-700">
+          <div className="flex justify-center mb-1">
+            <Image src="/assets/image/mrbean.jpg" width={70} height={70} className="dark:border-1 dark:border-white rounded-xl" alt="mrbean" />
+          </div>
+          <div className="text-lg font-bold text-center truncate">Muhammad Rizki</div>
+          <div className="text-xs font-bold text-center">Admin</div>
+        </div>
+      </div>
+      {/* <div className="px-6 flex rounded-md bg-white border-2 border-[#77A4C4] shadow-sm shadow-blue-400 mt-4 mx-5">
+        <Image src="/assets/svg/calendar-55.svg" width={90} height={90} alt="calendar" />
+        <span>20:20</span>
+      </div> */}
+      <div className="px-5">
+        <div className="px-6 mx-auto w-full max-w-screen-sm flex justify-center gap-4 rounded-md bg-white dark:bg-gray-950 border-2 border-[#77A4C4] shadow-sm shadow-blue-400 mt-4">
+          <Image src="/assets/svg/calendar-55.svg" width={90} height={90} alt="calendar" />
+          <div className="grid grid-rows-2 mt-3">
+            <span className="text-[30px] text-[#016D77] dark:text-white font-bold mt-2">{time}</span>
+            <span className="text-[12px] text-[#016E87] dark:text-white text-center font-semibold truncate">{date}</span>
+          </div>
+        </div>
+      </div>
+      <div className="px-5">
+        <div className="px-6 mx-auto w-full max-w-screen-sm rounded-md bg-white dark:bg-gray-950 border-2 border-[#DBE6FF] dark:border-[#77A4C4] shadow-md shadow-gray-400 dark:shadow-gray-700 mt-4">
+          <div className="flex justify-center">
+            <svg className="w-5 h-5 text-[#000757] mt-4 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+            <span className="ml-1 mt-4 text-sm  font-semibold text-[#000757] dark:text-white">Waktu Presensi</span>
+          </div>
+          <div className="grid grid-cols-2 justify-center text-center">
+            <div className="grid grid-rows-2 mt-2 mb-6">
+              <span className="font-semibold text-xs mb-1 text-[#000757] dark:text-white">Jam Masuk</span>
+              <span className="font-semibold text-xs text-[#000757] dark:text-white">Jam Keluar</span>
+            </div>
+            <div className="grid grid-rows-2 mt-2 mb-6">
+              <span className="font-semibold text-xs mb-1 text-[#000757] dark:text-white">06:00 - 08:00</span>
+              <span className="font-semibold text-xs text-[#000757] dark:text-white">17:00 - 19:00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <Navigation />
     </>
   );
 }
