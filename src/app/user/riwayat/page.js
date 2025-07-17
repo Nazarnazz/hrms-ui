@@ -7,9 +7,7 @@ import { id } from "date-fns/locale";
 
 // import Link from "next/link";
 export default function Riwayat() {
-  const [isOpen, setIsOpen] = useState(false);
   const [isDateOpen, setIsDateOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(null);
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -31,74 +29,72 @@ export default function Riwayat() {
     {
       id: 1,
       tanggal: "20 Juli 2025",
-      waktuMasuk: "07.43",
-      waktuPulang: "17.00",
-      keterangan: "Hadir",
-      background: "bg-green-500",
+      waktu: "17.23",
+      keterangan: "Pulang",
+      detail: "Tepat Waktu",
     },
     {
       id: 2,
-      tanggal: "19 Juli 2025",
-      waktuMasuk: "07.50",
-      waktuPulang: "17.08",
-      keterangan: "Hadir",
-      background: "bg-green-500",
+      tanggal: "20 Juli 2025",
+      waktu: "07.43",
+      keterangan: "Masuk",
+      detail: "Tepat Waktu",
     },
     {
       id: 3,
-      tanggal: "18 Juli 2025",
-      waktuMasuk: "07.43",
-      waktuPulang: "-",
-      keterangan: "Kurang",
-      background: "bg-yellow-600",
+      tanggal: "19 Juli 2025",
+      waktu: "17.11",
+      keterangan: "Pulang",
+      detail: "Tepat Waktu",
     },
     {
       id: 4,
+      tanggal: "19 Juli 2025",
+      waktu: "07.13",
+      keterangan: "Masuk",
+      detail: "Tepat Waktu",
+    },
+    {
+      id: 5,
       tanggal: "17 Juli 2025",
-      waktuMasuk: "-",
-      waktuPulang: "-",
-      keterangan: "Nihil",
-      background: "bg-red-700",
+      waktu: "17.03",
+      keterangan: "Pulang",
+      detail: "Tepat Waktu",
     },
     {
       id: 6,
-      tanggal: "16 Juli 2025",
-      waktuMasuk: "07.00",
-      waktuPulang: "17.01",
-      keterangan: "Hadir",
-      background: "bg-green-500",
+      tanggal: "17 Juli 2025",
+      waktu: "08.53",
+      keterangan: "Masuk",
+      detail: "Terlambat",
     },
     {
       id: 7,
-      tanggal: "15 Juli 2025",
-      waktuMasuk: "07.43",
-      waktuPulang: "17.30",
-      keterangan: "Hadir",
-      background: "bg-green-500",
+      tanggal: "16 Juli 2025",
+      waktu: "17.23",
+      keterangan: "Pulang",
+      detail: "Tepat Waktu",
     },
     {
       id: 8,
-      tanggal: "14 Juli 2025",
-      waktuMasuk: "07.13",
-      waktuPulang: "17.44",
-      keterangan: "Hadir",
-      background: "bg-green-500",
+      tanggal: "16 Juli 2025",
+      waktu: "07.53",
+      keterangan: "Masuk",
+      detail: "Tepat Waktu",
     },
     {
       id: 9,
-      tanggal: "13 Juli 2025",
-      waktuMasuk: "07.40",
-      waktuPulang: "17.23",
-      keterangan: "Hadir",
-      background: "bg-green-500",
+      tanggal: "15 Juli 2025",
+      waktu: "07.23",
+      keterangan: "Masuk",
+      detail: "Tepat Waktu",
     },
     {
       id: 10,
-      tanggal: "12 Juli 2025",
-      waktuMasuk: "07.39",
-      waktuPulang: "17.05",
-      keterangan: "Hadir",
-      background: "bg-green-500",
+      tanggal: "14 Juli 2025",
+      waktu: "07.41",
+      keterangan: "Masuk",
+      detail: "Tepat Waktu",
     },
   ];
   return (
@@ -120,14 +116,14 @@ export default function Riwayat() {
         </div>
         <div className="full-w flex justify-center items-center gap-18 bg-[#dcecf8] py-1 px-1">
           <div className="flex items-center">
-            <svg className="w-5 h-5  dark:text-white text-blue-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 text-blue-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
               <path
                 fillRule="evenodd"
                 d="M5 5a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1h1a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1h1a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1 2 2 0 0 1 2 2v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a2 2 0 0 1 2-2ZM3 19v-7a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Zm6.01-6a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm2 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm6 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm-10 4a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm6 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm2 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z"
                 clipRule="evenodd"
               />
             </svg>
-            <span className="text-xs ml-2 text-blue-900 dark:text-white font-semibold">25 Agustus 2025</span>
+            <span className="text-xs ml-2 text-blue-900 font-semibold">25 Agustus 2025</span>
           </div>
           <div className="flex justify-right">
             <button
@@ -143,141 +139,30 @@ export default function Riwayat() {
 
         <div className="px-4">
           <div className="my-7"></div>
-          <div className="flex py-1.5 px-4">
-            <div className="rounded-l-lg bg-[#F3C200] flex text-lg text-[#F3C200]">
-              <span>0</span>
-              <span>0</span>
-            </div>
-            <div className="bg-[#FFF4CF] rounded-r-lg w-full py-1 px-4 flex flex-col">
-              <div className="flex flex-col mt-1">
-                <span className="text-lg text-[#ffc904] font-bold">Pulang</span>
-                <span className="text-xs font-semibold mt-1 text-gray-800">12 Agustus 2025 17:23:33</span>
-                <span className="text-xs font-light mt-1 text-gray-800">Head Office Fl. 3</span>
-              </div>
-              <div className="flex justify-end items-center mb-2">
-                <span className="italic text-xs font-extralight mr-2 text-green-500">Tepat Waktu</span>
-              </div>
-            </div>
-          </div>
-          <div className="flex py-1.5 px-4">
-            <div className="rounded-l-lg bg-[#0071F3] flex text-lg text-[#0071F3]">
-              <span>0</span>
-              <span>0</span>
-            </div>
-            <div className="bg-[#EBFFFB] rounded-r-lg w-full py-1 px-4 flex flex-col">
-              <div className="flex flex-col mt-1">
-                <span className="text-lg text-[#0057DA] font-bold">Masuk</span>
-                <span className="text-xs font-semibold mt-1 text-gray-800">12 Agustus 2025 07:23:33</span>
-                <span className="text-xs font-light mt-1 text-gray-800">Head Office Fl. 3</span>
-              </div>
-              <div className="flex justify-end items-center mb-2">
-                <span className="italic text-xs font-extralight mr-2 text-green-500">Tepat Waktu</span>
-              </div>
-            </div>
-          </div>
-          <div className="flex py-1.5 px-4">
-            <div className="rounded-l-lg bg-[#F3C200] flex text-lg text-[#F3C200]">
-              <span>0</span>
-              <span>0</span>
-            </div>
-            <div className="bg-[#FFF4CF] rounded-r-lg w-full py-1 px-4 flex flex-col">
-              <div className="flex flex-col mt-1">
-                <span className="text-lg text-[#ffc904] font-bold">Pulang</span>
-                <span className="text-xs font-semibold mt-1 text-gray-800">11 Agustus 2025 17:03:33</span>
-                <span className="text-xs font-light mt-1 text-gray-800">Head Office Fl. 3</span>
-              </div>
-              <div className="flex justify-end items-center mb-2">
-                <span className="italic text-xs font-extralight mr-2 text-green-500">Tepat Waktu</span>
-              </div>
-            </div>
-          </div>
-          <div className="flex py-1.5 px-4">
-            <div className="rounded-l-lg bg-[#0071F3] flex text-lg text-[#0071F3]">
-              <span>0</span>
-              <span>0</span>
-            </div>
-            <div className="bg-[#EBFFFB] rounded-r-lg w-full py-1 px-4 flex flex-col">
-              <div className="flex flex-col mt-1">
-                <span className="text-lg text-[#0057DA] font-bold">Masuk</span>
-                <span className="text-xs font-semibold mt-1 text-gray-800">11 Agustus 2025 08:23:33</span>
-                <span className="text-xs font-light mt-1 text-gray-800">Head Office Fl. 3</span>
-              </div>
-              <div className="flex justify-end items-center mb-2">
-                <span className="italic text-xs font-extralight mr-2 text-red-500">Terlambat</span>
-              </div>
-            </div>
-          </div>
 
+          {/* Data Riwayat */}
           {Riwayat.map((item) => (
-            <div key={item.id} className="bg-gray-200 dark:bg-gray-400 mb-2 gap-3 mx-4 p-4 text-[12px] grid grid-cols-3 justify-content">
-              <div className="flex justify-center py-1">{item.tanggal}</div>
-              <div className={`flex justify-center py-1 ${item.background} text-white rounded-lg`}>{item.keterangan}</div>
-              <div className="flex justify-center py-1">
-                <button
-                  onClick={() => {
-                    setSelectedItem(item);
-                    setIsOpen(true);
-                  }}
-                  className=" font-bold hover:underline text-blue-500 dark:text-blue-100 dark:hover:text-blue-500 "
-                >
-                  Detail
-                </button>
+            <div key={item.id} className="flex py-1.5 px-4">
+              <div className={`rounded-l-lg ${item.keterangan === "Masuk" ? "bg-[#0071F3] text-[#0071F3]" : "bg-[#F3C200] text-[#F3C200]"} flex text-lg`}>
+                <span>0</span>
+                <span>0</span>
+              </div>
+              <div className={`${item.keterangan === "Masuk" ? "bg-[#EBFFFB]" : "bg-[#FFF4CF]"} rounded-r-lg w-full py-1 px-4 flex flex-col`}>
+                <div className="flex flex-col mt-1">
+                  <span className={`text-lg ${item.keterangan === "Masuk" ? "text-[#0057DA]" : "text-[#ffc904]"}  font-bold`}>{item.keterangan}</span>
+                  <span className="text-xs font-semibold mt-1 text-gray-800">
+                    {item.tanggal} {item.waktu}
+                  </span>
+                  <span className="text-xs font-light mt-1 text-gray-800">Head Office Fl. 3</span>
+                </div>
+                <div className="flex justify-end items-center mb-2">
+                  <span className={`italic text-xs font-extralight mr-2 ${item.detail === "Tepat Waktu" ? "text-green-500" : "text-red-500"}`}>{item.detail}</span>
+                </div>
               </div>
             </div>
           ))}
         </div>
-        <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
-          {selectedItem && (
-            <>
-              <DialogTitle>Riwayat Absensi</DialogTitle>
-              <DialogDescription>Data lengkap terkait absensi</DialogDescription>
-              <DialogBody>
-                <div className="bg-gray-200 rounded-sm text-gray-900 p-4">
-                  <div className="flex flex-col">
-                    <div className="text-sm">Tanggal</div>
-                    <div className="font-bold">{selectedItem.tanggal}</div>
-                    <div className="mt-3"></div>
-                    <div className="text-sm">Keterangan</div>
-                    <div className="pr-8 mr-10 mt-1">
-                      <div className={`flex justify-center py-1 ${selectedItem.background} text-white rounded-lg`}>{selectedItem.keterangan}</div>
-                    </div>
-                    <div className="flex mt-3 gap-9 justify">
-                      <div className="flex flex-col justify-center">
-                        <div className="text-sm">Waktu Masuk</div>
-                        <div className="font-bold flex justify-center mt-1 rounded-sm">{selectedItem.waktuMasuk}</div>
-                      </div>
-                      <div className="flex flex-col justify-center">
-                        <div className="text-sm">Waktu Keluar</div>
-                        <div className="font-bold flex justify-center mt-1 rounded-sm">{selectedItem.waktuPulang}</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex justify-content mt-3 justify-center"></div>
-                </div>
-              </DialogBody>
-              <div className="sm:hidden">
-                <div className="mt-6 grid grid-cols-2 gap-2">
-                  <div className="justify">
-                    <button className="px-3 py-1 rounded bg-red-600 text-white hover:bg-red-700">Hapus</button>
-                  </div>
-                  <div className="flex justify-end gap-2">
-                    <button className="px-3 py-1 rounded bg-blue-600 text-white hover:bg-blue-950">Simpan</button>
-                  </div>
-                </div>
-              </div>
-              <div className="hidden sm:block">
-                <DialogActions>
-                  <div className="flex justify-end gap-2">
-                    <button className="px-3 py-1 rounded bg-gray-600 text-white hover:bg-gray-700" onClick={() => setIsOpen(false)}>
-                      Batal
-                    </button>
-                    <button className="px-3 py-1 rounded bg-blue-600 text-white hover:bg-blue-950">Simpan</button>
-                  </div>
-                </DialogActions>
-              </div>
-            </>
-          )}
-        </Dialog>
+
         <Dialog open={isDateOpen} onClose={() => setIsDateOpen(false)}>
           <>
             <DialogTitle>Pilih Tanggal</DialogTitle>
@@ -288,7 +173,7 @@ export default function Riwayat() {
                   <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-white">Tanggal Mulai</label>
                   <Datepicker selected={startDate} onChange={handleStartChange} selectsStart startDate={startDate} endDate={endDate} dateFormat="dd MMMM yyyy" locale={id} className="w-full border border-gray-300 rounded-lg p-2" />
                 </div>
-                <div className="text-gray-500 text-sm text-center sm:mt-7">sampai</div>
+                <div className=" text-sm text-center sm:mt-7">sampai</div>
                 <div className="w-full max-w-xs">
                   <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-white">Tanggal Akhir</label>
                   <Datepicker
