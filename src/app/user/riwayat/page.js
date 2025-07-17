@@ -134,7 +134,7 @@ export default function Riwayat() {
               onClick={() => {
                 setIsDateOpen(true);
               }}
-              className="bg-white border-2 border-blue-900 text-blue-900 py-0.5 px-5 text-xs rounded-full "
+              className="bg-white border-1 border-blue-900 text-blue-900 py-0.5 px-5 text-xs rounded-full "
             >
               Pilih Tanggal
             </button>
@@ -143,18 +143,67 @@ export default function Riwayat() {
 
         <div className="px-4">
           <div className="my-7"></div>
-          <div className="flex py-6 px-4">
+          <div className="flex py-1.5 px-4">
             <div className="rounded-l-lg bg-[#F3C200] flex text-lg text-[#F3C200]">
               <span>0</span>
               <span>0</span>
             </div>
-            <div className="bg-[#FFF4CF] rounded-r-lg w-full px-4 py-2 grid grid-rows-5">
-              <span className="text-xl text-[#F3C200] font-bold">Pulang</span>
-              <span className="text-[13px] font-semibold mt-2 text-gray-800">12 Agustus 2025 17:23:33</span>
-              <span className="text-[13px] font-light mt-2 text-gray-800">Head Office Fl. 3</span>
-              <span className="text-[13px]  font-light text-gray-800">Tepat Waktu</span>
-              <div className="flex justify-end ">
-                <span className="italic text-xs font-extralight mt-2 mr-2 text-green-500">Berhasil</span>
+            <div className="bg-[#FFF4CF] rounded-r-lg w-full py-1 px-4 flex flex-col">
+              <div className="flex flex-col mt-1">
+                <span className="text-lg text-[#ffc904] font-bold">Pulang</span>
+                <span className="text-xs font-semibold mt-1 text-gray-800">12 Agustus 2025 17:23:33</span>
+                <span className="text-xs font-light mt-1 text-gray-800">Head Office Fl. 3</span>
+              </div>
+              <div className="flex justify-end items-center mb-2">
+                <span className="italic text-xs font-extralight mr-2 text-green-500">Tepat Waktu</span>
+              </div>
+            </div>
+          </div>
+          <div className="flex py-1.5 px-4">
+            <div className="rounded-l-lg bg-[#0071F3] flex text-lg text-[#0071F3]">
+              <span>0</span>
+              <span>0</span>
+            </div>
+            <div className="bg-[#EBFFFB] rounded-r-lg w-full py-1 px-4 flex flex-col">
+              <div className="flex flex-col mt-1">
+                <span className="text-lg text-[#0057DA] font-bold">Masuk</span>
+                <span className="text-xs font-semibold mt-1 text-gray-800">12 Agustus 2025 07:23:33</span>
+                <span className="text-xs font-light mt-1 text-gray-800">Head Office Fl. 3</span>
+              </div>
+              <div className="flex justify-end items-center mb-2">
+                <span className="italic text-xs font-extralight mr-2 text-green-500">Tepat Waktu</span>
+              </div>
+            </div>
+          </div>
+          <div className="flex py-1.5 px-4">
+            <div className="rounded-l-lg bg-[#F3C200] flex text-lg text-[#F3C200]">
+              <span>0</span>
+              <span>0</span>
+            </div>
+            <div className="bg-[#FFF4CF] rounded-r-lg w-full py-1 px-4 flex flex-col">
+              <div className="flex flex-col mt-1">
+                <span className="text-lg text-[#ffc904] font-bold">Pulang</span>
+                <span className="text-xs font-semibold mt-1 text-gray-800">11 Agustus 2025 17:03:33</span>
+                <span className="text-xs font-light mt-1 text-gray-800">Head Office Fl. 3</span>
+              </div>
+              <div className="flex justify-end items-center mb-2">
+                <span className="italic text-xs font-extralight mr-2 text-green-500">Tepat Waktu</span>
+              </div>
+            </div>
+          </div>
+          <div className="flex py-1.5 px-4">
+            <div className="rounded-l-lg bg-[#0071F3] flex text-lg text-[#0071F3]">
+              <span>0</span>
+              <span>0</span>
+            </div>
+            <div className="bg-[#EBFFFB] rounded-r-lg w-full py-1 px-4 flex flex-col">
+              <div className="flex flex-col mt-1">
+                <span className="text-lg text-[#0057DA] font-bold">Masuk</span>
+                <span className="text-xs font-semibold mt-1 text-gray-800">11 Agustus 2025 08:23:33</span>
+                <span className="text-xs font-light mt-1 text-gray-800">Head Office Fl. 3</span>
+              </div>
+              <div className="flex justify-end items-center mb-2">
+                <span className="italic text-xs font-extralight mr-2 text-red-500">Terlambat</span>
               </div>
             </div>
           </div>
