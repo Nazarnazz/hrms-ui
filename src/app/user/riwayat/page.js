@@ -1,6 +1,6 @@
 "use client";
 import Navigation from "@/app/components/menu-items/navigation-user";
-import { Dialog, DialogActions, DialogBody, DialogDescription, DialogTitle } from "@/app/components/element/dialog";
+// import { Dialog, DialogActions, DialogBody, DialogDescription, DialogTitle } from "@/app/components/element/dialog";
 import { useState } from "react";
 import Datepicker from "react-datepicker";
 import { id } from "date-fns/locale";
@@ -128,7 +128,7 @@ export default function Riwayat() {
           <div className="flex justify-right">
             <button
               onClick={() => {
-                setIsDateOpen(true);
+                setIsDateOpen(!isDateOpen);
               }}
               className="bg-white border-1 border-blue-900 text-blue-900 py-0.5 px-5 text-xs rounded-full "
             >
@@ -136,6 +136,44 @@ export default function Riwayat() {
             </button>
           </div>
         </div>
+        {isDateOpen && (
+          <div className="px-5">
+            <div className="justify-center px-6 flex gap-2 z-10 py-1 mx-auto mt-1 w-full max-w-screen-sm text-base flex-row items-center">
+              <div className="pl-8">
+                <label className="block mb-1 text-[10px] font-medium text-center text-gray-700 dark:text-white">Tanggal Mulai</label>
+                <Datepicker
+                  selected={startDate}
+                  onChange={handleStartChange}
+                  selectsStart
+                  startDate={startDate}
+                  endDate={endDate}
+                  dateFormat="dd MMMM yyyy"
+                  locale={id}
+                  placeholderText="Pilih tanggal mulai"
+                  className="border text-[11px] text-center border-gray-300 rounded-lg"
+                />
+              </div>
+
+              <div className="text-sm text-center mt-4">-</div>
+
+              <div className="pr-8">
+                <label className="block mb-1 text-[10px] text-center font-medium text-gray-700 dark:text-white">Tanggal Akhir</label>
+                <Datepicker
+                  selected={endDate}
+                  onChange={handleEndChange}
+                  selectsEnd
+                  startDate={startDate}
+                  endDate={endDate}
+                  minDate={startDate}
+                  dateFormat="dd MMMM yyyy"
+                  locale={id}
+                  placeholderText="Pilih tanggal akhir"
+                  className="border border-gray-300 rounded-lg text-[11px] text-center"
+                />
+              </div>
+            </div>
+          </div>
+        )}
 
         <div className="px-4">
           <div className="my-7"></div>
@@ -163,47 +201,6 @@ export default function Riwayat() {
           ))}
         </div>
 
-        <Dialog open={isDateOpen} onClose={() => setIsDateOpen(false)}>
-          <>
-            <DialogTitle>Pilih Tanggal</DialogTitle>
-            <DialogDescription></DialogDescription>
-            <DialogBody>
-              <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-                <div className="w-full max-w-xs">
-                  <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-white">Tanggal Mulai</label>
-                  <Datepicker selected={startDate} onChange={handleStartChange} selectsStart startDate={startDate} endDate={endDate} dateFormat="dd MMMM yyyy" locale={id} className="w-full border border-gray-300 rounded-lg p-2" />
-                </div>
-                <div className=" text-sm text-center sm:mt-7">sampai</div>
-                <div className="w-full max-w-xs">
-                  <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-white">Tanggal Akhir</label>
-                  <Datepicker
-                    selected={endDate}
-                    onChange={handleEndChange}
-                    selectsEnd
-                    startDate={startDate}
-                    endDate={endDate}
-                    minDate={startDate}
-                    dateFormat="dd MMMM yyyy"
-                    locale={id}
-                    className="w-full border border-gray-300 rounded-lg p-2"
-                  />
-                </div>
-              </div>
-            </DialogBody>
-            <DialogActions>
-              <div className="mt-6 grid grid-cols-2 gap-2">
-                <div className="justify">
-                  <button className="px-3 py-1 rounded bg-gray-600 text-white hover:bg-gray-700" onClick={() => setIsDateOpen(false)}>
-                    Batal
-                  </button>
-                </div>
-                <div className="flex justify-end gap-2">
-                  <button className="px-3 py-1 rounded bg-blue-600 text-white hover:bg-blue-950">Simpan</button>
-                </div>
-              </div>
-            </DialogActions>
-          </>
-        </Dialog>
         <Navigation />
       </div>
     </>
