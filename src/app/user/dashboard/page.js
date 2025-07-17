@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Navigation from "@/app/components/menu-items/navigation-user";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-const MapClient = dynamic(() => import("@/components/MapClient"), { ssr: false });
+const MapClient = dynamic(() => import("@/components/mapclient"), { ssr: false });
 
 export default function Dashboard() {
   const [time, setTime] = useState("");
