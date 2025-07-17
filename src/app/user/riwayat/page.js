@@ -104,9 +104,9 @@ export default function Riwayat() {
   return (
     <>
       <div className="mb-4">
-        <div className="w-full p-4 bg-gray-100 mb-6 dark:bg-gray-700 justify-center items-center font-bold dark:border-gray-600">
+        <div className="w-full p-4 bg-[#77A4C4] dark:bg-[#567f9f] justify-center items-center font-bold dark:border-gray-600">
           <div className="flex gap-1">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+            <svg xmlns="http://www.w3.org/2000/svg" className="text-white" width="20" height="20" viewBox="0 0 24 24">
               <g fill="none">
                 <path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" />
                 <path
@@ -115,38 +115,50 @@ export default function Riwayat() {
                 />
               </g>
             </svg>
-            <div className="flex justify-center">Riwayat Absensi</div>
+            <div className="flex justify-center text-white">Riwayat Absensi</div>
           </div>
         </div>
+        <div className="full-w flex justify-center items-center gap-18 bg-[#dcecf8] py-1 px-1">
+          <div className="flex items-center">
+            <svg className="w-5 h-5  dark:text-white text-blue-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                fillRule="evenodd"
+                d="M5 5a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1h1a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1h1a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1 2 2 0 0 1 2 2v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a2 2 0 0 1 2-2ZM3 19v-7a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Zm6.01-6a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm2 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm6 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm-10 4a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm6 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm2 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z"
+                clipRule="evenodd"
+              />
+            </svg>
+            <span className="text-xs ml-2 text-blue-900 dark:text-white font-semibold">25 Agustus 2025</span>
+          </div>
+          <div className="flex justify-right">
+            <button
+              onClick={() => {
+                setIsDateOpen(true);
+              }}
+              className="bg-white border-2 border-blue-900 text-blue-900 py-0.5 px-5 text-xs rounded-full "
+            >
+              Pilih Tanggal
+            </button>
+          </div>
+        </div>
+
         <div className="px-4">
-          <div className="my-4">
-            <div className="flex justify-content gap-4 justify-center">
-              <div className="flex bg-blue-400 py-3 pr-6 pl-4 text-white rounded-lg text-sm">
-                <svg className="w-4 h-4 mr-1 mt-0.5 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeWidth="2"
-                    d="M18.796 4H5.204a1 1 0 0 0-.753 1.659l5.302 6.058a1 1 0 0 1 .247.659v4.874a.5.5 0 0 0 .2.4l3 2.25a.5.5 0 0 0 .8-.4v-7.124a1 1 0 0 1 .247-.659l5.302-6.059c.566-.646.106-1.658-.753-1.658Z"
-                  />
-                </svg>
-                Filter
+          <div className="my-7"></div>
+          <div className="flex py-6 px-4">
+            <div className="rounded-l-lg bg-[#F3C200] flex text-lg text-[#F3C200]">
+              <span>0</span>
+              <span>0</span>
+            </div>
+            <div className="bg-[#FFF4CF] rounded-r-lg w-full px-4 py-2 grid grid-rows-5">
+              <span className="text-xl text-[#F3C200] font-bold">Pulang</span>
+              <span className="text-[13px] font-semibold mt-2 text-gray-800">12 Agustus 2025 17:23:33</span>
+              <span className="text-[13px] font-light mt-2 text-gray-800">Head Office Fl. 3</span>
+              <span className="text-[13px]  font-light text-gray-800">Tepat Waktu</span>
+              <div className="flex justify-end ">
+                <span className="italic text-xs font-extralight mt-2 mr-2 text-green-500">Berhasil</span>
               </div>
-              <button
-                onClick={() => {
-                  setIsDateOpen(true);
-                }}
-                className=" bg-gray-200 dark:bg-gray-500 py-3 px-6 rounded-lg text-sm text-gray-600 dark:text-white"
-              >
-                <div className="flex">
-                  Pilih Tanggal
-                  <svg className="w-3 h-3 ms-1 mt-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
-                  </svg>
-                </div>
-              </button>
             </div>
           </div>
+
           {Riwayat.map((item) => (
             <div key={item.id} className="bg-gray-200 dark:bg-gray-400 mb-2 gap-3 mx-4 p-4 text-[12px] grid grid-cols-3 justify-content">
               <div className="flex justify-center py-1">{item.tanggal}</div>
