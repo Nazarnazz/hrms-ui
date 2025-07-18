@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Navigation from "@/app/components/menu-items/navigation-user";
 import Image from "next/image";
+import Link from "next/link";
 import dynamic from "next/dynamic";
 const MapClient = dynamic(() => import("@/components/mapclient"), { ssr: false });
 
@@ -111,7 +112,7 @@ export default function Dashboard() {
       </div>
       <div className="px-5">
         <div className="flex justify-center">
-          <button className="mx-auto px-6 py-3 transition-colors duration-200 font-bold max-w-screen-sm w-full bg-[#77A4C4] hover:bg-[#456175] rounded-full mt-4 text-white">
+          <Link href="/user/absensi" className="mx-auto px-6 py-3 transition-colors duration-200 font-bold max-w-screen-sm w-full bg-[#77A4C4] hover:bg-[#456175] rounded-full mt-4 text-white">
             <div className="flex justify-center gap-2">
               <svg className="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path
@@ -124,7 +125,7 @@ export default function Dashboard() {
               </svg>
               <span>Lakukan Presensi</span>
             </div>
-          </button>
+          </Link>
         </div>
       </div>
       <div className="px-5 mb-5">
