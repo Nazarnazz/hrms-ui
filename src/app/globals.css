@@ -26,3 +26,48 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Mengecilkan ukuran popup kalender */
+.react-datepicker {
+  font-size: 9px !important;
+  width: 160px !important;
+}
+
+/* Mengecilkan ukuran cell hari dan tanggal */
+.react-datepicker__day,
+.react-datepicker__day-name,
+.react-datepicker__header,
+.react-datepicker__current-month {
+  padding: 0.1rem !important;
+  width: 1rem !important;
+  line-height: 1rem !important;
+}
+
+/* Header kalender */
+.react-datepicker__header {
+  padding-top: 1px !important;
+  padding-bottom: 1px !important;
+  width: max-content;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  background-color: transparent !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+.react-datepicker__current-month {
+  font-size: 0.65rem !important; /* Ukuran teks kecil */
+  /* text-align: center !important; Posisikan di tengah */
+  width: 100% !important;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto !important;
+}
+
+/* Navigasi bulan */
+.react-datepicker__navigation {
+  top: 4px !important;
+}

@@ -130,7 +130,7 @@ export default function Riwayat() {
               onClick={() => {
                 setIsDateOpen(!isDateOpen);
               }}
-              className="bg-white border-1 border-blue-900 text-blue-900 py-0.5 px-5 text-xs rounded-full "
+              className="bg-white hover:bg-gray-200 border-1 border-blue-900 text-blue-900 py-0.5 px-5 text-xs rounded-full "
             >
               Pilih Tanggal
             </button>
