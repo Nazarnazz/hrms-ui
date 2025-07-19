@@ -4,13 +4,13 @@
 import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from "recharts";
 
 const pieData = [
-  { name: "Chrome", value: 63 },
-  { name: "Safari", value: 20 },
-  { name: "Firefox", value: 10 },
-  { name: "Edge", value: 7 },
+  { name: "Present", value: 63 },
+  { name: "Absent", value: 20 },
+  { name: "Day off", value: 10 },
+  { name: "Unknown", value: 7 },
 ];
 
-const COLORS = ["#1d4ed8", "#22c55e", "#facc15", "#f87171"];
+const COLORS = ["#304dd8", "#52ee", "#4abc91", "#124f16"];
 
 export default function PieChartClient({ location }) {
   return (

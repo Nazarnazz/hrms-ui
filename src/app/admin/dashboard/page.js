@@ -41,21 +41,23 @@ export default function Dashboard() {
       <div className="p-4">
         <div className="p-4 rounded-lg dark:border-gray-700 mt-14">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
-            <div className="flex flex-col items-center justify-center h-24 rounded-sm bg-gray-100 dark:bg-gray-800">
+            <div className="flex flex-col items-center justify-center h-24 rounded-sm bg-[#e3e9ef] shadow-gray-300 shadow-md dark:bg-gray-800">
               <div className="text-lg font-bold">Situs Usaha</div>
-              <div className="text-sm p-2 rounded-full bg-blue-500">103</div>
+              <div className="px-auto">
+                <div className="text-sm p-2 rounded-sm w-full items-center max-h-screen justify-center flex mx-auto">103</div>
+              </div>
             </div>
-            <div className="flex flex-col items-center justify-center h-24 rounded-sm bg-gray-100 dark:bg-gray-800">
+            <div className="flex flex-col items-center justify-center h-24 rounded-sm bg-[#e3e9ef] shadow-gray-300 shadow-md dark:bg-gray-800">
               <div className="text-lg font-bold">Titik Lokasi</div>
-              <div className="text-sm p-2 rounded-full bg-green-600">103</div>
+              <div className="text-sm p-2 rounded-sm w-full items-center max-h-screen justify-center flex mx-auto">103</div>
             </div>
-            <div className="flex flex-col items-center justify-center h-24 rounded-sm bg-gray-100 dark:bg-gray-800">
+            <div className="flex flex-col items-center justify-center h-24 rounded-sm bg-[#e3e9ef] shadow-gray-300 shadow-md dark:bg-gray-800">
               <div className="text-lg font-bold">Total Karyawan</div>
-              <div className="text-sm p-2 rounded-full bg-yellow-700">1333</div>
+              <div className="text-sm p-2 rounded-sm w-full items-center max-h-screen justify-center flex mx-auto">1333</div>
             </div>
           </div>
           <div className="relative mb-6" ref={dropdownRef}>
-            <button onClick={toggleDropdown} className="w-full bg-blue-200 hover:bg-blue-300 text-gray-900 px-4 py-2 rounded-lg dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600">
+            <button onClick={toggleDropdown} className="w-full bg-gray-200 hover:bg-gray-300 shadow-gray-300 shadow-md hover:shadow-sm text-gray-900 px-4 py-2 rounded-lg dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600">
               Grafik Absensi Per Titik ({selectedLocations.length})
             </button>
 
@@ -76,7 +78,7 @@ export default function Dashboard() {
           {selectedLocations.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
               {selectedLocations.map((loc) => (
-                <div key={loc} className="bg-white mb-2 dark:bg-gray-800 p-8 rounded shadow">
+                <div key={loc} className="bg-gray-200 shadow-gray-300 shadow-md mb-2 dark:bg-gray-800 p-8 rounded">
                   <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-white">{loc}</h2>
                   <PieChartClient location={loc} />
                 </div>
@@ -85,43 +87,6 @@ export default function Dashboard() {
           ) : (
             <p className="text-gray-500 dark:text-gray-400">Silakan pilih lokasi untuk menampilkan data.</p>
           )}
-          <div className="grid grid-cols-2 mt-6 gap-4 mb-4">
-            <div className="flex items-center justify-center rounded-sm bg-gray-50 h-28 dark:bg-gray-800">
-              <p className="text-2xl text-gray-400 dark:text-gray-500">
-                <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 1v16M1 9h16" />
-                </svg>
-              </p>
-            </div>
-            <div className="flex items-center justify-center rounded-sm bg-gray-50 h-28 dark:bg-gray-800">
-              <p className="text-2xl text-gray-400 dark:text-gray-500">
-                <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 1v16M1 9h16" />
-                </svg>
-              </p>
-            </div>
-            <div className="flex items-center justify-center rounded-sm bg-gray-50 h-28 dark:bg-gray-800">
-              <p className="text-2xl text-gray-400 dark:text-gray-500">
-                <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 1v16M1 9h16" />
-                </svg>
-              </p>
-            </div>
-            <div className="flex items-center justify-center rounded-sm bg-gray-50 h-28 dark:bg-gray-800">
-              <p className="text-2xl text-gray-400 dark:text-gray-500">
-                <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 1v16M1 9h16" />
-                </svg>
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center justify-center h-48 mb-4 rounded-sm bg-gray-50 dark:bg-gray-800">
-            <p className="text-2xl text-gray-400 dark:text-gray-500">
-              <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 1v16M1 9h16" />
-              </svg>
-            </p>
-          </div>
         </div>
       </div>
     </Layout>
