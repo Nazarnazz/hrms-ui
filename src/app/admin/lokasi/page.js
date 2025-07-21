@@ -1,13 +1,13 @@
 import Layout from "@/app/components/menu-items/layout";
-export default function Riwayat() {
+export default function Lokasi() {
   return (
     <>
       <Layout>
         <div className="p-4 mt-12">
           <div className="py-1 full-w text-[11px] mb-2 dark:bg-gray-500 font-light rounded-full">
-            <span className="ml-2">Home / Riwayat /</span>
+            <span className="ml-2">Home / Lokasi /</span>
           </div>
-          <span className="text-[20px] mt-4 ">Riwayat Absensi</span>
+          <span className="text-[20px] mt-4 ">Lokasi Absensi</span>
           <div className="grid md:grid-cols-3 grid-cols-2 gap-2">
             <div>
               <form>
