@@ -1,5 +1,142 @@
+"use client";
+
 import Layout from "@/app/components/menu-items/layout";
+import { useState, useEffect } from "react";
+
 export default function Riwayat() {
+  // const [query, setQuery] = useState("");
+  // const filteredData = users.filter((item) => item.name.toLowerCase().includes(query.toLowerCase()));
+
+  const Riwayat = [
+    {
+      id: 1,
+      nama: "Nazar",
+      divisi: "IT",
+      masuk: "07:43",
+      keluar: "17:02",
+      tanggal: "12 Juli 2025",
+    },
+    {
+      id: 2,
+      nama: "Alfian",
+      divisi: "Asset",
+      masuk: "07:43",
+      keluar: "17:02",
+      tanggal: "16 Juli 2025",
+    },
+    {
+      id: 3,
+      nama: "Wita",
+      divisi: "General Admin",
+      masuk: "07:43",
+      keluar: "17:02",
+      tanggal: "13 Juli 2025",
+    },
+    {
+      id: 4,
+      nama: "Zea",
+      divisi: "LPG",
+      masuk: "07:43",
+      keluar: "17:02",
+      tanggal: "14 Juli 2025",
+    },
+    {
+      id: 5,
+      nama: "Fiki",
+      divisi: "Purchasing",
+      masuk: "07:43",
+      keluar: "17:02",
+      tanggal: "12 Juli 2025",
+    },
+  ];
+
+  // const sortedRiwayat = [...Riwayat].sort((a, b) => {
+  //   const valA = a[sortBy];
+  //   const valB = b[sortBy];
+
+  //   if (typeof valA === "string") {
+  //     return sortOrder === "asc" ? valA.localeCompare(valB) : valB.localeCompare(valA);
+  //   }
+
+  //   if (sortBy === "tanggal") {
+  //     valA = convertToDate(valA);
+  //     valB = convertToDate(valB);
+  //   }
+
+  //   if (typeof valA === "string" && sortBy !== "tanggal") {
+  //     return sortOrder === "asc" ? valA.localeCompare(valB) : valB.localeCompare(valA);
+  //   }
+
+  //   return sortOrder === "asc" ? valA - valB : valB - valA;
+  // });
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const [sortBy, setSortBy] = useState("tanggal");
+  const [sortOrder, setSortOrder] = useState("desc");
+  const handleSort = (column) => {
+    if (sortBy === column) {
+      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+    } else {
+      setSortBy(column);
+      setSortOrder("asc");
+    }
+  };
+
+  const convertToDate = (dateString) => {
+    const months = {
+      Januari: 0,
+      Februari: 1,
+      Maret: 2,
+      April: 3,
+      Mei: 4,
+      Juni: 5,
+      Juli: 6,
+      Agustus: 7,
+      September: 8,
+      Oktober: 9,
+      November: 10,
+      Desember: 11,
+    };
+
+    const [day, monthName, year] = dateString.split(" ");
+    return new Date(year, months[monthName], day);
+  };
+
+  const filteredAndSortedRiwayat = [...Riwayat]
+    .filter((item) => {
+      const q = searchTerm.toLowerCase();
+      return item.nama.toLowerCase().includes(q) || item.divisi.toLowerCase().includes(q) || item.tanggal.toLowerCase().includes(q);
+    })
+    .sort((a, b) => {
+      let valA = a[sortBy];
+      let valB = b[sortBy];
+
+      if (sortBy === "tanggal") {
+        valA = convertToDate(valA);
+        valB = convertToDate(valB);
+      }
+
+      if (typeof valA === "string" && sortBy !== "tanggal") {
+        return sortOrder === "asc" ? valA.localeCompare(valB) : valB.localeCompare(valA);
+      }
+
+      return sortOrder === "asc" ? valA - valB : valB - valA;
+    });
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 3; // jumlah data per halaman
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  const paginatedRiwayat = filteredAndSortedRiwayat.slice(startIndex, endIndex);
+  const totalPages = Math.ceil(filteredAndSortedRiwayat.length / itemsPerPage);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm]);
+
   return (
     <>
       <Layout>
@@ -23,6 +160,8 @@ export default function Riwayat() {
                   <input
                     type="search"
                     id="search"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                     className="block w-full p-2 ps-10 mt-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Cari"
                     required
@@ -67,97 +206,79 @@ export default function Riwayat() {
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
                     <th scope="col" className="px-2 py-3">
-                      #No.
+                      #No
                     </th>
                     <th scope="col" className="px-6 py-3">
-                      Product name
+                      Nama
                     </th>
                     <th scope="col" className="px-6 py-3">
                       <div className="flex items-center">
-                        Color
-                        <a href="#">
-                          <svg className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
-                          </svg>
-                        </a>
+                        Divisi
+                        <svg onClick={() => handleSort("divisi")} className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                        </svg>
                       </div>
                     </th>
                     <th scope="col" className="px-6 py-3">
                       <div className="flex items-center">
-                        Category
-                        <a href="#">
-                          <svg className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
-                          </svg>
-                        </a>
+                        Tanggal
+                        <svg onClick={() => handleSort("tanggal")} className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                        </svg>
                       </div>
                     </th>
                     <th scope="col" className="px-6 py-3">
-                      <div className="flex items-center">
-                        Price
-                        <a href="#">
-                          <svg className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
-                          </svg>
-                        </a>
-                      </div>
+                      <div className="flex items-center">Masuk</div>
                     </th>
                     <th scope="col" className="px-6 py-3">
-                      <span className="sr-only">Edit</span>
+                      <div className="flex items-center">Keluar</div>
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      <span className="sr-only">Action</span>
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-                    <th scope="row" className="px-4 py-4 font-bold text-gray-900 dark:text-white">
-                      1
-                    </th>
-                    <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                      Apple MacBook Pro 17
-                    </td>
-                    <td className="px-6 py-4">Silver</td>
-                    <td className="px-6 py-4">Laptop</td>
-                    <td className="px-6 py-4">$2999</td>
-                    <td className="px-6 py-4 text-right">
-                      <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                        Edit
-                      </a>
-                    </td>
-                  </tr>
-                  <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-                    <th scope="row" className="px-4 py-4 font-bold text-gray-900 dark:text-white">
-                      2
-                    </th>
-                    <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                      Microsoft Surface Pro
-                    </td>
-                    <td className="px-6 py-4">White</td>
-                    <td className="px-6 py-4">Laptop PC</td>
-                    <td className="px-6 py-4">$1999</td>
-                    <td className="px-6 py-4 text-right">
-                      <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                        Edit
-                      </a>
-                    </td>
-                  </tr>
-                  <tr className="bg-white dark:bg-gray-800">
-                    <th scope="row" className="px-4 py-4 font-bold text-gray-900 dark:text-white">
-                      3
-                    </th>
-                    <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                      Magic Mouse 2
-                    </td>
-                    <td className="px-6 py-4">Black</td>
-                    <td className="px-6 py-4">Accessories</td>
-                    <td className="px-6 py-4">$99</td>
-                    <td className="px-6 py-4 text-right">
-                      <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                        Edit
-                      </a>
-                    </td>
-                  </tr>
+                  {paginatedRiwayat.map((item, index) => (
+                    <tr key={item.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+                      <th scope="row" className="px-4 py-4 font-bold text-gray-900 dark:text-white">
+                        {startIndex + index + 1}
+                      </th>
+                      <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {item.nama}
+                      </td>
+                      <td className="px-6 py-4">{item.divisi}</td>
+                      <td className="px-6 py-4">{item.tanggal}</td>
+                      <td className="px-6 py-4">{item.masuk}</td>
+                      <td className="px-6 py-4">{item.keluar}</td>
+                      <td className="px-6 py-4 text-right">
+                        <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                          Edit
+                        </a>
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
+            </div>
+            <div className="flex justify-center mt-4 gap-2">
+              <button onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))} disabled={currentPage === 1} className="px-3 py-1 bg-gray-400 dark:bg-gray-600 hover:bg-gray-700 text-white rounded disabled:opacity-50">
+                Prev
+              </button>
+
+              {Array.from({ length: totalPages }).map((_, i) => (
+                <button key={i} onClick={() => setCurrentPage(i + 1)} className={`px-3 py-1 rounded ${currentPage === i + 1 ? "bg-blue-700 text-white" : "bg-gray-400 dark:bg-gray-600 hover:bg-gray-700 text-white"}`}>
+                  {i + 1}
+                </button>
+              ))}
+
+              <button
+                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                disabled={currentPage === totalPages}
+                className="px-3 py-1 bg-gray-400 dark:bg-gray-600 text-white hover:bg-gray-700 rounded disabled:opacity-50"
+              >
+                Next
+              </button>
             </div>
           </div>
         </div>

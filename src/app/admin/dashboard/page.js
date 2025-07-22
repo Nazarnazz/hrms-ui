@@ -41,19 +41,19 @@ export default function Dashboard() {
       <div className="p-4">
         <div className="p-4 rounded-lg dark:border-gray-700 mt-14">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
-            <div className="flex flex-col gap-2 items-center justify-center h-24 rounded-sm bg-[#e3e9ef] shadow-gray-300 shadow-md dark:bg-gray-800">
+            <div className="flex flex-col gap-2 items-center justify-center h-24 rounded-sm bg-[#e3e9ef] shadow-gray-300 dark:shadow-gray-700 shadow-md dark:bg-gray-800">
               <div className="text-lg font-bold">Situs Usaha</div>
               <div className="px-5">
                 <div className="px-20 py-2 mx-auto w-full font-bold max-w-screen-sm text-sm flex justify-center rounded-md bg-white dark:bg-gray-950">003</div>
               </div>
             </div>
-            <div className="flex flex-col gap-2 items-center justify-center h-24 rounded-sm bg-[#e3e9ef] shadow-gray-300 shadow-md dark:bg-gray-800">
+            <div className="flex flex-col gap-2 items-center justify-center h-24 rounded-sm bg-[#e3e9ef] shadow-gray-300 dark:shadow-gray-700 shadow-md dark:bg-gray-800">
               <div className="text-lg font-bold">Titik Lokasi</div>
               <div className="px-5">
                 <div className="px-20 py-2 mx-auto w-full font-bold max-w-screen-sm text-sm flex justify-center rounded-md bg-white dark:bg-gray-950">012</div>
               </div>
             </div>
-            <div className="flex flex-col gap-2 items-center justify-center h-24 rounded-sm bg-[#e3e9ef] shadow-gray-300 shadow-md dark:bg-gray-800">
+            <div className="flex flex-col gap-2 items-center justify-center h-24 rounded-sm bg-[#e3e9ef] shadow-gray-300 dark:shadow-gray-700 shadow-md dark:bg-gray-800">
               <div className="text-lg font-bold">Total Karyawan</div>
               <div className="px-5">
                 <div className="px-20 py-2 mx-auto w-full font-bold max-w-screen-sm text-sm flex justify-center rounded-md bg-white dark:bg-gray-950">013</div>
@@ -61,7 +61,10 @@ export default function Dashboard() {
             </div>
           </div>
           <div className="relative mb-6" ref={dropdownRef}>
-            <button onClick={toggleDropdown} className="w-full bg-[#e3e9ef] hover:bg-gray-300 shadow-gray-300 shadow-md hover:shadow-sm text-gray-900 px-4 py-2 rounded-lg dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600">
+            <button
+              onClick={toggleDropdown}
+              className="w-full bg-[#e3e9ef] hover:bg-gray-300 shadow-gray-300 dark:shadow-gray-700 shadow-md hover:shadow-sm text-gray-900 px-4 py-2 rounded-lg dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
+            >
               <span className="font bold mr-0.5">Tampilkan Lokasi</span>
               {/* <span className="rounded-full py-1 px-2 ml-1 mb-0.5 text-xs items-center bg-blue-500  text-white">{selectedLocations.length} </span> */}
               {selectedLocations.length > 0 && <span className="rounded-full py-1 px-2 ml-1 mb-0.5 text-xs items-center bg-blue-500 text-white">{selectedLocations.length}</span>}
@@ -84,7 +87,7 @@ export default function Dashboard() {
           {selectedLocations.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
               {selectedLocations.map((loc) => (
-                <div key={loc} className="bg-[#e3e9ef] shadow-gray-300 shadow-md mb-2 dark:bg-gray-800 p-8 rounded">
+                <div key={loc} className="bg-[#e3e9ef] shadow-gray-300 dark:shadow-gray-700 shadow-md mb-2 dark:bg-gray-800 p-8 rounded">
                   <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-white">{loc}</h2>
                   <PieChartClient location={loc} />
                 </div>
