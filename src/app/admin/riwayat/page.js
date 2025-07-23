@@ -207,7 +207,7 @@ export default function Riwayat() {
             </div>
             <div className="hidden md:flex gap-2 md:justify-end relative">
               <div className="justify-center flex items-center py-2">
-                <input type="month" className="bg-gray-200 rounded-lg py-1 ms-2 text-gray-900" />
+                <input type="month" className="bg-gray-200 rounded-lg py-1 ps-6 pe-6 text-gray-900" />
               </div>
               <div className="py-2">
                 <button
