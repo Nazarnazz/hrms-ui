@@ -1,11 +1,39 @@
 "use client";
 
 import Layout from "@/app/components/menu-items/layout";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function Riwayat() {
+  const dropdownRef = useRef(null);
+
   // const [query, setQuery] = useState("");
   // const filteredData = users.filter((item) => item.name.toLowerCase().includes(query.toLowerCase()));
+  const Divisi = [
+    {
+      id: 1,
+      label: "IT",
+    },
+    {
+      id: 2,
+      label: "LPG",
+    },
+    {
+      id: 3,
+      label: "General Admin",
+    },
+    {
+      id: 4,
+      label: "Purchasing",
+    },
+    {
+      id: 5,
+      label: "Sawit",
+    },
+    {
+      id: 6,
+      label: "Asset",
+    },
+  ];
 
   const Riwayat = [
     {
@@ -137,6 +165,8 @@ export default function Riwayat() {
     setCurrentPage(1);
   }, [searchTerm]);
 
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <>
       <Layout>
@@ -175,7 +205,37 @@ export default function Riwayat() {
                 </div>
               </form>
             </div>
-            <div className="hidden md:block"></div>
+            <div className="hidden md:flex gap-2 md:justify-end relative">
+              <div className="justify-center flex items-center py-2">
+                <input type="month" className="bg-gray-200 rounded-lg py-1 ms-2 text-gray-900" />
+              </div>
+              <div className="py-2">
+                <button
+                  id="dropdownDefaultButton"
+                  onClick={() => setIsOpen(!isOpen)}
+                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-sm rounded-lg text-sm px-5 py-2 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  type="button"
+                >
+                  Cari Divisi{" "}
+                  <svg className="w-2 h-2 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
+                  </svg>
+                </button>
+              </div>
+              {isOpen && (
+                <div id="dropdown" ref={dropdownRef} className={`right-0 z-20 ${isOpen ? "block absolute top-full" : "hidden"}  bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700`}>
+                  <ul className="py-1 text-sm text-gray-700 dark:text-gray-200">
+                    {Divisi.map((item) => (
+                      <li key={item.id}>
+                        <a href="#" className="block px-4 py-1 hover:bg-gray-100 text-xs dark:hover:bg-gray-600 dark:hover:text-white">
+                          {item.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
             <div className="flex items-center justify-end">
               <button className="bg-gray-200 dark:bg-gray-500 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md py-1 px-2 mr-2 text-gray-500">
                 <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
