@@ -111,7 +111,7 @@ export default function Riwayat() {
                 d="M12 8v4l3 3M3.22302 14C4.13247 18.008 7.71683 21 12 21c4.9706 0 9-4.0294 9-9 0-4.97056-4.0294-9-9-9-3.72916 0-6.92858 2.26806-8.29409 5.5M7 9H3V5"
               />
             </svg>
-            <div className="flex justify-center text-white">Riwayat</div>
+            <div className="flex justify-center text-white">Riwayat Presensi</div>
           </div>
         </div>
         <div className="full-w flex justify-center items-center gap-18 bg-[#dcecf8] py-1 px-1">
@@ -140,7 +140,7 @@ export default function Riwayat() {
           <div className="px-5">
             <div className="justify-center px-6 flex gap-2 z-10 py-1 mx-auto mt-1 w-full max-w-screen-sm text-base flex-row items-center">
               <div className="pl-8">
-                <label className="block mb-1 text-[10px] font-medium text-center text-gray-700 dark:text-white">Tanggal Mulai</label>
+                <label className="block mb-1 text-[10px] font-medium text-center text-gray-700 dark:text-white">Dari</label>
                 <Datepicker
                   selected={startDate}
                   onChange={handleStartChange}
@@ -157,7 +157,7 @@ export default function Riwayat() {
               <div className="text-sm text-center mt-4">-</div>
 
               <div className="pr-8">
-                <label className="block mb-1 text-[10px] text-center font-medium text-gray-700 dark:text-white">Tanggal Akhir</label>
+                <label className="block mb-1 text-[10px] text-center font-medium text-gray-700 dark:text-white">Hingga</label>
                 <Datepicker
                   selected={endDate}
                   onChange={handleEndChange}
@@ -191,7 +191,7 @@ export default function Riwayat() {
                   <span className="text-xs font-semibold mt-1 text-gray-800">
                     {item.tanggal} {item.waktu}
                   </span>
-                  <span className="text-xs font-light mt-1 text-gray-800">Head Office Fl. 3</span>
+                  <span className="text-xs font-light mt-1 text-gray-800">Head Office</span>
                 </div>
                 <div className="flex justify-end items-center mb-2">
                   <span className={`italic text-xs font-extralight mr-2 ${item.detail === "Tepat Waktu" ? "text-green-500" : "text-red-500"}`}>{item.detail}</span>

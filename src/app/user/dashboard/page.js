@@ -68,12 +68,12 @@ export default function Dashboard() {
         </div>
       </div>
       <div className="relative z-20 -mt-11 px-5">
-        <div className="w-full max-w-screen-sm mx-auto py-4 px-4 bg-[#DBE6FF] dark:bg-gray-950 dark:border-2 dark:border-[#77A4C4] rounded-md shadow-md shadow-gray-400 dark:shadow-gray-700">
+        <div className="w-full max-w-screen-sm mx-auto py-4 px-4 bg-[#cae2ff] dark:bg-gray-950 dark:border-2 dark:border-[#77A4C4] rounded-md shadow-md shadow-gray-400 dark:shadow-gray-700">
           <div className="flex justify-center mb-1">
             <Image src="/assets/image/mrbean.jpg" width={70} height={70} className="dark:border-1 dark:border-white rounded-xl" alt="mrbean" />
           </div>
-          <div className="text-lg font-bold text-center truncate">Muhammad Rizki</div>
-          <div className="text-xs font-bold text-center">Admin</div>
+          <div className="text-lg font-bold text-[#173f70] text-center truncate">Nazar Aulia</div>
+          <div className="text-xs font-bold text-[#173f70] text-center">Programmer</div>
         </div>
       </div>
       {/* <div className="px-6 flex rounded-md bg-white border-2 border-[#77A4C4] shadow-sm shadow-blue-400 mt-4 mx-5">
@@ -124,6 +124,34 @@ export default function Dashboard() {
                 />
               </svg>
               <span>Lakukan Presensi</span>
+            </div>
+          </Link>
+        </div>
+      </div>
+      <div className="px-5">
+        <div className="px-6 mx-auto w-full max-w-screen-sm flex justify-center gap-4 rounded-md bg-white dark:bg-gray-950 border-2 border-[#639bc3] shadow-sm shadow-blue-400 mt-4">
+          <div className="grid grid-rows-2 mt-3">
+            <span className="text-[30px] text-[#24868f] dark:text-white text-center font-bold mt-2">4</span>
+            <span className="text-[12px] text-[#016E87] dark:text-white text-center font-semibold truncate">Cuti tersisa</span>
+          </div>
+          <Image src="/assets/svg/calendar-71.svg" width={90} height={90} alt="calendar" />
+        </div>
+      </div>
+      <div className="px-5">
+        <div className="flex justify-center">
+          <Link href="/user/cuti" className="mx-auto px-6 py-3 transition-colors duration-200 font-bold max-w-screen-sm w-full bg-[#77b1c4] hover:bg-[#456b75] rounded-full mt-4 text-white">
+            <div className="flex justify-center gap-2">
+              <svg className="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="m11.5 11.5 2.071 1.994M4 10h5m11 0h-1.5M12 7V4M7 7V4m10 3V4m-7 13H8v-2l5.227-5.292a1.46 1.46 0 0 1 2.065 2.065L10 17Zm-5 3h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"
+                />
+              </svg>
+
+              <span>Ajukan Cuti</span>
             </div>
           </Link>
         </div>
