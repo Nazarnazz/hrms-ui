@@ -65,7 +65,7 @@ export default function Auth() {
         </div>
         <Field>
           <Label>ID Nakama</Label>
-          <Input type="text" name="id" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="12345678" className="placeholder:italic placeholder:text-sm" />
+          <Input type="text" name="id" value={username} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)} placeholder="12345678" className="placeholder:italic placeholder:text-sm" />
         </Field>
         <Field>
           <Label>Email</Label>
@@ -76,7 +76,7 @@ export default function Auth() {
           <div className="relative">
             <Input
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
               type={showPassword ? "text" : "password"}
               name="password"
               placeholder={showPassword ? "password" : "••••••••"}
