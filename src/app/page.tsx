@@ -9,12 +9,47 @@ import { Strong, Text, TextLink } from "./components/auth/text";
 import { Logo } from "./components/auth/logo";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function Auth() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append("username", username);
+    formData.append("password", password);
+
+    try {
+      const res = await fetch("https://pslg211r-8000.asse.devtunnels.ms/api/auth/login/", {
+        method: "POST",
+        body: formData,
+        headers: {
+          accept: "*/*",
+        },
+      });
+
+      const data = await res.json();
+
+      // Redirect jika login berhasil
+      if (res.ok) {
+        router.push("/admin/dashboard"); // atau "/user/dashboard" tergantung user
+      } else {
+        alert("Login gagal: " + (data.detail || "Unknown error"));
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      alert("Terjadi kesalahan saat login.");
+    }
+  };
   const [showPassword, setShowPassword] = useState(false);
   return (
     <AuthLayout>
-      <form action="#" method="POST" className="grid w-full max-w-sm grid-cols-1 gap-8">
+      <form onSubmit={handleLogin} method="POST" className="grid w-full max-w-sm grid-cols-1 gap-8">
         <div className="flex">
           <Logo className="h-25" />
           <div className="flex flex-col ml-4 justify-center items-center">
@@ -30,7 +65,7 @@ export default function Auth() {
         </div>
         <Field>
           <Label>ID Nakama</Label>
-          <Input type="text" name="id" placeholder="12345678" className="placeholder:italic placeholder:text-sm" />
+          <Input type="text" name="id" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="12345678" className="placeholder:italic placeholder:text-sm" />
         </Field>
         <Field>
           <Label>Email</Label>
@@ -40,6 +75,8 @@ export default function Auth() {
           <Label>Password</Label>
           <div className="relative">
             <Input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               type={showPassword ? "text" : "password"}
               name="password"
               placeholder={showPassword ? "password" : "••••••••"}
