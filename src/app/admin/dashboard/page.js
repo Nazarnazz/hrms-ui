@@ -32,8 +32,7 @@ export default function Dashboard() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-  //return
-  //aduh
+
   return (
     <Layout>
       {/* <Navbar /> */}
