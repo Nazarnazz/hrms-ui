@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 
 export default function Layout({ children }) {
   const pathname = usePathname();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const handleContentClick = () => {
     if (isSidebarOpen) {
       setIsSidebarOpen(false);
@@ -16,8 +16,8 @@ export default function Layout({ children }) {
   // 1. Ambil dari localStorage saat mount
   useEffect(() => {
     const stored = localStorage.getItem("sidebarOpen");
-    if (stored === "true") {
-      setIsSidebarOpen(true);
+    if (stored === "false") {
+      setIsSidebarOpen(false);
     }
   }, []);
 
@@ -28,7 +28,7 @@ export default function Layout({ children }) {
 
   // 3. Tutup sidebar saat berpindah halaman
   useEffect(() => {
-    setIsSidebarOpen(false);
+    setIsSidebarOpen(true);
   }, [pathname]);
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
