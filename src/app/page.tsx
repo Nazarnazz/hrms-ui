@@ -1,8 +1,7 @@
 "use client";
 import { AuthLayout } from "./components/auth/auth-layout";
 import { Button } from "./components/auth/button";
-import { Checkbox, CheckboxField } from "./components/auth/checkbox";
-import { Field, Label } from "./components/auth/fieldset";
+import { Field } from "./components/auth/fieldset";
 import { Heading } from "./components/auth/heading";
 import { Input } from "./components/auth/input";
 import { Strong, Text, TextLink } from "./components/auth/text";
@@ -49,62 +48,47 @@ export default function Auth() {
   const [showPassword, setShowPassword] = useState(false);
   return (
     <AuthLayout>
-      <form onSubmit={handleLogin} method="POST" className="grid w-full max-w-sm grid-cols-1 gap-8">
-        <div className="flex">
-          <Logo className="h-25" />
-          <div className="flex flex-col ml-4 justify-center items-center">
+      <form onSubmit={handleLogin} method="POST" className="grid w-full max-w-sm grid-cols-1 gap-7">
+        <div className="grid grid-cols-3">
+          <Logo className="ml-2 h-25" />
+          <div className="flex flex-col ml-6 justify-center items-center col-span-2">
             <Heading>
-              WEB ABSENCE
-              <div className="text-sm">for Mugiwara Pirate Presence</div>
+              <div className="flex flex-col">
+                <div>HRMS</div>
+                <div className="text-sm">Human Resource Management System</div>
+              </div>
             </Heading>
           </div>
         </div>
         <hr />
-        <div className="h-2 font-bold ">
+        <div className="h-6 font-bold ">
           <center>Login</center>
         </div>
         <Field>
-          <Label>ID Nakama</Label>
-          <Input type="text" name="id" value={username} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)} placeholder="12345678" className="placeholder:italic placeholder:text-sm" />
+          <Input type="text" name="id" value={username} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)} placeholder="Username" className="placeholder:italic ps-6 placeholder:text-sm" />
         </Field>
         <Field>
-          <Label>Email</Label>
-          <Input type="email" name="email" placeholder="luffy@mugiwara.co" className="placeholder:italic placeholder:text-sm" />
-        </Field>
-        <Field>
-          <Label>Password</Label>
           <div className="relative">
             <Input
               value={password}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
               type={showPassword ? "text" : "password"}
               name="password"
-              placeholder={showPassword ? "password" : "••••••••"}
-              className="pr-10 placeholder:italic placeholder:text-sm" // ruang kanan untuk ikon mata
+              placeholder={"Password"}
+              className="ps-6 placeholder:italic placeholder:text-sm" // ruang kanan untuk ikon mata
             />
-            <button type="button" onClick={() => setShowPassword((prev) => !prev)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700" tabIndex={-1}>
+            <button type="button" onClick={() => setShowPassword((prev) => !prev)} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700" tabIndex={-1}>
               {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
           </div>
         </Field>
-        <div className="flex items-center justify-between">
-          <CheckboxField>
-            <Checkbox name="remember" />
-            <Label>Remember me</Label>
-          </CheckboxField>
-          <Text>
-            <TextLink href="/auth/auth-forgot">
-              <Strong>Forgot password?</Strong>
-            </TextLink>
-          </Text>
-        </div>
         <Button type="submit" className="w-full">
           Login
         </Button>
         <Text>
           Don’t have an account?{" "}
           <TextLink href="/auth/signup">
-            <Strong>Sign up</Strong>
+            <Strong>Register</Strong>
           </TextLink>
         </Text>
       </form>

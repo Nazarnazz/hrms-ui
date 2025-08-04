@@ -12,7 +12,7 @@ export default function Dashboard() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  const Locations = [{ label: "Head Office Fl. 3" }, { label: "Head Office Fl. 4" }, { label: "Head Office Fl. 5" }, { label: "Workshop" }, { label: "Site A" }, { label: "Site B" }];
+  const Locations = [{ label: "Head Office" }, { label: "Depo Jorong" }, { label: "Depo Pelaihari" }, { label: "Workshop" }, { label: "Site A" }, { label: "Site B" }];
 
   const handleCheckboxChange = (label) => {
     setSelectedLocations((prev) => (prev.includes(label) ? prev.filter((loc) => loc !== label) : [...prev, label]));

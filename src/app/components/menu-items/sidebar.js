@@ -17,8 +17,8 @@ export default function Sidebar({ isOpen }) {
 
   const linkClass = (path) =>
     pathname === path
-      ? "flex items-center p-2 text-blue-900 rounded-lg bg-blue-200 dark:bg-gray-500 dark:text-white hover:bg-blue-300 dark:hover:bg-gray-700 group"
-      : "flex items-center p-2 text-blue-900 rounded-lg dark:text-white hover:bg-blue-200 dark:hover:bg-gray-700 group";
+      ? "flex items-center p-2 text-blue-900 rounded-lg bg-blue-200 dark:bg-gray-500 font-bold dark:text-white hover:bg-blue-300 dark:hover:bg-gray-700 group"
+      : "flex items-center p-2 text-blue-900 rounded-lg dark:text-white hover:bg-blue-200 hover:font-bold dark:hover:bg-gray-700 group";
 
   const menuItems = [
     {
@@ -41,23 +41,61 @@ export default function Sidebar({ isOpen }) {
           />
         </svg>
       ),
-      label: "Karyawan",
+      label: "User Management",
       path: "/admin/users",
     },
     {
       icon: (
-        <svg className="w-6 h-6 text-blue-800 dark:text-white" fill="none" viewBox="0 0 24 24">
+        <svg className="w-6 h-6 text-blue-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+          <path
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeWidth="2"
+            d="M4.5 17H4a1 1 0 0 1-1-1 3 3 0 0 1 3-3h1m0-3.05A2.5 2.5 0 1 1 9 5.5M19.5 17h.5a1 1 0 0 0 1-1 3 3 0 0 0-3-3h-1m0-3.05a2.5 2.5 0 1 0-2-4.45m.5 13.5h-7a1 1 0 0 1-1-1 3 3 0 0 1 3-3h3a3 3 0 0 1 3 3 1 1 0 0 1-1 1Zm-1-9.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"
+          />
+        </svg>
+      ),
+      label: "Employees",
+      path: "#",
+      children: [
+        {
+          label: "Employees Data",
+          path: "/admin/karyawan",
+        },
+        {
+          label: "Departments",
+          path: "/admin/department",
+        },
+        {
+          label: "Position",
+          path: "/admin/jabatan",
+        },
+      ],
+    },
+    {
+      icon: (
+        <svg className="w-6 h-6 text-blue-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
           <path
             stroke="currentColor"
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth="2"
-            d="M12 8v4l3 3M3.22302 14C4.13247 18.008 7.71683 21 12 21c4.9706 0 9-4.0294 9-9 0-4.97056-4.0294-9-9-9-3.72916 0-6.92858 2.26806-8.29409 5.5M7 9H3V5"
+            d="m11.5 11.5 2.071 1.994M4 10h5m11 0h-1.5M12 7V4M7 7V4m10 3V4m-7 13H8v-2l5.227-5.292a1.46 1.46 0 0 1 2.065 2.065L10 17Zm-5 3h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"
           />
         </svg>
       ),
-      label: "Riwayat Absensi",
-      path: "/admin/riwayat",
+      label: "Attendance",
+      path: "#",
+      children: [
+        {
+          label: "History",
+          path: "/admin/riwayat",
+        },
+        {
+          label: "Overtime",
+          path: "/admin/overtime",
+        },
+      ],
     },
     {
       icon: (
@@ -71,7 +109,7 @@ export default function Sidebar({ isOpen }) {
           />
         </svg>
       ),
-      label: "Lokasi",
+      label: "Worksites",
       path: "/admin/lokasi",
     },
     {
@@ -86,16 +124,20 @@ export default function Sidebar({ isOpen }) {
           />
         </svg>
       ),
-      label: "Kelola Cuti",
+      label: "Leave Management",
       path: "#",
       children: [
         {
-          label: "Pengajuan Cuti",
+          label: "Requests",
           path: "/admin/cuti",
         },
         {
-          label: "Persetujuan Cuti",
-          path: "/admin/cuti/persetujuan",
+          label: "Quotas",
+          path: "/admin/cuti/quota",
+        },
+        {
+          label: "History",
+          path: "/admin/cuti/riwayat",
         },
       ],
     },
@@ -146,7 +188,7 @@ export default function Sidebar({ isOpen }) {
             <li key={item.label}>
               {item.children ? (
                 <>
-                  <button onClick={() => toggleSubmenu(item.label)} className="flex items-center w-full p-2 text-blue-900 rounded-lg dark:text-white hover:bg-blue-200 dark:hover:bg-gray-700">
+                  <button onClick={() => toggleSubmenu(item.label)} className="flex items-center w-full p-2 text-blue-900 rounded-lg hover:font-bold dark:text-white hover:bg-blue-200 dark:hover:bg-gray-700">
                     {item.icon}
                     <span className="ms-3 flex-1 text-left">{item.label}</span>
                     <svg className={`w-4 h-4 ml-auto transition-transform ${openMenus[item.label] ? "rotate-180" : ""}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">

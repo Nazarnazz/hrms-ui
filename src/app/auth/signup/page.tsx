@@ -14,23 +14,31 @@ export default function SignUp() {
   const [showConPassword, setShowConPassword] = useState(false);
   return (
     <AuthLayout>
-      <form action="#" method="POST" className="grid w-full max-w-sm grid-cols-1 gap-8">
-        <div className="flex">
-          <Logo className="h-25" />
-          <div className="flex flex-col ml-4 justify-center items-center">
+      <form action="#" method="POST" className="grid w-full max-w-sm grid-cols-1 gap-6">
+        <div className="grid grid-cols-3">
+          <Logo className="ml-2 h-25" />
+          <div className="flex flex-col ml-6 justify-center items-center col-span-2">
             <Heading>
-              WEB ABSENCE
-              <div className="text-sm">for Mugiwara Pirate Presence</div>
+              HRMS
+              <div className="text-sm">Human Resource Management System</div>
             </Heading>
           </div>
         </div>
         <hr />
-        <div className="h-2 font-bold">
-          <center>Sign Up</center>
+        <div className="h-6 font-bold">
+          <center>Register</center>
         </div>
         <Field>
           <Label>Email</Label>
-          <Input type="email" name="email" placeholder="luffy@mugiwara.co" className="placeholder:italic placeholder:text-sm" />
+          <Input type="email" name="email" placeholder="Email" className="ps-6 placeholder:italic placeholder:text-sm" />
+        </Field>
+        <Field>
+          <Label>First Name</Label>
+          <Input type="text" name="first_name" placeholder="First Name" className="ps-6 placeholder:italic placeholder:text-sm" />
+        </Field>
+        <Field>
+          <Label>Last Name</Label>
+          <Input type="text" name="last_name" placeholder="Last Name" className="ps-6 placeholder:italic placeholder:text-sm" />
         </Field>
         <Field>
           <Label>Password</Label>
@@ -39,7 +47,7 @@ export default function SignUp() {
               type={showPassword ? "text" : "password"}
               name="password"
               placeholder={showPassword ? "password" : "••••••••"}
-              className="pr-10 placeholder:italic placeholder:text-sm" // ruang kanan untuk ikon mata
+              className="ps-6 placeholder:italic placeholder:text-sm" // ruang kanan untuk ikon mata
             />
             <button type="button" onClick={() => setShowPassword((prev) => !prev)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700" tabIndex={-1}>
               {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -53,7 +61,7 @@ export default function SignUp() {
               type={showConPassword ? "text" : "password"}
               name="con_password"
               placeholder={showConPassword ? "password" : "••••••••"}
-              className="pr-10 placeholder:italic placeholder:text-sm" // ruang kanan untuk ikon mata
+              className="ps-6 placeholder:italic placeholder:text-sm" // ruang kanan untuk ikon mata
             />
             <button type="button" onClick={() => setShowConPassword((prev) => !prev)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700" tabIndex={-1}>
               {showConPassword ? <EyeOff size={18} /> : <Eye size={18} />}
