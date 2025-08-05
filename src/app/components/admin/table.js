@@ -1,5 +1,5 @@
 export function Table({ children, className }) {
-  return <table className={`w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ${className}`}>{children}</table>;
+  return <table className={`w-full text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400 ${className}`}>{children}</table>;
 }
 
 export function TableHead({ children }) {
@@ -10,9 +10,9 @@ export function TableRow({ children }) {
   return <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">{children}</tr>;
 }
 
-export function TableHeader({ children }) {
+export function TableHeader({ colSpan, rowSpan, children, className }) {
   return (
-    <th className="px-4 py-4 font-bold text-gray-900 dark:text-white" scope="row">
+    <th colSpan={colSpan} rowSpan={rowSpan} className={`px-4 py-4 font-bold text-gray-900 dark:text-white ${className}`} scope="row">
       {children}
     </th>
   );

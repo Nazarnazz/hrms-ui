@@ -60,15 +60,15 @@ export default function Sidebar({ isOpen }) {
       children: [
         {
           label: "Employees Data",
-          path: "/admin/karyawan",
+          path: "/admin/employee/data",
         },
         {
           label: "Departments",
-          path: "/admin/department",
+          path: "/admin/employee/department",
         },
         {
           label: "Position",
-          path: "/admin/jabatan",
+          path: "/admin/employee/position",
         },
       ],
     },
@@ -89,11 +89,15 @@ export default function Sidebar({ isOpen }) {
       children: [
         {
           label: "History",
-          path: "/admin/riwayat",
+          path: "/admin/attendance/history",
         },
         {
-          label: "Overtime",
-          path: "/admin/overtime",
+          label: "Setting",
+          path: "/admin/attendance/setting",
+        },
+        {
+          label: "Summary",
+          path: "/admin/attendance/summary",
         },
       ],
     },
