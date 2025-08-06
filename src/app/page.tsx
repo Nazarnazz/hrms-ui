@@ -47,56 +47,108 @@ export default function Auth() {
   };
   const [showPassword, setShowPassword] = useState(false);
   return (
-    <AuthLayout>
-      <form onSubmit={handleLogin} method="POST" className="grid w-full max-w-sm grid-cols-1 gap-7">
-        <div className="grid grid-cols-3">
-          <Logo className="ml-2 h-25" />
-          <div className="flex flex-col ml-6 justify-center items-center col-span-2">
-            <Heading>
-              <div className="flex flex-col">
-                <div>HRMS</div>
-                <div className="text-sm">Human Resource Management System</div>
-              </div>
-            </Heading>
+    <>
+      <AuthLayout>
+        <form onSubmit={handleLogin} method="POST" className="hidden sm:grid w-full max-w-sm grid-cols-1 gap-7">
+          <div className="grid grid-cols-3">
+            <Logo className="ml-2 h-25" />
+            <div className="flex flex-col ml-6 justify-center items-center col-span-2">
+              <Heading>
+                <div className="flex flex-col">
+                  <div>HRMS</div>
+                  <div className="text-sm">Human Resource Management System</div>
+                </div>
+              </Heading>
+            </div>
           </div>
-        </div>
-        <hr />
-        <div className="h-6 font-bold ">
-          <center>Login</center>
-        </div>
-        <Field>
-          <Input type="text" name="id" value={username} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)} placeholder="Username" className="placeholder:italic ps-6 placeholder:text-sm" />
-        </Field>
-        <Field>
-          <div className="relative">
-            <Input
-              value={password}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-              type={showPassword ? "text" : "password"}
-              name="password"
-              placeholder={"Password"}
-              className="ps-6 placeholder:italic placeholder:text-sm" // ruang kanan untuk ikon mata
-            />
-            <button type="button" onClick={() => setShowPassword((prev) => !prev)} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700" tabIndex={-1}>
-              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-            </button>
+          <hr />
+          <div className="h-6 font-bold ">
+            <center>Login</center>
           </div>
-        </Field>
-        <Button type="submit" className="w-full">
-          Login
-        </Button>
+          <Field>
+            <Input type="text" name="id" value={username} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)} placeholder="Username" className="placeholder:italic ps-6 placeholder:text-sm" />
+          </Field>
+          <Field>
+            <div className="relative">
+              <Input
+                value={password}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder={"Password"}
+                className="ps-6 placeholder:italic placeholder:text-sm" // ruang kanan untuk ikon mata
+              />
+              <button type="button" onClick={() => setShowPassword((prev) => !prev)} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700" tabIndex={-1}>
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
+          </Field>
+          <Button type="submit" className="w-full">
+            Login
+          </Button>
+          <Text>
+            Don’t have an account?{" "}
+            <TextLink href="/auth/signup">
+              <Strong>Register</Strong>
+            </TextLink>
+          </Text>
+        </form>
+
         <Text>
-          Don’t have an account?{" "}
-          <TextLink href="/auth/signup">
-            <Strong>Register</Strong>
-          </TextLink>
+          <TextLink href="/admin/dashboard">Dashboard</TextLink>
+          <br />
+          <TextLink href="/user/dashboard">Dashboard</TextLink>
         </Text>
-      </form>
-      <Text>
-        <TextLink href="/admin/dashboard">Dashboard</TextLink>
-        <br />
-        <TextLink href="/user/dashboard">Dashboard</TextLink>
-      </Text>
-    </AuthLayout>
+      </AuthLayout>
+
+      <div className="sm:hidden flex items-center justify-center sm:p-4">
+        <div className="px-6 my-4 w-full max-w-md">
+          <form onSubmit={handleLogin} method="POST" className="grid w-full bg max-w-sm grid-cols-1 gap-7">
+            <div className="grid grid-cols-3">
+              <Logo className="ml-2 h-25" />
+              <div className="flex flex-col ml-6 justify-center items-center col-span-2">
+                <Heading>
+                  <div className="flex flex-col">
+                    <div>HRMS</div>
+                    <div className="text-sm">Human Resource Management System</div>
+                  </div>
+                </Heading>
+              </div>
+            </div>
+            <hr />
+            <div className="h-6 font-bold ">
+              <center>Login</center>
+            </div>
+            <Field>
+              <Input type="text" name="id" value={username} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)} placeholder="Username" className="placeholder:italic ps-6 placeholder:text-sm" />
+            </Field>
+            <Field>
+              <div className="relative">
+                <Input
+                  value={password}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder={"Password"}
+                  className="ps-6 placeholder:italic placeholder:text-sm" // ruang kanan untuk ikon mata
+                />
+                <button type="button" onClick={() => setShowPassword((prev) => !prev)} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700" tabIndex={-1}>
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
+            </Field>
+            <Button type="submit" className="w-full">
+              Login
+            </Button>
+            <Text>
+              Don’t have an account?{" "}
+              <TextLink href="/auth/signup">
+                <Strong>Register</Strong>
+              </TextLink>
+            </Text>
+          </form>
+        </div>
+      </div>
+    </>
   );
 }
