@@ -1,5 +1,26 @@
 {
-  "cSpell.words": ["Alfian", "datepicker", "extralight", "Fiki", "flowbite", "Geolocated", "Hendro", "HRMS", "mapclient", "mrbean", "mugiwara", "Nakama", "Papipu", "Pelaihari", "piecharts", "Rizieq", "Sujantan", "Wiwiwi", "Zeanda"],
+  "cSpell.words": [
+    "Alfian",
+    "ayuyu",
+    "datepicker",
+    "extralight",
+    "Fiki",
+    "flowbite",
+    "Geolocated",
+    "Hendro",
+    "HRMS",
+    "mapclient",
+    "mrbean",
+    "mugiwara",
+    "Nakama",
+    "Papipu",
+    "Pelaihari",
+    "piecharts",
+    "Rizieq",
+    "Sujantan",
+    "Wiwiwi",
+    "Zeanda"
+  ],
   "files.associations": {
     "*.css": "tailwindcss"
   },

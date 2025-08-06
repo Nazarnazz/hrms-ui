@@ -24,7 +24,7 @@ export default function Profile() {
 
                 <div className="flex flex-col">
                   <span className="font-bold text-lg">Nazar Aulia</span>
-                  <span className="text-[11px]">Programmer</span>
+                  <span className="text-[11px]">IT - Programmer</span>
                 </div>
               </div>
               <div className="flex justify-end items-center pe-2">
@@ -46,14 +46,14 @@ export default function Profile() {
                 <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="m3.5 5.5 7.893 6.036a1 1 0 0 0 1.214 0L20.5 5.5M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z" />
               </svg>
 
-              <span className="text-sm text-gray-500">nazar.aulia@gmail.com</span>
+              <span className="text-sm text-gray-500 dark:text-white">nazar.aulia@gmail.com</span>
             </div>
             <div className="py-1 pl-2 flex items-center gap-3">
               <svg className="w-5 h-5 text-gray-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.8 13.938h-.011a7 7 0 1 0-11.464.144h-.016l.14.171c.1.127.2.251.3.371L12 21l5.13-6.248c.194-.209.374-.429.54-.659l.13-.155Z" />
               </svg>
-              <span className="text-sm text-gray-500">Head Office</span>
+              <span className="text-sm text-gray-500 dark:text-white">Head Office</span>
             </div>
             <div className="py-1 pl-2 flex items-center gap-3">
               <svg className="w-5 h-5 text-gray-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -69,11 +69,11 @@ export default function Profile() {
                 />
               </svg>
 
-              <span className="text-sm text-gray-500">(+62) 8215 155 1283</span>
+              <span className="text-sm text-gray-500 dark:text-white">(+62) 8215 155 1283</span>
             </div>
             <div className="border-b border-gray-600 my-5"></div>
             <div className="py-1 pl-2 hover:bg-gray-200  flex items-center gap-3 group">
-              <svg className="w-5 h-5 text-gray-700 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-gray-700 group-hover:text-gray-950 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path
                   stroke="currentColor"
                   strokeLinecap="round"
@@ -82,42 +82,41 @@ export default function Profile() {
                   d="M12 8v4l3 3M3.22302 14C4.13247 18.008 7.71683 21 12 21c4.9706 0 9-4.0294 9-9 0-4.97056-4.0294-9-9-9-3.72916 0-6.92858 2.26806-8.29409 5.5M7 9H3V5"
                 />
               </svg>
-              <span className="text-sm text-gray-700">Riwayat Presensi</span>
+              <span className="text-sm text-gray-700 group-hover:text-gray-950 dark:text-white">Riwayat Presensi</span>
             </div>
             <div className="py-1 pl-2 hover:bg-gray-200 flex items-center gap-3 group">
-              <svg className="w-5 h-5 text-gray-700 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-gray-700 group-hover:text-gray-950 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="m3.5 5.5 7.893 6.036a1 1 0 0 0 1.214 0L20.5 5.5M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z" />
               </svg>
 
-              <span className="text-sm text-gray-700">Riwayat Pengajuan Cuti</span>
+              <span className="text-sm text-gray-700 group-hover:text-gray-950 dark:text-white">Riwayat Pengajuan Cuti</span>
             </div>
-            <div className="border-b border-gray-600 my-5"></div>
 
             <div className="py-1 pl-2 hover:bg-gray-200 flex items-center gap-3 group">
-              <svg className="w-5 h-5 text-gray-700 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-gray-700 group-hover:text-gray-950 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3m0 3h6m-6 5h6m-6 4h6M10 3v4h4V3h-4Z" />
               </svg>
 
-              <span className="text-sm text-gray-700">Status Kontrak</span>
+              <span className="text-sm text-gray-700 group-hover:text-gray-950 dark:text-white">Status Kontrak</span>
             </div>
             <div className="py-1 pl-2 hover:bg-gray-200 flex items-center gap-3 group">
-              <svg className="w-5 h-5 text-gray-700 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-gray-700 group-hover:text-gray-950 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                 <path fillRule="evenodd" d="M7 6a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-2v-4a3 3 0 0 0-3-3H7V6Z" clipRule="evenodd" />
                 <path fillRule="evenodd" d="M2 11a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-7Zm7.5 1a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Z" clipRule="evenodd" />
                 <path d="M10.5 14.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z" />
               </svg>
 
-              <span className="text-sm text-gray-700">Rekap Gaji Bulanan</span>
+              <span className="text-sm text-gray-700 group-hover:text-gray-950 dark:text-white">Rekap Gaji Bulanan</span>
             </div>
             <div className="border-b border-gray-600 my-5"></div>
 
             <Link href={"/user/pengaturan"}>
               <div className="py-1 pl-1 hover:bg-red-500 flex  items-center gap-3 group rounded-lg">
-                <svg className="w-5 h-5 text-gray-700  group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-gray-700 group-hover:text-gray-950 dark:text-white  group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2" />
                 </svg>
 
-                <span className="text-sm text-gray-700 group-hover:text-white">Logout</span>
+                <span className="text-sm text-gray-700 group-hover:text-gray-950 dark:text-white group-hover:text-white">Logout</span>
               </div>
             </Link>
           </div>

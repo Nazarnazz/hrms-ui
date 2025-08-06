@@ -167,19 +167,19 @@ export default function MulaiAbsen() {
                             d="M9.34 21h5.32M12 3a6 6 0 00-6 6c0 2.315 1.098 3.754 2.25 4.755.595.502.75 1.23.75 1.995v.75h6v-.75c0-.765.155-1.493.75-1.995C16.902 12.754 18 11.315 18 9a6 6 0 00-6-6z"
                           />
                         </svg>
-
                         <span className="font-bold text-sm mb-2">Tips</span>
                       </div>
                       <ul className="list-disc list-inside">
+                        <li>Gunakan ponsel seluler agar GPS dapat terbaca dengan benar.</li>
                         <li>Mohon berikan akses izin kamera dan lokasi sebelum melakukan presensi.</li>
                         <li>Pastikan wajah Anda jelas terlihat di kamera agar dapat dikenali sistem.</li>
-                        <li>Klik tombol di bawah untuk membuka kamera, kemudian ambil foto untuk melakukan presensi</li>
+                        <li>Klik tombol di atas untuk membuka kamera, kemudian ambil foto untuk melakukan presensi</li>
                       </ul>
                     </div>
                   </div>
                 </div>
               ) : (
-                <button onClick={stopCamera} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                <button onClick={stopCamera} className="bg-red-500 text-white px-2 py-2 rounded hover:bg-red-600">
                   <svg className="w-6 h-6  text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18 17.94 6M18 18 6.06 6" />
                   </svg>
@@ -188,7 +188,7 @@ export default function MulaiAbsen() {
 
               {isCameraOn && (
                 <button onClick={capturePhoto} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-                  Ambil Foto Absen
+                  Ambil Foto
                 </button>
               )}
             </div>

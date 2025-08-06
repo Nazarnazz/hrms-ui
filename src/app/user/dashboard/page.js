@@ -68,12 +68,12 @@ export default function Dashboard() {
         </div>
       </div>
       <div className="relative z-20 -mt-11 px-5">
-        <div className="w-full max-w-screen-sm mx-auto py-4 px-4 bg-[#cae2ff] dark:bg-gray-950 dark:border-2 dark:border-[#77A4C4] rounded-md shadow-md shadow-gray-400 dark:shadow-gray-700">
+        <div className="w-full max-w-screen-sm mx-auto py-4 px-4 bg-[#e1effe] dark:bg-gray-950 dark:border-2 dark:border-[#77A4C4] rounded-md shadow-md shadow-gray-400 dark:shadow-gray-700">
           <div className="flex justify-center mb-1">
             <Image src="/assets/image/mrbean.jpg" width={70} height={70} className="dark:border-1 dark:border-white rounded-xl" alt="mrbean" />
           </div>
-          <div className="text-lg font-bold text-[#173f70] text-center truncate">Nazar Aulia</div>
-          <div className="text-xs font-bold text-[#173f70] text-center">Programmer</div>
+          <div className="text-lg font-bold text-[#173f70] dark:text-white  text-center truncate">Nazar Aulia</div>
+          <div className="text-xs font-bold text-[#173f70] dark:text-white  text-center">Programmer</div>
         </div>
       </div>
       {/* <div className="px-6 flex rounded-md bg-white border-2 border-[#77A4C4] shadow-sm shadow-blue-400 mt-4 mx-5">
