@@ -107,6 +107,12 @@ export default function Setting() {
     },
   ];
 
+  const statusColorMap = {
+    both: "bg-pink-600",
+    face: "bg-blue-600",
+    gps: "bg-yellow-600",
+  };
+
   //searching
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -301,11 +307,17 @@ export default function Setting() {
                         <TableRow key={item.id}>
                           <TableHeader>{startIndex + index + 1}</TableHeader>
                           <TableCell className="whitespace-nowrap">{item.nama}</TableCell>
-                          <TableCell className="text-center">Senin, Selasa, Rabu, Kamis, Jumat, Sabtu</TableCell>
+                          <TableCell className="text-center">
+                            <span className="bg-blue-500 p-1 text-white rounded-md">Senin</span>, <span className="bg-yellow-500 p-1 text-white rounded-md">Selasa</span>, <span className="bg-green-500 p-1 text-white rounded-md">Rabu</span>,{" "}
+                            <span className="bg-pink-500 p-1 text-white rounded-md">Kamis</span>, <span className="bg-gray-500 p-1 text-white rounded-md">Jumat</span>, <span className="bg-purple-500 p-1 text-white rounded-md">Sabtu</span>,{" "}
+                            <span className=" bg-orange-500 p-1 text-white rounded-md">Minggu</span>
+                          </TableCell>
                           <TableCell className="text-center">{item.masuk}</TableCell>
                           <TableCell className="text-center">{item.keluar}</TableCell>
                           <TableCell className="text-center">10 Minutes</TableCell>
-                          <TableCell className="text-center">{item.method}</TableCell>
+                          <TableCell className="text-center">
+                            <span className={`rounded-md text-white text-[11px] p-1 inline-block ${statusColorMap[item.method]} `}>{item.method}</span>
+                          </TableCell>
                           <TableCell className="text-right">
                             <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                               Edit
