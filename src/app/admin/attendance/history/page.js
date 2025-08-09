@@ -247,11 +247,11 @@ export default function Riwayat() {
           ) : (
             <div>
               <span className="text-[20px] mt-4 ">Riwayat Absensi</span>
-              <div className="grid md:grid-cols-4 grid-cols-2 gap-2">
-                <div>
+              <div className="grid md:grid-cols-8 grid-cols-2 gap-2">
+                <div className="md:col-span-2">
                   <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
                 </div>
-                <div className="hidden md:flex gap-2 md:col-span-2 md:justify-end relative">
+                <div className="hidden md:flex gap-2 md:col-span-5 md:justify-end relative">
                   <div className="justify-center flex items-center py-2">
                     <input type="month" className="bg-[#e8edf1] rounded-lg py-1 ps-6 pe-6 text-gray-900" />
                   </div>
@@ -262,7 +262,7 @@ export default function Riwayat() {
                       className="text-white bg-blue-700 whitespace-nowrap hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-sm rounded-lg text-sm px-5 py-2 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                       type="button"
                     >
-                      Cari Divisi{" "}
+                      Cari Department{" "}
                       <svg className="w-2 h-2 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
                       </svg>
