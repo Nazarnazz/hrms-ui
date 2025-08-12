@@ -3,10 +3,12 @@
 import Layout from "@/app/components/menu-items/layout";
 import { SearchBar } from "@/app/components/admin/searchbar";
 import { Table, TableHead, TableHeader, TableBody, TableRow, TableCell } from "@/app/components/admin/table";
+import { Dialog, DialogActions, DialogBody, DialogTitle } from "@/app/components/admin/dialog";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Pagination } from "@/app/components/admin/pagination";
+import { Input, Label } from "@/app/components/admin/input";
 
 export default function Riwayat() {
   const dropdownRef = useRef(null);
@@ -107,13 +109,16 @@ export default function Riwayat() {
   ];
 
   const statusColorMap = {
-    both: "bg-pink-600",
-    face: "bg-blue-600",
-    gps: "bg-yellow-600",
+    both: "bg-pink-100 text-pink-600 border border-pink-600",
+    face: "bg-blue-100 text-blue-600 border border-blue-600",
+    gps: "bg-yellow-100 text-yellow-600 border border-yellow-600",
   };
 
   //modal edit
   const [isEditOpen, setIsEditOpen] = useState(false);
+  //hapus
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
 
   //searching
   const [searchTerm, setSearchTerm] = useState("");
@@ -366,12 +371,14 @@ export default function Riwayat() {
                           <TableCell>{item.divisi}</TableCell>
                           <TableCell className="whitespace-nowrap">{item.tanggal}</TableCell>
                           <TableCell>
-                            <span className={`rounded-md text-white text-[11px] p-1 inline-block ${item.status === "hadir" ? "bg-green-500" : "bg-red-500"} `}>{item.status === "hadir" ? "Hadir" : " Absen "}</span>
+                            <span className={`rounded-md text-[11px] p-1 inline-block ${item.status === "hadir" ? "bg-green-100 border border-green-500 text-green-500" : "bg-red-100 border border-red-500 text-red-500"} `}>
+                              {item.status === "hadir" ? "Hadir" : " Absen "}
+                            </span>
                           </TableCell>
                           <TableCell>{item.masuk}</TableCell>
                           <TableCell>{item.keluar}</TableCell>
                           <TableCell>
-                            <span className={`rounded-md text-white text-[11px] p-1 inline-block ${statusColorMap[item.method]} `}>{item.method}</span>
+                            <span className={`rounded-md text-[11px] p-1 inline-block ${statusColorMap[item.method]} `}>{item.method}</span>
                           </TableCell>
                           <TableCell>
                             <Image alt="masuk" width={70} height={70} src={`/assets/presensi/${item.face_in}`} />
@@ -380,10 +387,25 @@ export default function Riwayat() {
                             <Image alt="keluar" width={70} height={70} src={`/assets/presensi/${item.face_out}`} />
                           </TableCell>
                           <TableCell>{item.notes}</TableCell>
-                          <TableCell className="text-right">
-                            <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                              Edit
-                            </a>
+                          <TableCell>
+                            <div className="flex gap-3">
+                              <button
+                                onClick={() => {
+                                  setIsEditOpen(true);
+                                }}
+                                className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                              >
+                                Edit
+                              </button>
+                              <button
+                                onClick={() => {
+                                  setIsDeleteOpen(true);
+                                }}
+                                className="font-medium text-red-600 dark:text-red-500 hover:underline"
+                              >
+                                Delete
+                              </button>
+                            </div>
                           </TableCell>
                         </TableRow>
                       ))}
@@ -398,90 +420,138 @@ export default function Riwayat() {
       </Layout>
 
       {/* Modal Edit  */}
-      <div id="crud-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative p-4 w-full max-w-md max-h-full">
-          <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
-            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
-              <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Create New Product</h3>
-              <button
-                type="button"
-                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                data-modal-toggle="crud-modal"
-              >
-                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                </svg>
-                <span class="sr-only">Close modal</span>
-              </button>
+      <Dialog open={isEditOpen} onClose={() => setIsEditOpen(false)}>
+        <DialogTitle>Update Data</DialogTitle>
+        <hr className="border-1" />
+        <DialogBody>
+          <fieldset className="mt-2 py-5 flex items-center gap-6">
+            <Label htmlFor="name">Nama</Label>
+            <Input type="text" name="name" id="name" className="ps-4" placeholder="Nazar Aulia" required={true} />
+          </fieldset>
+          <div className="grid grid-cols-2 gap-6">
+            <div>
+              <fieldset>
+                <Label htmlFor="department" className="mb-2">
+                  Department
+                </Label>
+                <Input type="text" name="department" id="department" className="ps-4" placeholder="IT" required={true} />
+              </fieldset>
+              <fieldset className="mt-6">
+                <Label className="mb-2" htmlFor="masuk">
+                  Waktu Masuk
+                </Label>
+                <Input type="time" name="masuk" id="masuk" className="ps-4" placeholder="" required={true} />
+              </fieldset>
+              <fieldset className="mt-6">
+                <Label className="mb-2" htmlFor="status">
+                  Status
+                </Label>
+                <Input type="text" name="status" id="status" className="ps-4" placeholder="Hadir" required={true} />
+              </fieldset>
+              <fieldset className="mt-6">
+                <Label className="mb-2 text-center" htmlFor="face_in">
+                  Face In
+                </Label>
+                <div className="flex justify-center">
+                  <Image alt="face_in" height={150} width={150} src="/assets/image/mrbean.jpg" />
+                </div>
+              </fieldset>
             </div>
-            <form class="p-4 md:p-5">
-              <div class="grid gap-4 mb-4 grid-cols-2">
-                <div class="col-span-2">
-                  <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Type product name"
-                    required=""
-                  />
+            <div>
+              <fieldset>
+                <Label className="mb-2" htmlFor="date">
+                  Tanggal
+                </Label>
+                <Input type="date" name="date" id="date" placeholder="" required={true} />
+              </fieldset>
+              <fieldset className="mt-6">
+                <Label className="mb-2" htmlFor="keluar">
+                  Waktu Keluar
+                </Label>
+                <Input type="time" name="keluar" id="keluar" className="ps-4" placeholder="" required={true} />
+              </fieldset>
+              <fieldset className="mt-6">
+                <Label className="mb-2" htmlFor="method">
+                  Method
+                </Label>
+                <Input type="text" name="method" id="method" className="ps-4" placeholder="both" required={true} />
+              </fieldset>
+              <fieldset className="mt-6">
+                <Label className="mb-2 text-center" htmlFor="face_out">
+                  Face Out
+                </Label>
+                <div className="flex justify-center">
+                  <Image alt="face_out" height={150} width={150} src="/assets/image/mrbean.jpg" />
                 </div>
-                <div class="col-span-2 sm:col-span-1">
-                  <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                    Price
-                  </label>
-                  <input
-                    type="number"
-                    name="price"
-                    id="price"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="$2999"
-                    required=""
-                  />
-                </div>
-                <div class="col-span-2 sm:col-span-1">
-                  <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                    Category
-                  </label>
-                  <select
-                    id="category"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                  >
-                    <option selected="">Select category</option>
-                    <option value="TV">TV/Monitors</option>
-                    <option value="PC">PC</option>
-                    <option value="GA">Gaming/Console</option>
-                    <option value="PH">Phones</option>
-                  </select>
-                </div>
-                <div class="col-span-2">
-                  <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                    Product Description
-                  </label>
-                  <textarea
-                    id="description"
-                    rows="4"
-                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Write product description here"
-                  ></textarea>
-                </div>
-              </div>
-              <button
-                type="submit"
-                class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
-                </svg>
-                Add new product
-              </button>
-            </form>
+              </fieldset>
+            </div>
           </div>
-        </div>
-      </div>
+          <div className="flex flex-col gap-1 mt-4">
+            <fieldset className="flex gap-2">
+              <input id="checkbox-late" type="checkbox" className="accent-gray-600 bg-gray-300 border-gray-300 rounded-sm dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600" />
+              <label htmlFor="checkbox-late" className="text-xs">
+                Terlambat Datang
+              </label>
+            </fieldset>
+            <fieldset className="flex gap-2">
+              <input id="checkbox-early" type="checkbox" className="accent-gray-600 bg-gray-300 border-gray-300 rounded-sm dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600" />
+              <label htmlFor="checkbox-early" className="text-xs">
+                Pulang Lebih Awal
+              </label>
+            </fieldset>
+          </div>
+        </DialogBody>
+        <DialogActions>
+          <div className="flex">
+            <button className="px-10 py-1.5 rounded bg-gray-600 text-white hover:bg-gray-400" onClick={() => setIsEditOpen(false)}>
+              Batal
+            </button>
+          </div>
+          <div className="flex justify-end">
+            <button className="px-10 py-1.5 rounded bg-[#508DA7] text-white hover:bg-[#6db7d4]">Simpan</button>
+          </div>
+        </DialogActions>
+      </Dialog>
+
+      {/* Dialog hapus */}
+      <Dialog open={isDeleteOpen} onClose={() => setIsDeleteOpen(false)}>
+        <DialogTitle className="text-red-500">Hapus Data</DialogTitle>
+        <hr className="border-1 text-red-500" />
+        <DialogBody>
+          <Label className={`py-3 text-red-500`}>Data ini akan dihapus dan Anda tidak dapat melihatnya lagi.</Label>
+        </DialogBody>
+        <DialogActions>
+          <div className="flex">
+            <button className="px-10 py-1.5 rounded bg-gray-600 text-white hover:bg-gray-400" onClick={() => setIsDeleteOpen(false)}>
+              Batal
+            </button>
+          </div>
+          <div className="flex justify-end">
+            <button className="px-10 py-1.5 rounded bg-[#a75050] text-white hover:bg-[#d46d6d]" onClick={() => setIsDeleteConfirmOpen(true) && setIsDeleteOpen(false)}>
+              Hapus
+            </button>
+          </div>
+        </DialogActions>
+      </Dialog>
+
+      {/* Konfirmasi hapus */}
+      <Dialog open={isDeleteConfirmOpen} onClose={() => setIsDeleteConfirmOpen(false)}>
+        <DialogTitle>Hapus Data</DialogTitle>
+        <hr className="border-1" />
+        <DialogBody>
+          <Label className={`py-3`}>Anda Yakin?</Label>
+        </DialogBody>
+        <DialogActions>
+          <div className="flex">
+            <button className="px-10 py-1.5 rounded bg-gray-600 text-white hover:bg-gray-400" onClick={() => setIsDeleteConfirmOpen(false)}>
+              Batal
+            </button>
+          </div>
+          <div className="flex justify-end">
+            <button className="px-10 py-1.5 rounded bg-[#a75050] text-white hover:bg-[#d46d6d]">Ya</button>
+          </div>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }
