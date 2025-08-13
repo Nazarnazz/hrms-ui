@@ -12,7 +12,7 @@ export function TableRow({ children }) {
 
 export function TableHeader({ colSpan, rowSpan, children, className }) {
   return (
-    <th colSpan={colSpan} rowSpan={rowSpan} className={`px-4 py-4 font-bold text-gray-900 dark:text-white ${className}`} scope="row">
+    <th colSpan={colSpan} rowSpan={rowSpan} className={`px-4 py-4 font-bold dark:bg-gray-700 bg-[#eaebef] dark:text-white ${className}`} scope="row">
       {children}
     </th>
   );

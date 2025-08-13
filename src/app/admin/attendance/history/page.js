@@ -4,42 +4,15 @@ import Layout from "@/app/components/menu-items/layout";
 import { SearchBar } from "@/app/components/admin/searchbar";
 import { Table, TableHead, TableHeader, TableBody, TableRow, TableCell } from "@/app/components/admin/table";
 import { Dialog, DialogActions, DialogBody, DialogTitle } from "@/app/components/admin/dialog";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import * as XLSX from "xlsx";
+import { Datepicker } from "flowbite";
 import { Pagination } from "@/app/components/admin/pagination";
 import { Input, Label } from "@/app/components/admin/input";
 
 export default function Riwayat() {
-  const dropdownRef = useRef(null);
-
-  const Divisi = [
-    {
-      id: 1,
-      label: "IT",
-    },
-    {
-      id: 2,
-      label: "LPG",
-    },
-    {
-      id: 3,
-      label: "General Admin",
-    },
-    {
-      id: 4,
-      label: "Purchasing",
-    },
-    {
-      id: 5,
-      label: "Sawit",
-    },
-    {
-      id: 6,
-      label: "Asset",
-    },
-  ];
-
   const Riwayat = [
     {
       id: 1,
@@ -52,7 +25,7 @@ export default function Riwayat() {
       status: "hadir",
       face_in: "model-1-masuk.png",
       face_out: "model-1-pulang.png",
-      tanggal: "12 Juli 2025",
+      tanggal: "2025-07-12",
     },
     {
       id: 2,
@@ -65,7 +38,7 @@ export default function Riwayat() {
       status: "hadir",
       face_in: "model-2-masuk.png",
       face_out: "model-2-pulang.png",
-      tanggal: "16 Juli 2025",
+      tanggal: "2025-07-16",
     },
     {
       id: 3,
@@ -78,7 +51,7 @@ export default function Riwayat() {
       status: "alfa",
       face_in: ".",
       face_out: ".",
-      tanggal: "13 Juli 2025",
+      tanggal: "2025-07-13",
     },
     {
       id: 4,
@@ -91,7 +64,7 @@ export default function Riwayat() {
       status: "hadir",
       face_in: "model-4-masuk.png",
       face_out: "foto_muka.jpg",
-      tanggal: "14 Juli 2025",
+      tanggal: "2025-07-14",
     },
     {
       id: 5,
@@ -104,9 +77,17 @@ export default function Riwayat() {
       status: "hadir",
       face_in: "model-3-masuk.png",
       face_out: "foto_muka.jpg",
-      tanggal: "12 Juli 2025",
+      tanggal: "2025-07-12",
     },
   ];
+
+  const [visibleColumns, setVisibleColumns] = useState(["Status", "Masuk", "Keluar"]);
+
+  const allColumns = ["Status", "Masuk", "Keluar", "Method", "Face In", "Face Out", "Notes"];
+
+  const toggleColumn = (col) => {
+    setVisibleColumns((prev) => (prev.includes(col) ? prev.filter((c) => c !== col) : [...prev, col]));
+  };
 
   const statusColorMap = {
     both: "bg-pink-100 text-pink-600 border border-pink-600",
@@ -123,6 +104,23 @@ export default function Riwayat() {
   //searching
   const [searchTerm, setSearchTerm] = useState("");
 
+  // filter
+  const [isVisibleOpen, setIsVisibleOpen] = useState(false);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+
+  // export
+  const handleExport = () => {
+    const worksheet = XLSX.utils.json_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
+    XLSX.writeFile(workbook, "data.xlsx");
+  };
+
+  // print
+  const handlePrint = () => {
+    window.print();
+  };
+
   //sorting by tanggal di awal dengan order descending
   const [sortBy, setSortBy] = useState("tanggal");
   const [sortOrder, setSortOrder] = useState("desc");
@@ -136,10 +134,16 @@ export default function Riwayat() {
       setSortOrder("asc");
     }
   };
+  // fungsi untuk format tanggal menjadi 12 Juli 2025
+  const formatTanggal = (dateString) => {
+    const bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+    const date = new Date(dateString);
+    return `${date.getDate()} ${bulan[date.getMonth()]} ${date.getFullYear()}`;
+  };
 
-  //konversi integer ke nama bulan dalam bahasa indonesia
+  // fungsi untuk konversi tanggal "12 Juli 2025" jadi objek Date untuk sorting
   const convertToDate = (dateString) => {
-    const months = {
+    const bulan = {
       Januari: 0,
       Februari: 1,
       Maret: 2,
@@ -153,13 +157,18 @@ export default function Riwayat() {
       November: 10,
       Desember: 11,
     };
-
     const [day, monthName, year] = dateString.split(" ");
-    return new Date(year, months[monthName], day);
+    return new Date(year, bulan[monthName], day);
   };
 
-  //variabel sort yang akan terhubung dengan data
-  const filteredAndSortedRiwayat = [...Riwayat]
+  // ubah data saat mapping menjadi format tanggal baru
+  const dataWithFormattedDate = Riwayat.map((item) => ({
+    ...item,
+    tanggal: formatTanggal(item.tanggal),
+  }));
+
+  // filter + sorting
+  const filteredAndSortedRiwayat = [...dataWithFormattedDate]
     .filter((item) => {
       const q = searchTerm.toLowerCase();
       return item.nama.toLowerCase().includes(q) || item.divisi.toLowerCase().includes(q) || item.tanggal.toLowerCase().includes(q);
@@ -179,7 +188,6 @@ export default function Riwayat() {
 
       return sortOrder === "asc" ? valA - valB : valB - valA;
     });
-
   //pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10; // jumlah data per halaman
@@ -206,6 +214,29 @@ export default function Riwayat() {
     }, 100);
   });
 
+  // bulk action
+  const [selectedIds, setSelectedIds] = useState([]);
+  const handleSelectAll = (e) => {
+    if (e.target.checked) {
+      setSelectedIds(data.map((item) => item.id));
+    } else {
+      setSelectedIds([]);
+    }
+  };
+
+  const handleSelectRow = (id) => {
+    if (selectedIds.includes(id)) {
+      setSelectedIds(selectedIds.filter((sid) => sid !== id));
+    } else {
+      setSelectedIds([...selectedIds, id]);
+    }
+  };
+
+  const handleBulkDelete = () => {
+    alert(`Menghapus ID: ${selectedIds.join(", ")}`);
+    // Lanjutkan logika delete di sini
+  };
+
   // useEffect(() => {
   //   const fetchUsers = async () => {
   //     setIsLoading(true);
@@ -221,8 +252,6 @@ export default function Riwayat() {
   //   };
   //   fetchUsers();
   // }, []);
-
-  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
@@ -255,71 +284,41 @@ export default function Riwayat() {
           ) : (
             <div>
               <span className="text-[20px] mt-4 ">Riwayat Absensi</span>
-              <div className="grid md:grid-cols-8 grid-cols-2 gap-2">
-                <div className="md:col-span-2">
-                  <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-                </div>
-                <div className="hidden md:flex gap-2 md:col-span-5 md:justify-end relative">
-                  <div className="justify-center flex items-center py-2">
-                    <input type="month" className="bg-[#e8edf1] rounded-lg py-1 ps-6 pe-6 text-gray-900" />
-                  </div>
-                  <div className="py-2">
-                    <button
-                      id="dropdownDefaultButton"
-                      onClick={() => setIsOpen(!isOpen)}
-                      className="text-white bg-blue-700 whitespace-nowrap hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-sm rounded-lg text-sm px-5 py-2 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                      type="button"
-                    >
-                      Cari Department{" "}
-                      <svg className="w-2 h-2 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
-                      </svg>
-                    </button>
-                  </div>
-                  {isOpen && (
-                    <div id="dropdown" ref={dropdownRef} className={`border-1 border-blue-100 right-0 z-20 ${isOpen ? "block absolute top-full" : "hidden"}  bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700`}>
-                      <ul className="py-1 text-sm text-gray-700 dark:text-gray-200">
-                        {Divisi.map((item) => (
-                          <li key={item.id}>
-                            <a href="#" className="block px-4 py-1 border-gray-200 hover:bg-blue-600 hover:text-white text-xs dark:hover:bg-gray-600 dark:hover:text-white">
-                              {item.label}
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-                <div className="flex items-center justify-end">
-                  <button className="bg-blue-100 dark:bg-gray-500 hover:bg-blue-300 dark:hover:bg-gray-600 rounded-md py-1 px-2 mr-2 text-gray-500">
-                    <svg className="w-6 h-6 text-blue-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                      <path
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M19 10V4a1 1 0 0 0-1-1H9.914a1 1 0 0 0-.707.293L5.293 7.207A1 1 0 0 0 5 7.914V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2M10 3v4a1 1 0 0 1-1 1H5m5 6h9m0 0-2-2m2 2-2 2"
-                      />
-                    </svg>
-                  </button>
-                  <button className="bg-blue-100 dark:bg-gray-500 hover:bg-blue-300 dark:hover:bg-gray-600 rounded-md py-1 px-2 mr-2 text-gray-500">
-                    <svg className="w-6 h-6 text-blue-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                      <path
-                        stroke="currentColor"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M16.444 18H19a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h2.556M17 11V5a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v6h10ZM7 15h10v4a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-4Z"
-                      />
-                    </svg>
-                  </button>
-                </div>
+              <div className="md:col-span-8">
+                <SearchBar
+                  searchTerm={searchTerm}
+                  setSearchTerm={setSearchTerm}
+                  onToggleVisible={() => setIsVisibleOpen(true)}
+                  onToggleFilter={() => setIsFilterOpen(true)}
+                  onRefresh={() => console.log("refresh")}
+                  onExport={handleExport}
+                  onPrint={handlePrint}
+                />
               </div>
               <div className="py-4 rounded-lg dark:border-gray-700 ">
+                {selectedIds.length > 0 && (
+                  <div className="flex gap-2">
+                    <div className="mb-2 flex items-center gap-2">
+                      <button onClick={handleBulkDelete} className="bg-red-100 text-red-600 font-bold text-xs border border-red-500 px-3 py-1 rounded">
+                        Hapus Terpilih ({selectedIds.length})
+                      </button>
+                    </div>
+                    <div className="mb-2 flex items-center gap-2">
+                      <button onClick={handleBulkDelete} className="bg-blue-100 text-blue-600 font-bold text-xs border border-blue-500 px-3 py-1 rounded">
+                        Edit Terpilih ({selectedIds.length})
+                      </button>
+                    </div>
+                  </div>
+                )}
                 <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                   <Table>
                     <TableHead>
                       <TableRow>
-                        <TableHeader>#No</TableHeader>
+                        {/* <TableHeader>No</TableHeader> */}
+
+                        <TableHeader className={`text-center`}>
+                          <input type="checkbox" className="accent-blue-600" checked={selectedIds.length === data.length} onChange={handleSelectAll} />
+                        </TableHeader>
                         <TableHeader>Nama</TableHeader>
                         <TableHeader>
                           <div className="flex items-center">
@@ -337,56 +336,81 @@ export default function Riwayat() {
                             </svg>
                           </div>
                         </TableHeader>
-                        <TableHeader>
-                          <div className="flex items-center">Status</div>
-                        </TableHeader>
-                        <TableHeader>
-                          <div className="flex items-center">Masuk</div>
-                        </TableHeader>
-                        <TableHeader>
-                          <div className="flex items-center">Keluar</div>
-                        </TableHeader>
-                        <TableHeader>
-                          <div className="flex items-center">Method</div>
-                        </TableHeader>
-                        <TableHeader>
-                          <div className="flex items-center">Face In</div>
-                        </TableHeader>
-                        <TableHeader>
-                          <div className="flex items-center">Face Out</div>
-                        </TableHeader>
-                        <TableHeader>
-                          <div className="flex items-center">Notes</div>
-                        </TableHeader>
+                        {visibleColumns.includes("Status") && (
+                          <TableHeader>
+                            <div className="flex items-center">Status</div>
+                          </TableHeader>
+                        )}
+                        {visibleColumns.includes("Masuk") && (
+                          <TableHeader>
+                            <div className="flex items-center">Masuk</div>
+                          </TableHeader>
+                        )}
+                        {visibleColumns.includes("Masuk") && (
+                          <TableHeader>
+                            <div className="flex items-center">Keluar</div>
+                          </TableHeader>
+                        )}
+                        {visibleColumns.includes("Method") && (
+                          <TableHeader>
+                            <div className="flex items-center">Method</div>
+                          </TableHeader>
+                        )}
+                        {visibleColumns.includes("Face In") && (
+                          <TableHeader>
+                            <div className="flex items-center">Face In</div>
+                          </TableHeader>
+                        )}
+                        {visibleColumns.includes("Face Out") && (
+                          <TableHeader>
+                            <div className="flex items-center">Face Out</div>
+                          </TableHeader>
+                        )}
+                        {visibleColumns.includes("Notes") && (
+                          <TableHeader>
+                            <div className="flex items-center">Notes</div>
+                          </TableHeader>
+                        )}
                         <TableHeader>
                           <span className="sr-only">Action</span>
                         </TableHeader>
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {data.map((item, index) => (
+                      {data.map((item) => (
                         <TableRow key={item.id}>
-                          <TableHeader>{startIndex + index + 1}</TableHeader>
+                          {/* <TableHeader className={`text-center`}>{startIndex + index + 1}</TableHeader> */}
+                          <TableCell className={`text-center`}>
+                            <input type="checkbox" className="accent-blue-600" checked={selectedIds.includes(item.id)} onChange={() => handleSelectRow(item.id)} />
+                          </TableCell>
                           <TableCell className="whitespace-nowrap">{item.nama}</TableCell>
                           <TableCell>{item.divisi}</TableCell>
                           <TableCell className="whitespace-nowrap">{item.tanggal}</TableCell>
-                          <TableCell>
-                            <span className={`rounded-md text-[11px] p-1 inline-block ${item.status === "hadir" ? "bg-green-100 border border-green-500 text-green-500" : "bg-red-100 border border-red-500 text-red-500"} `}>
-                              {item.status === "hadir" ? "Hadir" : " Absen "}
-                            </span>
-                          </TableCell>
-                          <TableCell>{item.masuk}</TableCell>
-                          <TableCell>{item.keluar}</TableCell>
-                          <TableCell>
-                            <span className={`rounded-md text-[11px] p-1 inline-block ${statusColorMap[item.method]} `}>{item.method}</span>
-                          </TableCell>
-                          <TableCell>
-                            <Image alt="masuk" width={70} height={70} src={`/assets/presensi/${item.face_in}`} />
-                          </TableCell>
-                          <TableCell>
-                            <Image alt="keluar" width={70} height={70} src={`/assets/presensi/${item.face_out}`} />
-                          </TableCell>
-                          <TableCell>{item.notes}</TableCell>
+                          {visibleColumns.includes("Status") && (
+                            <TableCell>
+                              <span className={`rounded-md text-[11px] p-1 inline-block ${item.status === "hadir" ? "bg-green-100 border border-green-500 text-green-500" : "bg-red-100 border border-red-500 text-red-500"} `}>
+                                {item.status === "hadir" ? "Hadir" : " Absen "}
+                              </span>
+                            </TableCell>
+                          )}
+                          {visibleColumns.includes("Masuk") && <TableCell>{item.masuk}</TableCell>}
+                          {visibleColumns.includes("Keluar") && <TableCell>{item.keluar}</TableCell>}
+                          {visibleColumns.includes("Method") && (
+                            <TableCell>
+                              <span className={`rounded-md text-[11px] p-1 inline-block ${statusColorMap[item.method]} `}>{item.method}</span>
+                            </TableCell>
+                          )}
+                          {visibleColumns.includes("Face In") && (
+                            <TableCell>
+                              <Image alt="masuk" width={70} height={70} src={`/assets/presensi/${item.face_in}`} />
+                            </TableCell>
+                          )}
+                          {visibleColumns.includes("Face Out") && (
+                            <TableCell>
+                              <Image alt="keluar" width={70} height={70} src={`/assets/presensi/${item.face_out}`} />
+                            </TableCell>
+                          )}
+                          {visibleColumns.includes("Notes") && <TableCell>{item.notes}</TableCell>}
                           <TableCell>
                             <div className="flex gap-3">
                               <button
@@ -417,6 +441,36 @@ export default function Riwayat() {
             </div>
           )}
         </div>
+        {isVisibleOpen && (
+          <div
+            className={`fixed top-0 right-0 w-64 h-full bg-white dark:bg-gray-800 shadow-lg z-50 p-4
+    transform transition-transform duration-300 ease-in-out
+    ${isVisibleOpen ? "translate-x-0" : "translate-x-full"}`}
+          >
+            <h2 className="text-lg font-bold mb-4">Visibilitas Kolom</h2>
+            {allColumns.map((col) => (
+              <label key={col} className="block mb-2">
+                <input type="checkbox" checked={visibleColumns.includes(col)} onChange={() => toggleColumn(col)} /> {col}
+              </label>
+            ))}
+            <button onClick={() => setIsVisibleOpen(false)} className="mt-4 bg-blue-500 text-white px-4 py-1 rounded">
+              Tutup
+            </button>
+          </div>
+        )}
+        {isFilterOpen && (
+          <div
+            className={`fixed top-0 right-0 w-64 h-full bg-white dark:bg-gray-800 shadow-lg z-50 p-4
+    transform transition-transform duration-300 ease-in-out
+    ${isFilterOpen ? "translate-x-0" : "translate-x-full"}`}
+          >
+            <h2 className="text-lg font-bold mb-4">Filter Data</h2>
+            <Datepicker views={["year", "month"]} label="Year and Month" minDate={new Date("2012-03-01")} maxDate={new Date("2023-06-01")} value={value} onChange={setValue} />
+            <button onClick={() => setIsFilterOpen(false)} className="mt-4 bg-blue-500 text-white px-4 py-1 rounded">
+              Tutup
+            </button>
+          </div>
+        )}
       </Layout>
 
       {/* Modal Edit  */}
@@ -488,13 +542,13 @@ export default function Riwayat() {
           </div>
           <div className="flex flex-col gap-1 mt-4">
             <fieldset className="flex gap-2">
-              <input id="checkbox-late" type="checkbox" className="accent-gray-600 bg-gray-300 border-gray-300 rounded-sm dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600" />
+              <input id="checkbox-late" type="checkbox" className="accent-blue-600 bg-gray-300 border-gray-300 rounded-sm dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600" />
               <label htmlFor="checkbox-late" className="text-xs">
                 Terlambat Datang
               </label>
             </fieldset>
             <fieldset className="flex gap-2">
-              <input id="checkbox-early" type="checkbox" className="accent-gray-600 bg-gray-300 border-gray-300 rounded-sm dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600" />
+              <input id="checkbox-early" type="checkbox" className="accent-blue-600 bg-gray-300 border-gray-300 rounded-sm dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600" />
               <label htmlFor="checkbox-early" className="text-xs">
                 Pulang Lebih Awal
               </label>
