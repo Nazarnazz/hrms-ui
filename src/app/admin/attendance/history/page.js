@@ -8,7 +8,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import * as XLSX from "xlsx";
-import { Datepicker } from "flowbite";
+import Datepicker from "react-datepicker";
+import { id } from "date-fns/locale";
 import { Pagination } from "@/app/components/admin/pagination";
 import { Input, Label } from "@/app/components/admin/input";
 
@@ -190,7 +191,7 @@ export default function Riwayat() {
     });
   //pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10; // jumlah data per halaman
+  const [itemsPerPage, setItemsPerPage] = useState(10); // default 10, bisa diubah user
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -198,9 +199,36 @@ export default function Riwayat() {
   const paginatedRiwayat = filteredAndSortedRiwayat.slice(startIndex, endIndex);
   const totalPages = Math.ceil(filteredAndSortedRiwayat.length / itemsPerPage);
 
+  // reset ke halaman pertama kalau search berubah
   useEffect(() => {
     setCurrentPage(1);
   }, [searchTerm]);
+
+  // reset ke halaman pertama kalau jumlah per halaman berubah
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [itemsPerPage]);
+
+  //datepicker
+  const [selectedMonth, setSelectedMonth] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const handleStartChange = (date) => {
+    if (endDate && date > endDate) {
+      setEndDate(date); // sesuaikan end date jika start > end
+    }
+    setStartDate(date);
+  };
+
+  const [openMenus, setOpenMenus] = useState(false);
+  const [openMenusMonth, setOpenMenusMonth] = useState(false);
+
+  const handleEndChange = (date) => {
+    if (startDate && date < startDate) {
+      setStartDate(date); // sesuaikan start date jika end < start
+    }
+    setEndDate(date);
+  };
 
   //Loading
   const [data, setData] = useState([]);
@@ -291,6 +319,8 @@ export default function Riwayat() {
                   onToggleVisible={() => setIsVisibleOpen(true)}
                   onToggleFilter={() => setIsFilterOpen(true)}
                   onRefresh={() => console.log("refresh")}
+                  placeholder="Cari ID Karyawan, Nama Karyawan, Department"
+                  className="placeholder:italic placeholder:text-xs"
                   onExport={handleExport}
                   onPrint={handlePrint}
                 />
@@ -310,7 +340,7 @@ export default function Riwayat() {
                     </div>
                   </div>
                 )}
-                <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <div onClick={() => setIsVisibleOpen(false) || setIsFilterOpen(false)} className="relative overflow-x-auto shadow-md sm:rounded-lg">
                   <Table>
                     <TableHead>
                       <TableRow>
@@ -417,17 +447,34 @@ export default function Riwayat() {
                                 onClick={() => {
                                   setIsEditOpen(true);
                                 }}
-                                className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                className="hover:bg-blue-200 bg-blue-50 border border-blue-600 rounded group"
                               >
-                                Edit
+                                <svg className="w-6 h-6 text-blue-700 group-hover:text-blue-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                  <path
+                                    fillRule="evenodd"
+                                    d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z"
+                                    clipRule="evenodd"
+                                  />
+                                  <path
+                                    fillRule="evenodd"
+                                    d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z"
+                                    clipRule="evenodd"
+                                  />
+                                </svg>
                               </button>
                               <button
                                 onClick={() => {
                                   setIsDeleteOpen(true);
                                 }}
-                                className="font-medium text-red-600 dark:text-red-500 hover:underline"
+                                className="bg-red-50 border border-red-600 hover:bg-red-200 rounded group"
                               >
-                                Delete
+                                <svg class="w-6 h-6 text-red-600 group-hover:text-red-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                  <path
+                                    fillRule="evenodd"
+                                    d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z"
+                                    clipRule="evenodd"
+                                  />
+                                </svg>
                               </button>
                             </div>
                           </TableCell>
@@ -436,6 +483,27 @@ export default function Riwayat() {
                     </TableBody>
                   </Table>
                 </div>
+                <div className="flex items-center gap-2 mt-2">
+                  <span className="text-sm">Tampilkan:</span>
+                  <select value={itemsPerPage} onChange={(e) => setItemsPerPage(Number(e.target.value))} className="border rounded p-1 text-sm">
+                    <option className="dark:bg-gray-600" value={5}>
+                      5
+                    </option>
+                    <option className="dark:bg-gray-600" value={10}>
+                      10
+                    </option>
+                    <option className="dark:bg-gray-600" value={25}>
+                      25
+                    </option>
+                    <option className="dark:bg-gray-600" value={50}>
+                      50
+                    </option>
+                    <option className="dark:bg-gray-600" value={100}>
+                      100
+                    </option>
+                  </select>
+                  <span className="text-sm">per halaman</span>
+                </div>
                 <Pagination setCurrentPage={setCurrentPage} currentPage={currentPage} totalPages={totalPages} />
               </div>
             </div>
@@ -443,32 +511,131 @@ export default function Riwayat() {
         </div>
         {isVisibleOpen && (
           <div
-            className={`fixed top-0 right-0 w-64 h-full bg-white dark:bg-gray-800 shadow-lg z-50 p-4
+            className={`fixed top-0 right-0 w-84 h-full bg-white dark:bg-gray-800 shadow-lg z-50 p-4
     transform transition-transform duration-300 ease-in-out
     ${isVisibleOpen ? "translate-x-0" : "translate-x-full"}`}
           >
-            <h2 className="text-lg font-bold mb-4">Visibilitas Kolom</h2>
+            <div className="flex gap-2 items-center">
+              <svg class="w-6 h-6 text-gray-800 dark:text-white mb-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-width="2" d="M3 11h18M3 15h18m-9-4v8m-8 0h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z" />
+              </svg>
+              <h2 className="text-lg font-bold mb-4">Visibilitas Kolom</h2>
+              <button onClick={() => setIsVisibleOpen(false)} className="text-sm mb-4 ml-auto bg-gray-100 dark:bg-gray-400 border border-gray-900 hover:bg-gray-700 group rounded-md">
+                <svg className="w-7 h-7 text-gray-900 group-hover:text-gray-100" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18 17.94 6M18 18 6.06 6" />
+                </svg>
+              </button>
+            </div>
             {allColumns.map((col) => (
-              <label key={col} className="block mb-2">
-                <input type="checkbox" checked={visibleColumns.includes(col)} onChange={() => toggleColumn(col)} /> {col}
+              <label key={col} className="block mb-2 ms-3">
+                <input type="checkbox" checked={visibleColumns.includes(col)} className="accent-green-300" onChange={() => toggleColumn(col)} /> {col}
               </label>
             ))}
-            <button onClick={() => setIsVisibleOpen(false)} className="mt-4 bg-blue-500 text-white px-4 py-1 rounded">
-              Tutup
-            </button>
           </div>
         )}
         {isFilterOpen && (
           <div
-            className={`fixed top-0 right-0 w-64 h-full bg-white dark:bg-gray-800 shadow-lg z-50 p-4
-    transform transition-transform duration-300 ease-in-out
-    ${isFilterOpen ? "translate-x-0" : "translate-x-full"}`}
+            className={`fixed top-0 right-0 w-84 h-full bg-white dark:bg-gray-800 shadow-lg z-50 p-4
+            transform transition-transform duration-300 ease-in-out
+            ${isFilterOpen ? "translate-x-0" : "translate-x-full"}`}
           >
-            <h2 className="text-lg font-bold mb-4">Filter Data</h2>
-            <Datepicker views={["year", "month"]} label="Year and Month" minDate={new Date("2012-03-01")} maxDate={new Date("2023-06-01")} value={value} onChange={setValue} />
-            <button onClick={() => setIsFilterOpen(false)} className="mt-4 bg-blue-500 text-white px-4 py-1 rounded">
-              Tutup
-            </button>
+            <div className="flex items-center w-full gap-2">
+              <svg className="w-6 h-6 mb-4  text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeWidth="2"
+                  d="M18.796 4H5.204a1 1 0 0 0-.753 1.659l5.302 6.058a1 1 0 0 1 .247.659v4.874a.5.5 0 0 0 .2.4l3 2.25a.5.5 0 0 0 .8-.4v-7.124a1 1 0 0 1 .247-.659l5.302-6.059c.566-.646.106-1.658-.753-1.658Z"
+                />
+              </svg>
+              <h2 className="text-lg font-bold mb-4">Filter Data</h2>{" "}
+              <button onClick={() => setIsFilterOpen(false)} className="text-sm mb-4 ml-auto bg-gray-100 dark:bg-gray-400 border border-gray-900 hover:bg-gray-700 group rounded-md">
+                <svg className="w-7 h-7 text-gray-900 group-hover:text-gray-100" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18 17.94 6M18 18 6.06 6" />
+                </svg>
+              </button>
+            </div>
+            <div className="flex items-center my-2 w-full hover:font-bold dark:text-white ">
+              <button onClick={() => setOpenMenusMonth((prev) => !prev) || setOpenMenus(false)} className="flex-1 text-sm text-left">
+                Berdasarkan Bulan
+              </button>
+              <svg className={`w-4 h-4 ml-auto transition-transform ${openMenusMonth ? "rotate-180" : ""}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+            {openMenusMonth && (
+              <div className="flex gap-2 items-center">
+                <Datepicker
+                  selected={selectedMonth}
+                  locale={id}
+                  className="text-[14px] text-center my-2 border rounded-sm"
+                  onChange={(date) => setSelectedMonth(date)}
+                  dateFormat="MMMM yyyy" // Format to display only month and year
+                  showMonthYearPicker // Enable month/year selection mode
+                />
+                <button className="rounded-md px-4 py-0.5 text-white bg-green-500 dark:bg-green-700 text-sm hover:bg-green-700 dark:hover:bg-green-500">Terapkan</button>
+              </div>
+            )}
+            <div className="flex my-2 items-center w-full hover:font-bold dark:text-white ">
+              <button onClick={() => setOpenMenus((prev) => !prev) || setOpenMenusMonth(false)} className="flex-1 text-sm text-left">
+                Berdasarkan Tanggal
+              </button>
+              <svg className={`w-4 h-4 ml-auto transition-transform ${openMenus ? "rotate-180" : ""}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+            {openMenus && (
+              <div className="flex flex-col">
+                <div>
+                  <span className="text-xs mr-2">mulai : </span>
+                  <Datepicker
+                    selected={startDate}
+                    onChange={handleStartChange}
+                    selectsStart
+                    startDate={startDate}
+                    endDate={endDate}
+                    dateFormat="dd MMMM yyyy"
+                    locale={id}
+                    placeholderText="Pilih tanggal mulai"
+                    className="text-[11px] text-center my-2 border rounded-sm"
+                  />
+                </div>
+                <div>
+                  <span className="text-xs">hingga : </span>
+                  <Datepicker
+                    selected={endDate}
+                    onChange={handleEndChange}
+                    selectsEnd
+                    startDate={startDate}
+                    endDate={endDate}
+                    minDate={startDate}
+                    dateFormat="dd MMMM yyyy"
+                    locale={id}
+                    placeholderText="Pilih tanggal akhir"
+                    className="border rounded-sm text-[11px] text-center"
+                  />
+                </div>
+                <div className="block-inline my-2">
+                  <button className="rounded-md px-4 py-0.5 text-white bg-green-500 dark:bg-green-700 text-sm hover:bg-green-700 dark:hover:bg-green-500">Terapkan</button>
+                </div>
+              </div>
+            )}
+            <div className="flex items-center my-2 w-full hover:font-bold dark:text-white ">
+              <button onClick={() => setOpenMenusMonth((prev) => !prev) || setOpenMenus(false)} className="flex-1 text-sm text-left">
+                Berdasarkan Department
+              </button>
+              <svg className={`w-4 h-4 ml-auto transition-transform ${openMenusMonth ? "rotate-180" : ""}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+            <div className="flex items-center my-2 w-full hover:font-bold dark:text-white ">
+              <button onClick={() => setOpenMenusMonth((prev) => !prev) || setOpenMenus(false)} className="flex-1 text-sm text-left">
+                Berdasarkan Worksite
+              </button>
+              <svg className={`w-4 h-4 ml-auto transition-transform ${openMenusMonth ? "rotate-180" : ""}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
           </div>
         )}
       </Layout>

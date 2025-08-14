@@ -29,14 +29,37 @@ body {
 
 /* Mengecilkan ukuran popup kalender */
 .react-datepicker {
-  font-size: 9px !important;
+  font-size: 10px !important;
   width: 160px !important;
 }
 
 /* Mengecilkan ukuran cell hari dan tanggal */
+
+/* Hanya untuk cell hari */
 .react-datepicker__day,
-.react-datepicker__day-name,
 .react-datepicker__header,
+.react-datepicker__day-name {
+  padding: 0.1rem !important;
+  width: 1rem !important;
+  line-height: 1rem !important;
+}
+
+/* Styling khusus bulan di month picker */
+.react-datepicker__month-text {
+  padding: 0.4rem 0.5rem !important;
+  width: auto !important;
+  min-width: 2.5rem;
+  display: inline-flex;
+  justify-content: center;
+}
+
+/* Bulan aktif */
+.react-datepicker__month-text--selected,
+.react-datepicker__month-text--keyboard-selected {
+  background-color: #2563eb !important; /* biru */
+  color: white !important;
+  border-radius: 4px;
+}
 .react-datepicker__current-month {
   padding: 0.1rem !important;
   width: 1rem !important;
@@ -59,6 +82,14 @@ body {
 }
 
 .react-datepicker__current-month {
+  font-size: 0.65rem !important; /* Ukuran teks kecil */
+  /* text-align: center !important; Posisikan di tengah */
+  width: 100% !important;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto !important;
+}
+.react-datepicker__current-year {
   font-size: 0.65rem !important; /* Ukuran teks kecil */
   /* text-align: center !important; Posisikan di tengah */
   width: 100% !important;
