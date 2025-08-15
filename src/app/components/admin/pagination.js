@@ -2,7 +2,7 @@ export function Pagination({ setCurrentPage, currentPage, totalPages }) {
   return (
     <div className="flex justify-center mt-4 gap-2">
       {/* Prev */}
-      <button onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))} disabled={currentPage === 1} className="px-3 py-1 bg-blue-400 dark:bg-gray-600 not-disabled:hover:bg-blue-500 text-white rounded disabled:opacity-50">
+      <button onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))} disabled={currentPage === 1} className="px-3 py-1 bg-blue-800 dark:bg-gray-600 not-disabled:hover:bg-blue-500 text-white rounded disabled:opacity-50">
         Prev
       </button>
 
@@ -20,7 +20,7 @@ export function Pagination({ setCurrentPage, currentPage, totalPages }) {
         const pages = [];
         for (let i = startPage; i <= endPage; i++) {
           pages.push(
-            <button key={i} onClick={() => setCurrentPage(i)} className={`px-3 py-1 rounded ${currentPage === i ? "bg-blue-700 text-white" : "bg-blue-500 dark:bg-gray-600 hover:bg-blue-600 text-white"}`}>
+            <button key={i} onClick={() => setCurrentPage(i)} className={`px-3 py-1 rounded ${currentPage === i ? "bg-blue-800 text-white" : "bg-blue-400 dark:bg-gray-600 hover:bg-blue-600 text-white"}`}>
               {i}
             </button>
           );
@@ -33,7 +33,7 @@ export function Pagination({ setCurrentPage, currentPage, totalPages }) {
       <button
         onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
         disabled={currentPage === totalPages}
-        className="px-3 py-1 bg-blue-400 dark:bg-gray-600 text-white not-disabled:hover:bg-blue-500 rounded disabled:opacity-50"
+        className="px-3 py-1 bg-blue-800 dark:bg-gray-600 text-white not-disabled:hover:bg-blue-500 rounded disabled:opacity-50"
       >
         Next
       </button>

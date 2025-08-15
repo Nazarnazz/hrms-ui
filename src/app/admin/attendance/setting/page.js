@@ -1,13 +1,12 @@
 "use client";
 
 import Layout from "@/app/components/menu-items/layout";
-import { SearchBar } from "@/app/components/admin/searchbar";
+import { SearchBarNoPrint } from "@/app/components/admin/searchbar";
 import { Table, TableHead, TableHeader, TableBody, TableRow, TableCell } from "@/app/components/admin/table";
 import { Dialog, DialogActions, DialogBody, DialogTitle } from "@/app/components/admin/dialog";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import * as XLSX from "xlsx";
 import Datepicker from "react-datepicker";
 import { id } from "date-fns/locale";
 import { Pagination } from "@/app/components/admin/pagination";
@@ -108,19 +107,6 @@ export default function Setting() {
   // filter
   const [isVisibleOpen, setIsVisibleOpen] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-
-  // export
-  const handleExport = () => {
-    const worksheet = XLSX.utils.json_to_sheet(data);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
-    XLSX.writeFile(workbook, "data.xlsx");
-  };
-
-  // print
-  const handlePrint = () => {
-    window.print();
-  };
 
   //sorting by tanggal di awal dengan order descending
   const [sortBy, setSortBy] = useState("tanggal");
@@ -313,7 +299,7 @@ export default function Setting() {
             <div>
               <span className="text-[20px] mt-4 ">Setting Absensi</span>
               <div className="md:col-span-8">
-                <SearchBar
+                <SearchBarNoPrint
                   searchTerm={searchTerm}
                   setSearchTerm={setSearchTerm}
                   onToggleVisible={() => setIsVisibleOpen(true)}
@@ -321,25 +307,48 @@ export default function Setting() {
                   onRefresh={() => console.log("refresh")}
                   placeholder="Cari ID Karyawan, Nama Karyawan, Department"
                   className="placeholder:italic placeholder:text-xs"
-                  onExport={handleExport}
-                  onPrint={handlePrint}
                 />
               </div>
               <div className="py-4 rounded-lg dark:border-gray-700 ">
-                {selectedIds.length > 0 && (
-                  <div className="flex gap-2">
-                    <div className="mb-2 flex items-center gap-2">
-                      <button onClick={handleBulkDelete} className="bg-red-100 text-red-600 font-bold text-xs border border-red-500 px-3 py-1 rounded">
-                        Hapus Terpilih ({selectedIds.length})
-                      </button>
-                    </div>
-                    <div className="mb-2 flex items-center gap-2">
-                      <button onClick={handleBulkDelete} className="bg-blue-100 text-blue-600 font-bold text-xs border border-blue-500 px-3 py-1 rounded">
-                        Edit Terpilih ({selectedIds.length})
-                      </button>
+                <div className="flex gap-2">
+                  <div className="inline-block">
+                    <div className="flex items-center gap-1 mb-2 border border-gray-200 shadow italic px-1 rounded bg-blue-50">
+                      <span className="text-xs">Tampilkan:</span>
+                      <select value={itemsPerPage} onChange={(e) => setItemsPerPage(Number(e.target.value))} className="rounded p-1 text-xs">
+                        <option className="dark:bg-gray-600 bg-blue-50" value={5}>
+                          5
+                        </option>
+                        <option className="dark:bg-gray-600 bg-blue-50" value={10}>
+                          10
+                        </option>
+                        <option className="dark:bg-gray-600 bg-blue-50" value={25}>
+                          25
+                        </option>
+                        <option className="dark:bg-gray-600 bg-blue-50" value={50}>
+                          50
+                        </option>
+                        <option className="dark:bg-gray-600 bg-blue-50" value={100}>
+                          100
+                        </option>
+                      </select>
+                      <span className="text-xs">per halaman</span>
                     </div>
                   </div>
-                )}
+                  {selectedIds.length > 0 && (
+                    <>
+                      <div className="mb-2 flex items-center gap-2">
+                        <button onClick={handleBulkDelete} className="bg-red-100 text-red-600 font-bold text-xs border border-red-500 px-3 py-1 rounded">
+                          Hapus Terpilih ({selectedIds.length})
+                        </button>
+                      </div>
+                      <div className="mb-2 flex items-center gap-2">
+                        <button onClick={handleBulkDelete} className="bg-blue-100 text-blue-600 font-bold text-xs border border-blue-500 px-3 py-1 rounded">
+                          Edit Terpilih ({selectedIds.length})
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
                 <div onClick={() => setIsVisibleOpen(false) || setIsFilterOpen(false)} className="relative overflow-x-auto shadow-md sm:rounded-lg">
                   <Table>
                     <TableHead>
@@ -412,7 +421,7 @@ export default function Setting() {
                                 }}
                                 className="bg-red-50 border border-red-600 hover:bg-red-200 rounded group"
                               >
-                                <svg class="w-6 h-6 text-red-600 group-hover:text-red-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <svg className="w-6 h-6 text-red-600 group-hover:text-red-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                   <path
                                     fillRule="evenodd"
                                     d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z"
@@ -427,27 +436,7 @@ export default function Setting() {
                     </TableBody>
                   </Table>
                 </div>
-                <div className="flex items-center gap-2 mt-2">
-                  <span className="text-sm">Tampilkan:</span>
-                  <select value={itemsPerPage} onChange={(e) => setItemsPerPage(Number(e.target.value))} className="border rounded p-1 text-sm">
-                    <option className="dark:bg-gray-600" value={5}>
-                      5
-                    </option>
-                    <option className="dark:bg-gray-600" value={10}>
-                      10
-                    </option>
-                    <option className="dark:bg-gray-600" value={25}>
-                      25
-                    </option>
-                    <option className="dark:bg-gray-600" value={50}>
-                      50
-                    </option>
-                    <option className="dark:bg-gray-600" value={100}>
-                      100
-                    </option>
-                  </select>
-                  <span className="text-sm">per halaman</span>
-                </div>
+
                 <Pagination setCurrentPage={setCurrentPage} currentPage={currentPage} totalPages={totalPages} />
               </div>
             </div>
@@ -460,8 +449,8 @@ export default function Setting() {
     ${isVisibleOpen ? "translate-x-0" : "translate-x-full"}`}
           >
             <div className="flex gap-2 items-center">
-              <svg class="w-6 h-6 text-gray-800 dark:text-white mb-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-width="2" d="M3 11h18M3 15h18m-9-4v8m-8 0h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z" />
+              <svg className="w-6 h-6 text-gray-800 dark:text-white mb-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" strokeWidth="2" d="M3 11h18M3 15h18m-9-4v8m-8 0h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z" />
               </svg>
               <h2 className="text-lg font-bold mb-4">Visibilitas Kolom</h2>
               <button onClick={() => setIsVisibleOpen(false)} className="text-sm mb-4 ml-auto bg-gray-100 dark:bg-gray-400 border border-gray-900 hover:bg-gray-700 group rounded-md">
