@@ -19,27 +19,27 @@ export default function Riwayat() {
       id: 1,
       nama: "Nazar Aulia",
       divisi: "IT",
-      jabatan: "07:43",
+      jabatan: "J. Programmer",
       keluar: "17:02",
       method: "both",
       notes: "keterangan lain",
       status: "aktif",
       face_in: "model-1-jabatan.png",
       face_out: "model-1-pulang.png",
-      tanggal: "2025-07-12",
+      tanggal: "2025-05-16",
     },
     {
       id: 2,
       nama: "Alfian Sujantan",
       divisi: "Asset",
-      jabatan: "07:43",
+      jabatan: "Head Section",
       keluar: "17:02",
       method: "both",
       notes: "keterangan lain",
       status: "aktif",
       face_in: "model-2-jabatan.png",
       face_out: "model-2-pulang.png",
-      tanggal: "2025-07-16",
+      tanggal: "2015-01-16",
     },
     {
       id: 3,
@@ -52,33 +52,33 @@ export default function Riwayat() {
       status: "alfa",
       face_in: ".",
       face_out: ".",
-      tanggal: "2025-07-13",
+      tanggal: "2020-01-13",
     },
     {
       id: 4,
       nama: "Zeanda Hendro",
       divisi: "LPG",
-      jabatan: "07:43",
+      jabatan: "Admin",
       keluar: "17:02",
       method: "face",
       notes: "keterangan lain",
       status: "aktif",
       face_in: "model-4-jabatan.png",
       face_out: "foto_muka.jpg",
-      tanggal: "2025-07-14",
+      tanggal: "2020-08-14",
     },
     {
       id: 5,
       nama: "Fiki Papipu",
       divisi: "Purchasing",
-      jabatan: "07:43",
+      jabatan: "Admin",
       keluar: "17:02",
       method: "face",
       notes: "keterangan lain",
       status: "aktif",
       face_in: "model-3-jabatan.png",
       face_out: "foto_muka.jpg",
-      tanggal: "2025-07-12",
+      tanggal: "2019-07-12",
     },
   ];
 
@@ -320,6 +320,48 @@ export default function Riwayat() {
                 />
               </div>
               <div className="py-4 rounded-lg dark:border-gray-700 ">
+                <div className="flex">
+                  <div className="inline-block">
+                    <div className="flex items-center gap-1 mb-2 border border-gray-200 shadow italic px-1 rounded dark:bg-gray-800 bg-blue-50">
+                      <span className="text-xs">Tampilkan:</span>
+                      <select value={itemsPerPage} onChange={(e) => setItemsPerPage(Number(e.target.value))} className="rounded p-1 text-xs">
+                        <option className="dark:bg-gray-600 bg-blue-50" value={5}>
+                          5
+                        </option>
+                        <option className="dark:bg-gray-600 bg-blue-50" value={10}>
+                          10
+                        </option>
+                        <option className="dark:bg-gray-600 bg-blue-50" value={25}>
+                          25
+                        </option>
+                        <option className="dark:bg-gray-600 bg-blue-50" value={50}>
+                          50
+                        </option>
+                        <option className="dark:bg-gray-600 bg-blue-50" value={100}>
+                          100
+                        </option>
+                      </select>
+                      <span className="text-xs">per halaman</span>
+                    </div>
+                  </div>
+                  <div className="inline-block ml-auto">
+                    <div className="pe-4">
+                      <button
+                        onClick={() => {
+                          setIsAddOpen(true);
+                        }}
+                        className="items-center border border-gray-200 shadow dark:bg-gray-800 dark:hover:bg-gray-500 text-white px-3 rounded-lg bg-[#436cb2] hover:bg-[#5783cf]"
+                      >
+                        <div className="flex py-1 gap-2">
+                          <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                          </svg>
+                          <span className="text-xs">Tambah Data</span>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
                 {selectedIds.length > 0 && (
                   <div className="flex gap-2">
                     <div className="mb-2 flex items-center gap-2">
@@ -383,7 +425,11 @@ export default function Riwayat() {
                           <TableCell className="whitespace-nowrap">{item.tanggal}</TableCell>
                           {visibleColumns.includes("Status") && (
                             <TableCell className={`text-center`}>
-                              <span className={`rounded-md text-[11px] p-1 inline-block ${item.status === "aktif" ? "bg-green-100 border border-green-500 text-green-500" : "bg-gray-100 border border-gray-500 text-gray-700"} `}>
+                              <span
+                                className={`rounded-md text-[11px] p-1 inline-block ${
+                                  item.status === "aktif" ? "bg-green-100 border dark:bg-gray-800 border-green-500 text-green-500" : "bg-gray-100 border dark:bg-gray-800 dark:text-gray-300 border-gray-500 text-gray-700"
+                                } `}
+                              >
                                 {item.status === "aktif" ? "Aktif" : " Nonaktif "}
                               </span>
                             </TableCell>
@@ -395,7 +441,7 @@ export default function Riwayat() {
                                 onClick={() => {
                                   setIsEditOpen(true);
                                 }}
-                                className="hover:bg-blue-200 bg-blue-50 border border-blue-600 rounded group"
+                                className="hover:bg-blue-200 bg-blue-50 border dark:bg-gray-800 border-blue-600 rounded group"
                               >
                                 <svg className="w-6 h-6 text-blue-700 group-hover:text-blue-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                   <path
@@ -414,7 +460,7 @@ export default function Riwayat() {
                                 onClick={() => {
                                   setIsDeleteOpen(true);
                                 }}
-                                className="bg-red-50 border border-red-600 hover:bg-red-200 rounded group"
+                                className="bg-red-50 border border-red-600 dark:bg-gray-800 hover:bg-red-200 rounded group"
                               >
                                 <svg className="w-6 h-6 text-red-600 group-hover:text-red-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                   <path
@@ -431,27 +477,7 @@ export default function Riwayat() {
                     </TableBody>
                   </Table>
                 </div>
-                <div className="flex items-center gap-2 mt-2">
-                  <span className="text-sm">Tampilkan:</span>
-                  <select value={itemsPerPage} onChange={(e) => setItemsPerPage(Number(e.target.value))} className="border rounded p-1 text-sm">
-                    <option className="dark:bg-gray-600" value={5}>
-                      5
-                    </option>
-                    <option className="dark:bg-gray-600" value={10}>
-                      10
-                    </option>
-                    <option className="dark:bg-gray-600" value={25}>
-                      25
-                    </option>
-                    <option className="dark:bg-gray-600" value={50}>
-                      50
-                    </option>
-                    <option className="dark:bg-gray-600" value={100}>
-                      100
-                    </option>
-                  </select>
-                  <span className="text-sm">per halaman</span>
-                </div>
+
                 <Pagination setCurrentPage={setCurrentPage} currentPage={currentPage} totalPages={totalPages} />
               </div>
             </div>

@@ -112,11 +112,11 @@ export default function Profile() {
 
             <Link href={"/user/pengaturan"}>
               <div className="py-1 pl-1 hover:bg-red-500 flex  items-center gap-3 group rounded-lg">
-                <svg className="w-5 h-5 text-gray-700 group-hover:text-gray-950 dark:text-white  group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-gray-700  dark:text-white  group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2" />
                 </svg>
 
-                <span className="text-sm text-gray-700 group-hover:text-gray-950 dark:text-white group-hover:text-white">Logout</span>
+                <span className="text-sm text-gray-700  dark:text-white group-hover:text-white">Logout</span>
               </div>
             </Link>
           </div>

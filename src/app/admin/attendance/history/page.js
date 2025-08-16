@@ -104,9 +104,9 @@ export default function Riwayat() {
   };
 
   const statusColorMap = {
-    both: "bg-pink-100 text-pink-600 border border-pink-600",
-    face: "bg-blue-100 text-blue-600 border border-blue-600",
-    gps: "bg-yellow-100 text-yellow-600 border border-yellow-600",
+    both: "bg-pink-100 dark:bg-gray-800 text-pink-600 border border-pink-600",
+    face: "bg-blue-100 dark:bg-gray-800 text-blue-600 border border-blue-600",
+    gps: "bg-yellow-100 dark:bg-gray-800 text-yellow-600 border border-yellow-600",
   };
 
   //modal edit
@@ -341,7 +341,7 @@ export default function Riwayat() {
               <div className="py-4 rounded-lg dark:border-gray-700 ">
                 <div className="flex gap-2">
                   <div className="inline-block">
-                    <div className="flex items-center gap-1 mb-2 border border-gray-200 shadow italic px-1 rounded bg-blue-50">
+                    <div className="flex items-center gap-1 mb-2 border dark:bg-gray-800 border-gray-200 shadow italic px-1 rounded bg-blue-50">
                       <span className="text-xs">Tampilkan:</span>
                       <select value={itemsPerPage} onChange={(e) => setItemsPerPage(Number(e.target.value))} className="rounded p-1 text-xs">
                         <option className="dark:bg-gray-600 bg-blue-50" value={5}>
@@ -456,7 +456,11 @@ export default function Riwayat() {
                           <TableCell className="whitespace-nowrap">{item.tanggal}</TableCell>
                           {visibleColumns.includes("Status") && (
                             <TableCell>
-                              <span className={`rounded-md text-[11px] p-1 inline-block ${item.status === "hadir" ? "bg-green-100 border border-green-500 text-green-500" : "bg-red-100 border border-red-500 text-red-500"} `}>
+                              <span
+                                className={`rounded-md text-[11px] p-1 inline-block ${
+                                  item.status === "hadir" ? "bg-green-100 dark:bg-gray-800 border border-green-500 text-green-500" : "bg-red-100 border dark:bg-gray-800 border-red-500 text-red-500"
+                                } `}
+                              >
                                 {item.status === "hadir" ? "Hadir" : " Absen "}
                               </span>
                             </TableCell>
@@ -485,7 +489,7 @@ export default function Riwayat() {
                                 onClick={() => {
                                   setIsEditOpen(true);
                                 }}
-                                className="hover:bg-blue-200 bg-blue-50 border border-blue-600 rounded group"
+                                className="hover:bg-blue-200 bg-blue-50 border dark:bg-gray-800 border-blue-600 rounded group"
                               >
                                 <svg className="w-6 h-6 text-blue-700 group-hover:text-blue-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                   <path
@@ -504,7 +508,7 @@ export default function Riwayat() {
                                 onClick={() => {
                                   setIsDeleteOpen(true);
                                 }}
-                                className="bg-red-50 border border-red-600 hover:bg-red-200 rounded group"
+                                className="bg-red-50 border border-red-600 dark:bg-gray-800 hover:bg-red-200 rounded group"
                               >
                                 <svg className="w-6 h-6 text-red-600 group-hover:text-red-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                   <path

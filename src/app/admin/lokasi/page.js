@@ -127,7 +127,7 @@ export default function Worksite() {
               <div className="py-4 rounded-lg dark:border-gray-700 ">
                 <div className="flex">
                   <div className="inline-block">
-                    <div className="flex items-center gap-1 mb-2 border border-gray-200 shadow italic px-1 rounded bg-blue-50">
+                    <div className="flex items-center gap-1 mb-2 border border-gray-200 shadow italic px-1 rounded dark:bg-gray-800 bg-blue-50">
                       <span className="text-xs">Tampilkan:</span>
                       <select value={itemsPerPage} onChange={(e) => setItemsPerPage(Number(e.target.value))} className="rounded p-1 text-xs">
                         <option className="dark:bg-gray-600 bg-blue-50" value={5}>
@@ -155,11 +155,11 @@ export default function Worksite() {
                         onClick={() => {
                           setIsAddOpen(true);
                         }}
-                        className="items-center border border-gray-200 shadow text-white px-3 rounded-lg bg-[#436cb2] hover:bg-[#5783cf]"
+                        className="items-center border border-gray-200 dark:bg-gray-800 dark:hover:bg-gray-500 shadow text-white px-3 rounded-lg bg-[#436cb2] hover:bg-[#5783cf]"
                       >
                         <div className="flex py-1 gap-2">
-                          <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                          <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                           </svg>
                           <span className="text-xs">Tambah Data</span>
                         </div>
@@ -208,7 +208,7 @@ export default function Worksite() {
                                 onClick={() => {
                                   setIsEditOpen(true);
                                 }}
-                                className="hover:bg-blue-200 bg-blue-50 border border-blue-600 rounded group"
+                                className="hover:bg-blue-200 bg-blue-50 border dark:bg-gray-800 border-blue-600 rounded group"
                               >
                                 <svg className="w-6 h-6 text-blue-700 group-hover:text-blue-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                   <path
@@ -227,7 +227,7 @@ export default function Worksite() {
                                 onClick={() => {
                                   setIsDeleteOpen(true);
                                 }}
-                                className="bg-red-50 border border-red-600 hover:bg-red-200 rounded group"
+                                className="bg-red-50 border border-red-600 dark:bg-gray-800 hover:bg-red-200 rounded group"
                               >
                                 <svg className="w-6 h-6 text-red-600 group-hover:text-red-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                   <path

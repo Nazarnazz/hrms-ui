@@ -312,7 +312,7 @@ export default function Setting() {
               <div className="py-4 rounded-lg dark:border-gray-700 ">
                 <div className="flex gap-2">
                   <div className="inline-block">
-                    <div className="flex items-center gap-1 mb-2 border border-gray-200 shadow italic px-1 rounded bg-blue-50">
+                    <div className="flex items-center gap-1 mb-2 border dark:bg-gray-800 border-gray-200 shadow italic px-1 rounded bg-blue-50">
                       <span className="text-xs">Tampilkan:</span>
                       <select value={itemsPerPage} onChange={(e) => setItemsPerPage(Number(e.target.value))} className="rounded p-1 text-xs">
                         <option className="dark:bg-gray-600 bg-blue-50" value={5}>
@@ -379,10 +379,13 @@ export default function Setting() {
                           <TableCell>{item.divisi}</TableCell>
                           {visibleColumns.includes("Hari Kerja") && (
                             <TableCell className="whitespace-nowrap text-center">
-                              <span className="bg-blue-50 p-1 text-blue-500 border border-blue-500 rounded-md">Senin</span>, <span className="bg-yellow-50 p-1 text-yellow-500 border border-yellow-500 rounded-md">Selasa</span>,{" "}
-                              <span className="bg-green-50 p-1 text-green-500 border border-green-500 rounded-md">Rabu</span>, <span className="bg-pink-50 p-1 text-pink-500 border0 border border-pink-500 rounded-md">Kamis</span>,{" "}
-                              <span className="bg-gray-50 p-1 text-gray-500 border border-gray-500 rounded-md">Jumat</span>, <span className="bg-purple-50 p-1 text-purple-500 border border-purple-500 rounded-md">Sabtu</span>,{" "}
-                              <span className=" bg-orange-50 p-1 text-orange-500 border border-orange-500 rounded-md">Minggu</span>
+                              <span className="bg-blue-50 p-1 dark:bg-gray-800 text-blue-500 border border-blue-500 rounded-md">Senin</span>,{" "}
+                              <span className="bg-yellow-50 dark:bg-gray-800 p-1 text-yellow-500 border border-yellow-500 rounded-md">Selasa</span>,{" "}
+                              <span className="bg-green-50 dark:bg-gray-800 p-1 text-green-500 border border-green-500 rounded-md">Rabu</span>,{" "}
+                              <span className="bg-pink-50 dark:bg-gray-800 p-1 text-pink-500 border0 border border-pink-500 rounded-md">Kamis</span>,{" "}
+                              <span className="bg-gray-50 dark:bg-gray-800 p-1 dark:text-gray-300 text-gray-500 border border-gray-500 rounded-md">Jumat</span>,{" "}
+                              <span className="bg-purple-50 dark:bg-gray-800 p-1 text-purple-500 border border-purple-500 rounded-md">Sabtu</span>,{" "}
+                              <span className=" bg-orange-50 p-1 dark:bg-gray-800 text-orange-500 border border-orange-500 rounded-md">Minggu</span>
                             </TableCell>
                           )}
                           {visibleColumns.includes("Masuk") && <TableCell>{item.masuk}</TableCell>}
@@ -400,7 +403,7 @@ export default function Setting() {
                                 onClick={() => {
                                   setIsEditOpen(true);
                                 }}
-                                className="hover:bg-blue-200 bg-blue-50 border border-blue-600 rounded group"
+                                className="hover:bg-blue-200 bg-blue-50 border dark:bg-gray-800 border-blue-600 rounded group"
                               >
                                 <svg className="w-6 h-6 text-blue-700 group-hover:text-blue-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                   <path
@@ -419,7 +422,7 @@ export default function Setting() {
                                 onClick={() => {
                                   setIsDeleteOpen(true);
                                 }}
-                                className="bg-red-50 border border-red-600 hover:bg-red-200 rounded group"
+                                className="bg-red-50 border dark:bg-gray-800 border-red-600 hover:bg-red-200 rounded group"
                               >
                                 <svg className="w-6 h-6 text-red-600 group-hover:text-red-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                   <path

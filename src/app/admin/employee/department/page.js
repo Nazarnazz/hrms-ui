@@ -146,7 +146,7 @@ export default function Department() {
               <div className="py-4 rounded-lg dark:border-gray-700 ">
                 <div className="flex">
                   <div className="inline-block">
-                    <div className="flex items-center gap-1 mb-2 border border-gray-200 shadow italic px-1 rounded bg-blue-50">
+                    <div className="flex items-center gap-1 mb-2 border border-gray-200 shadow italic px-1 rounded dark:bg-gray-800 bg-blue-50">
                       <span className="text-xs">Tampilkan:</span>
                       <select value={itemsPerPage} onChange={(e) => setItemsPerPage(Number(e.target.value))} className="rounded p-1 text-xs">
                         <option className="dark:bg-gray-600 bg-blue-50" value={5}>
@@ -174,7 +174,7 @@ export default function Department() {
                         onClick={() => {
                           setIsAddOpen(true);
                         }}
-                        className="items-center border border-gray-200 shadow text-white px-3 rounded-lg bg-[#436cb2] hover:bg-[#5783cf]"
+                        className="items-center border border-gray-200 shadow dark:bg-gray-800 dark:hover:bg-gray-500 text-white px-3 rounded-lg bg-[#436cb2] hover:bg-[#5783cf]"
                       >
                         <div className="flex py-1 gap-2">
                           <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -217,9 +217,9 @@ export default function Department() {
                                 onClick={() => {
                                   setIsEditOpen(true);
                                 }}
-                                className="hover:bg-blue-200 bg-blue-50 border border-blue-600 rounded group"
+                                className="hover:bg-blue-200 bg-blue-50 border dark:bg-gray-800 border-blue-600 rounded group"
                               >
-                                <svg className="w-6 h-6 text-blue-700 group-hover:text-blue-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <svg className="w-6 h-6 text-blue-700  group-hover:text-blue-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                   <path
                                     fillRule="evenodd"
                                     d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z"
@@ -236,7 +236,7 @@ export default function Department() {
                                 onClick={() => {
                                   setIsDeleteOpen(true);
                                 }}
-                                className="bg-red-50 border border-red-600 hover:bg-red-200 rounded group"
+                                className="bg-red-50 border border-red-600 dark:bg-gray-800 hover:bg-red-200 rounded group"
                               >
                                 <svg className="w-6 h-6 text-red-600 group-hover:text-red-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                   <path
