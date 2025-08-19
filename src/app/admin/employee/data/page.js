@@ -92,6 +92,8 @@ export default function Riwayat() {
 
   //modal edit
   const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isAddOpen, setIsAddOpen] = useState(false);
+
   //hapus
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
@@ -353,7 +355,7 @@ export default function Riwayat() {
                         className="items-center border border-gray-200 shadow dark:bg-gray-800 dark:hover:bg-gray-500 text-white px-3 rounded-lg bg-[#436cb2] hover:bg-[#5783cf]"
                       >
                         <div className="flex py-1 gap-2">
-                          <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                          <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                           </svg>
                           <span className="text-xs">Tambah Data</span>
@@ -744,6 +746,58 @@ export default function Riwayat() {
           </div>
           <div className="flex justify-end">
             <button className="px-10 py-1.5 rounded bg-[#a75050] text-white hover:bg-[#d46d6d]">Ya</button>
+          </div>
+        </DialogActions>
+      </Dialog>
+
+      {/* Modal Tambah  */}
+      <Dialog open={isAddOpen} onClose={() => setIsAddOpen(false)}>
+        <DialogTitle>Tambah Data</DialogTitle>
+        <hr className="border-1" />
+        <DialogBody>
+          <fieldset className="mt-2 py-5 flex items-center gap-6">
+            <Label htmlFor="name">Nama</Label>
+            <Input type="text" name="name" id="name" className="ps-4" placeholder="..." required={true} />
+          </fieldset>
+          <div className="grid grid-cols-2 pb-4 gap-6">
+            <div className="flex flex-col">
+              <fieldset>
+                <Label htmlFor="department" className="my-2">
+                  Department
+                </Label>
+                <Input type="text" name="department" id="department" className="ps-4" placeholder="..." required={true} />
+              </fieldset>
+              <fieldset>
+                <Label htmlFor="jabatan" className="my-2">
+                  Jabatan
+                </Label>
+                <Input type="text" name="jabatan" id="jabatan" className="ps-4" placeholder="..." required={true} />
+              </fieldset>
+            </div>
+            <div className="flex flex-col">
+              <fieldset>
+                <Label className="my-2" htmlFor="method">
+                  Status
+                </Label>
+                <Input type="text" name="method" id="method" className="ps-4" placeholder="Nonaktif" required={true} />
+              </fieldset>
+              <fieldset>
+                <Label className="my-2" htmlFor="tanggal">
+                  Tanggal Join
+                </Label>
+                <Input type="date" name="tanggal" id="tanggal" required={true} />
+              </fieldset>
+            </div>
+          </div>
+        </DialogBody>
+        <DialogActions>
+          <div className="flex">
+            <button className="px-10 py-1.5 rounded bg-gray-600 text-white hover:bg-gray-400" onClick={() => setIsAddOpen(false)}>
+              Batal
+            </button>
+          </div>
+          <div className="flex justify-end">
+            <button className="px-10 py-1.5 rounded bg-[#508DA7] text-white hover:bg-[#6db7d4]">Tambahkan</button>
           </div>
         </DialogActions>
       </Dialog>
