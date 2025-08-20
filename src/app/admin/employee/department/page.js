@@ -177,7 +177,7 @@ export default function Department() {
                         className="items-center border border-gray-200 shadow dark:bg-gray-800 dark:hover:bg-gray-500 text-white px-3 rounded-lg bg-[#436cb2] hover:bg-[#5783cf]"
                       >
                         <div className="flex py-1 gap-2">
-                          <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                          <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                           </svg>
                           <span className="text-xs">Tambah Data</span>
@@ -269,9 +269,9 @@ export default function Department() {
             <Label htmlFor="name">Nama Department</Label>
             <Input type="text" name="name" id="name" className="ps-4" placeholder="..." required={true} />
           </fieldset>
-          <fieldset className="mt-2 py-5 flex items-center gap-6">
+          <fieldset className="py-3 items-center">
             <Label htmlFor="name">Description</Label>
-            <textarea type="text" name="name" id="name" className="ps-4" placeholder="..." required={true} />
+            <textarea type="text" name="name" id="name" className="ps-4 bg-gray-200 rounded-sm w-full" placeholder="..." required={true} />
           </fieldset>
         </DialogBody>
         <DialogActions>

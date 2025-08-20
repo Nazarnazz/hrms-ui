@@ -4,13 +4,13 @@ import Layout from "@/app/components/menu-items/layout";
 import { SearchBarNoPrint } from "@/app/components/admin/searchbar";
 import { Table, TableHead, TableHeader, TableBody, TableRow, TableCell } from "@/app/components/admin/table";
 import { Dialog, DialogActions, DialogBody, DialogTitle } from "@/app/components/admin/dialog";
+import { Input, Label } from "@/app/components/admin/input";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Datepicker from "react-datepicker";
 import { id } from "date-fns/locale";
 import { Pagination } from "@/app/components/admin/pagination";
-import { Input, Label } from "@/app/components/admin/input";
 
 export default function Setting() {
   const Riwayat = [
@@ -97,6 +97,8 @@ export default function Setting() {
 
   //modal edit
   const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isAddOpen, setIsAddOpen] = useState(false);
+
   //hapus
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
@@ -348,6 +350,23 @@ export default function Setting() {
                       </div>
                     </>
                   )}
+                  <div className="inline-block ml-auto">
+                    <div className="pe-4">
+                      <button
+                        onClick={() => {
+                          setIsAddOpen(true);
+                        }}
+                        className="items-center border border-gray-200 shadow dark:bg-gray-800 dark:hover:bg-gray-500 text-white px-3 rounded-lg bg-[#436cb2] hover:bg-[#5783cf]"
+                      >
+                        <div className="flex py-1 gap-2">
+                          <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                          </svg>
+                          <span className="text-xs">Tambah Data</span>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
                 </div>
                 <div onClick={() => setIsVisibleOpen(false) || setIsFilterOpen(false)} className="relative overflow-x-auto shadow-md sm:rounded-lg">
                   <Table>
@@ -448,8 +467,8 @@ export default function Setting() {
         {isVisibleOpen && (
           <div
             className={`fixed top-0 right-0 w-84 h-full bg-white dark:bg-gray-800 shadow-lg z-50 p-4
-    transform transition-transform duration-300 ease-in-out
-    ${isVisibleOpen ? "translate-x-0" : "translate-x-full"}`}
+            transform transition-transform duration-300 ease-in-out
+            ${isVisibleOpen ? "translate-x-0" : "translate-x-full"}`}
           >
             <div className="flex gap-2 items-center">
               <svg className="w-6 h-6 text-gray-800 dark:text-white mb-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -575,6 +594,32 @@ export default function Setting() {
           </div>
         )}
       </Layout>
+
+      {/* Modal Tambah  */}
+      <Dialog open={isAddOpen} onClose={() => setIsAddOpen(false)}>
+        <DialogTitle>Tambah Data</DialogTitle>
+        <hr className="border-1" />
+        <DialogBody>
+          <fieldset className="mt-2 py-5 flex items-center gap-6">
+            <Label htmlFor="name">Nama Department</Label>
+            <Input type="text" name="name" id="name" className="ps-4" placeholder="..." required={true} />
+          </fieldset>
+          <fieldset className="py-3 items-center">
+            <Label htmlFor="name">Description</Label>
+            <textarea type="text" name="name" id="name" className="ps-4 bg-gray-200 rounded-sm w-full" placeholder="..." required={true} />
+          </fieldset>
+        </DialogBody>
+        <DialogActions>
+          <div className="flex">
+            <button className="px-10 py-1.5 rounded bg-gray-600 text-white hover:bg-gray-400" onClick={() => setIsAddOpen(false)}>
+              Batal
+            </button>
+          </div>
+          <div className="flex justify-end">
+            <button className="px-10 py-1.5 rounded bg-[#508DA7] text-white hover:bg-[#6db7d4]">Tambahkan</button>
+          </div>
+        </DialogActions>
+      </Dialog>
 
       {/* Modal Edit  */}
       <Dialog open={isEditOpen} onClose={() => setIsEditOpen(false)}>

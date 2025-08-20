@@ -1,15 +1,18 @@
 "use client";
 
 import Layout from "@/app/components/menu-items/layout";
-import { SearchBar } from "@/app/components/admin/searchbar";
+import { SearchBarNoPrint } from "@/app/components/admin/searchbar";
 import { Table, TableHead, TableHeader, TableBody, TableRow, TableCell } from "@/app/components/admin/table";
+import { Dialog, DialogActions, DialogBody, DialogTitle } from "@/app/components/admin/dialog";
+import { Input, Label } from "@/app/components/admin/input";
 import { useState, useEffect } from "react";
+import Datepicker from "react-datepicker";
+import { id } from "date-fns/locale";
 
 // import Link from "next/link";
 // import Image from "next/image";
 import { Pagination } from "@/app/components/admin/pagination";
 import { Breadcrumb } from "@/app/components/admin/breadcrumb";
-import { IconExport, IconPrint } from "@/app/components/admin/icon";
 
 export default function Users() {
   const Pengguna = [
@@ -51,7 +54,48 @@ export default function Users() {
     },
   ];
 
+  //datepicker
+  const [selectedMonth, setSelectedMonth] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const handleStartChange = (date) => {
+    if (endDate && date > endDate) {
+      setEndDate(date); // sesuaikan end date jika start > end
+    }
+    setStartDate(date);
+  };
+
+  const [openMenus, setOpenMenus] = useState(false);
+  const [openMenusMonth, setOpenMenusMonth] = useState(false);
+
+  const handleEndChange = (date) => {
+    if (startDate && date < startDate) {
+      setStartDate(date); // sesuaikan start date jika end < start
+    }
+    setEndDate(date);
+  };
+
+  const [visibleColumns, setVisibleColumns] = useState(["Email", "First Name", "Last Name", "Username"]);
+
+  const allColumns = ["Email", "First Name", "Last Name", "Username", "Joined From", "Joined End"];
+
+  const toggleColumn = (col) => {
+    setVisibleColumns((prev) => (prev.includes(col) ? prev.filter((c) => c !== col) : [...prev, col]));
+  };
+
   const [searchTerm, setSearchTerm] = useState("");
+
+  //modal edit
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isAddOpen, setIsAddOpen] = useState(false);
+
+  //hapus
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
+
+  // filter
+  const [isVisibleOpen, setIsVisibleOpen] = useState(false);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   //sorting by first_name di awal dengan order descending
   const [sortBy, setSortBy] = useState("first_name");
@@ -134,56 +178,120 @@ export default function Users() {
           ) : (
             <div>
               <span className="text-[20px] mt-4 ">Akun Pengguna</span>
-              <div className="grid md:grid-cols-3 grid-cols-2 gap-2">
-                <div>
-                  <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-                </div>
-                <div className="hidden md:block"></div>
-                <div className="flex items-center justify-end">
-                  <IconExport />
-                  <IconPrint />
-                </div>
-              </div>
+
+              <SearchBarNoPrint
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+                onToggleVisible={() => setIsVisibleOpen(true)}
+                onToggleFilter={() => setIsFilterOpen(true)}
+                onRefresh={() => console.log("refresh")}
+                placeholder={`Cari Email, Nama, Username`}
+                className="placeholder:italic placeholder:text-xs"
+              />
               <div className="py-4 rounded-lg dark:border-gray-700 ">
-                <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <div className="flex gap-2">
+                  <div className="inline-block">
+                    <div className="flex items-center gap-1 mb-2 border dark:bg-gray-800 border-gray-200 shadow italic px-1 rounded bg-blue-50">
+                      <span className="text-xs">Tampilkan:</span>
+                      <select value={itemsPerPage} onChange={(e) => setItemsPerPage(Number(e.target.value))} className="rounded p-1 text-xs">
+                        <option className="dark:bg-gray-600 bg-blue-50" value={5}>
+                          5
+                        </option>
+                        <option className="dark:bg-gray-600 bg-blue-50" value={10}>
+                          10
+                        </option>
+                        <option className="dark:bg-gray-600 bg-blue-50" value={25}>
+                          25
+                        </option>
+                        <option className="dark:bg-gray-600 bg-blue-50" value={50}>
+                          50
+                        </option>
+                        <option className="dark:bg-gray-600 bg-blue-50" value={100}>
+                          100
+                        </option>
+                      </select>
+                      <span className="text-xs">per halaman</span>
+                    </div>
+                  </div>
+                  <div className="inline-block ml-auto">
+                    <div className="pe-4">
+                      <button
+                        onClick={() => {
+                          setIsAddOpen(true);
+                        }}
+                        className="items-center border border-gray-200 shadow dark:bg-gray-800 dark:hover:bg-gray-500 text-white px-3 rounded-lg bg-[#436cb2] hover:bg-[#5783cf]"
+                      >
+                        <div className="flex py-1 gap-2">
+                          <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                          </svg>
+                          <span className="text-xs">Tambah Data</span>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div onClick={() => setIsVisibleOpen(false) || setIsFilterOpen(false)} className="relative overflow-x-auto shadow-md sm:rounded-lg">
                   <Table>
                     <TableHead>
                       <TableRow>
                         <TableHeader>#NO</TableHeader>
-                        <TableHeader>
-                          <div className="flex items-center">
-                            Email
-                            <svg onClick={() => handleSort("email")} className="w-3 h-3 ms-1.5 hover:text-blue-900 dark:hover:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                              <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
-                            </svg>
-                          </div>
-                        </TableHeader>
-                        <TableHeader>
-                          <div className="flex items-center">
-                            First Name
-                            <svg onClick={() => handleSort("first_name")} className="w-3 h-3 ms-1.5 hover:text-blue-900 dark:hover:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                              <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
-                            </svg>
-                          </div>
-                        </TableHeader>
-                        <TableHeader>
-                          <div className="flex items-center">
-                            Last Name
-                            <svg onClick={() => handleSort("last_name")} className="w-3 h-3 ms-1.5 hover:text-blue-900 dark:hover:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                              <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
-                            </svg>
-                          </div>
-                        </TableHeader>
-                        <TableHeader>
-                          <div className="flex items-center">
-                            Username
-                            <svg onClick={() => handleSort("username")} className="w-3 h-3 ms-1.5 hover:text-blue-900 dark:hover:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                              <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
-                            </svg>
-                          </div>
-                        </TableHeader>
-                        <TableHeader>Joined From</TableHeader>
-                        <TableHeader>Joined End</TableHeader>
+                        {visibleColumns.includes("Email") && (
+                          <TableHeader>
+                            <div className="flex items-center">
+                              Email
+                              <svg onClick={() => handleSort("email")} className="w-3 h-3 ms-1.5 hover:text-blue-900 dark:hover:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                              </svg>
+                            </div>
+                          </TableHeader>
+                        )}
+                        {visibleColumns.includes("First Name") && (
+                          <TableHeader>
+                            <div className="flex items-center">
+                              First Name
+                              <svg
+                                onClick={() => handleSort("first_name")}
+                                className="w-3 h-3 ms-1.5 hover:text-blue-900 dark:hover:text-gray-300"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                              </svg>
+                            </div>
+                          </TableHeader>
+                        )}
+                        {visibleColumns.includes("Last Name") && (
+                          <TableHeader>
+                            <div className="flex items-center">
+                              Last Name
+                              <svg
+                                onClick={() => handleSort("last_name")}
+                                className="w-3 h-3 ms-1.5 hover:text-blue-900 dark:hover:text-gray-300"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                              </svg>
+                            </div>
+                          </TableHeader>
+                        )}
+                        {visibleColumns.includes("Username") && (
+                          <TableHeader>
+                            <div className="flex items-center">
+                              Username
+                              <svg onClick={() => handleSort("username")} className="w-3 h-3 ms-1.5 hover:text-blue-900 dark:hover:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                              </svg>
+                            </div>
+                          </TableHeader>
+                        )}
+                        {visibleColumns.includes("Joined From") && <TableHeader>Joined From</TableHeader>}
+                        {visibleColumns.includes("Joined End") && <TableHeader>Joined End</TableHeader>}
                         <TableHeader>
                           <span className="sr-only">action</span>
                         </TableHeader>
@@ -193,16 +301,48 @@ export default function Users() {
                       {data.map((item, index) => (
                         <TableRow key={item.id}>
                           <TableCell>{startIndex + index + 1}</TableCell>
-                          <TableCell>{item.email}</TableCell>
-                          <TableCell>{item.first_name}</TableCell>
-                          <TableCell>{item.last_name}</TableCell>
-                          <TableCell>{item.username}</TableCell>
-                          <TableCell>{item.join_start}</TableCell>
-                          <TableCell>{item.join_end}</TableCell>
-                          <TableCell className="text-right">
-                            <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                              Edit
-                            </a>
+                          {visibleColumns.includes("Email") && <TableCell>{item.email}</TableCell>}
+                          {visibleColumns.includes("First Name") && <TableCell>{item.first_name}</TableCell>}
+                          {visibleColumns.includes("Last Name") && <TableCell>{item.last_name}</TableCell>}
+                          {visibleColumns.includes("Username") && <TableCell>{item.username}</TableCell>}
+                          {visibleColumns.includes("Joined Start") && <TableCell>{item.join_start}</TableCell>}
+                          {visibleColumns.includes("Joined End") && <TableCell>{item.join_end}</TableCell>}
+                          <TableCell>
+                            <div className="flex gap-3">
+                              <button
+                                onClick={() => {
+                                  setIsEditOpen(true);
+                                }}
+                                className="hover:bg-blue-200 bg-blue-50 border dark:bg-gray-800 border-blue-600 rounded group"
+                              >
+                                <svg className="w-6 h-6 text-blue-700 group-hover:text-blue-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                  <path
+                                    fillRule="evenodd"
+                                    d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z"
+                                    clipRule="evenodd"
+                                  />
+                                  <path
+                                    fillRule="evenodd"
+                                    d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z"
+                                    clipRule="evenodd"
+                                  />
+                                </svg>
+                              </button>
+                              <button
+                                onClick={() => {
+                                  setIsDeleteOpen(true);
+                                }}
+                                className="bg-red-50 border dark:bg-gray-800 border-red-600 hover:bg-red-200 rounded group"
+                              >
+                                <svg className="w-6 h-6 text-red-600 group-hover:text-red-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                  <path
+                                    fillRule="evenodd"
+                                    d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z"
+                                    clipRule="evenodd"
+                                  />
+                                </svg>
+                              </button>
+                            </div>
                           </TableCell>
                         </TableRow>
                       ))}
@@ -214,7 +354,280 @@ export default function Users() {
             </div>
           )}
         </div>
+        {isVisibleOpen && (
+          <div
+            className={`fixed top-0 right-0 w-84 h-full bg-white dark:bg-gray-800 shadow-lg z-50 p-4
+            transform transition-transform duration-300 ease-in-out
+            ${isVisibleOpen ? "translate-x-0" : "translate-x-full"}`}
+          >
+            <div className="flex gap-2 items-center">
+              <svg className="w-6 h-6 text-gray-800 dark:text-white mb-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" strokeWidth="2" d="M3 11h18M3 15h18m-9-4v8m-8 0h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z" />
+              </svg>
+              <h2 className="text-lg font-bold mb-4">Visibilitas Kolom</h2>
+              <button onClick={() => setIsVisibleOpen(false)} className="text-sm mb-4 ml-auto bg-gray-100 dark:bg-gray-400 border border-gray-900 hover:bg-gray-700 group rounded-md">
+                <svg className="w-7 h-7 text-gray-900 group-hover:text-gray-100" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18 17.94 6M18 18 6.06 6" />
+                </svg>
+              </button>
+            </div>
+            {allColumns.map((col) => (
+              <label key={col} className="block mb-2 ms-3">
+                <input type="checkbox" checked={visibleColumns.includes(col)} className="accent-green-300" onChange={() => toggleColumn(col)} /> {col}
+              </label>
+            ))}
+          </div>
+        )}
+        {isFilterOpen && (
+          <div
+            className={`fixed top-0 right-0 w-84 h-full bg-white dark:bg-gray-800 shadow-lg z-50 p-4
+                    transform transition-transform duration-300 ease-in-out
+                    ${isFilterOpen ? "translate-x-0" : "translate-x-full"}`}
+          >
+            <div className="flex items-center w-full gap-2">
+              <svg className="w-6 h-6 mb-4  text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeWidth="2"
+                  d="M18.796 4H5.204a1 1 0 0 0-.753 1.659l5.302 6.058a1 1 0 0 1 .247.659v4.874a.5.5 0 0 0 .2.4l3 2.25a.5.5 0 0 0 .8-.4v-7.124a1 1 0 0 1 .247-.659l5.302-6.059c.566-.646.106-1.658-.753-1.658Z"
+                />
+              </svg>
+              <h2 className="text-lg font-bold mb-4">Filter Data</h2>{" "}
+              <button onClick={() => setIsFilterOpen(false)} className="text-sm mb-4 ml-auto bg-gray-100 dark:bg-gray-400 border border-gray-900 hover:bg-gray-700 group rounded-md">
+                <svg className="w-7 h-7 text-gray-900 group-hover:text-gray-100" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18 17.94 6M18 18 6.06 6" />
+                </svg>
+              </button>
+            </div>
+            <div className="flex items-center my-2 w-full hover:font-bold dark:text-white ">
+              <button onClick={() => setOpenMenusMonth((prev) => !prev) || setOpenMenus(false)} className="flex-1 text-sm text-left">
+                Berdasarkan Bulan
+              </button>
+              <svg className={`w-4 h-4 ml-auto transition-transform ${openMenusMonth ? "rotate-180" : ""}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+            {openMenusMonth && (
+              <div className="flex gap-2 items-center">
+                <Datepicker
+                  selected={selectedMonth}
+                  locale={id}
+                  className="text-[14px] text-center my-2 border rounded-sm"
+                  onChange={(date) => setSelectedMonth(date)}
+                  dateFormat="MMMM yyyy" // Format to display only month and year
+                  showMonthYearPicker // Enable month/year selection mode
+                />
+                <button className="rounded-md px-4 py-0.5 text-white bg-green-500 dark:bg-green-700 text-sm hover:bg-green-700 dark:hover:bg-green-500">Terapkan</button>
+              </div>
+            )}
+            <div className="flex my-2 items-center w-full hover:font-bold dark:text-white ">
+              <button onClick={() => setOpenMenus((prev) => !prev) || setOpenMenusMonth(false)} className="flex-1 text-sm text-left">
+                Berdasarkan Tanggal
+              </button>
+              <svg className={`w-4 h-4 ml-auto transition-transform ${openMenus ? "rotate-180" : ""}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+            {openMenus && (
+              <div className="flex flex-col">
+                <div>
+                  <span className="text-xs mr-2">mulai : </span>
+                  <Datepicker
+                    selected={startDate}
+                    onChange={handleStartChange}
+                    selectsStart
+                    startDate={startDate}
+                    endDate={endDate}
+                    dateFormat="dd MMMM yyyy"
+                    locale={id}
+                    placeholderText="Pilih tanggal mulai"
+                    className="text-[11px] text-center my-2 border rounded-sm"
+                  />
+                </div>
+                <div>
+                  <span className="text-xs">hingga : </span>
+                  <Datepicker
+                    selected={endDate}
+                    onChange={handleEndChange}
+                    selectsEnd
+                    startDate={startDate}
+                    endDate={endDate}
+                    minDate={startDate}
+                    dateFormat="dd MMMM yyyy"
+                    locale={id}
+                    placeholderText="Pilih tanggal akhir"
+                    className="border rounded-sm text-[11px] text-center"
+                  />
+                </div>
+                <div className="block-inline my-2">
+                  <button className="rounded-md px-4 py-0.5 text-white bg-green-500 dark:bg-green-700 text-sm hover:bg-green-700 dark:hover:bg-green-500">Terapkan</button>
+                </div>
+              </div>
+            )}
+            <div className="flex items-center my-2 w-full hover:font-bold dark:text-white ">
+              <button onClick={() => setOpenMenusMonth((prev) => !prev) || setOpenMenus(false)} className="flex-1 text-sm text-left">
+                Berdasarkan Department
+              </button>
+              <svg className={`w-4 h-4 ml-auto transition-transform ${openMenusMonth ? "rotate-180" : ""}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+            <div className="flex items-center my-2 w-full hover:font-bold dark:text-white ">
+              <button onClick={() => setOpenMenusMonth((prev) => !prev) || setOpenMenus(false)} className="flex-1 text-sm text-left">
+                Berdasarkan Worksite
+              </button>
+              <svg className={`w-4 h-4 ml-auto transition-transform ${openMenusMonth ? "rotate-180" : ""}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+          </div>
+        )}
       </Layout>
+
+      {/* Modal Tambah  */}
+      <Dialog open={isAddOpen} onClose={() => setIsAddOpen(false)}>
+        <DialogTitle>Tambah Data</DialogTitle>
+        <hr className="border-1" />
+        <DialogBody>
+          <fieldset className="mt-2 py-5 flex items-center gap-6">
+            <Label htmlFor="name">Nama Department</Label>
+            <Input type="text" name="name" id="name" className="ps-4" placeholder="..." required={true} />
+          </fieldset>
+          <fieldset className="py-3 items-center">
+            <Label htmlFor="name">Description</Label>
+            <textarea type="text" name="name" id="name" className="ps-4 bg-gray-200 rounded-sm w-full" placeholder="..." required={true} />
+          </fieldset>
+        </DialogBody>
+        <DialogActions>
+          <div className="flex">
+            <button className="px-10 py-1.5 rounded bg-gray-600 text-white hover:bg-gray-400" onClick={() => setIsAddOpen(false)}>
+              Batal
+            </button>
+          </div>
+          <div className="flex justify-end">
+            <button className="px-10 py-1.5 rounded bg-[#508DA7] text-white hover:bg-[#6db7d4]">Tambahkan</button>
+          </div>
+        </DialogActions>
+      </Dialog>
+
+      {/* Modal Edit  */}
+      <Dialog open={isEditOpen} onClose={() => setIsEditOpen(false)}>
+        <DialogTitle>Update Data</DialogTitle>
+        <hr className="border-1" />
+        <DialogBody>
+          <fieldset className="mt-2 py-5 flex items-center gap-6">
+            <Label htmlFor="name">Nama</Label>
+            <Input type="text" name="name" id="name" className="ps-4" placeholder="Nazar Aulia" required={true} />
+          </fieldset>
+          <div className="grid grid-cols-2 gap-6">
+            <div>
+              <fieldset>
+                <Label htmlFor="department" className="mb-2">
+                  Department
+                </Label>
+                <Input type="text" name="department" id="department" className="ps-4" placeholder="IT" required={true} />
+              </fieldset>
+              <fieldset className="mt-6">
+                <Label className="mb-2" htmlFor="masuk">
+                  Waktu Masuk
+                </Label>
+                <Input type="time" name="masuk" id="masuk" className="ps-4" placeholder="" required={true} />
+              </fieldset>
+              <fieldset className="mt-6">
+                <Label className="mb-2" htmlFor="status">
+                  Status
+                </Label>
+                <Input type="text" name="status" id="status" className="ps-4" placeholder="Hadir" required={true} />
+              </fieldset>
+            </div>
+            <div>
+              <fieldset>
+                <Label className="mb-2" htmlFor="date">
+                  Tanggal
+                </Label>
+                <Input type="date" name="date" id="date" placeholder="" required={true} />
+              </fieldset>
+              <fieldset className="mt-6">
+                <Label className="mb-2" htmlFor="keluar">
+                  Waktu Keluar
+                </Label>
+                <Input type="time" name="keluar" id="keluar" className="ps-4" placeholder="" required={true} />
+              </fieldset>
+              <fieldset className="mt-6">
+                <Label className="mb-2" htmlFor="method">
+                  Method
+                </Label>
+                <Input type="text" name="method" id="method" className="ps-4" placeholder="both" required={true} />
+              </fieldset>
+            </div>
+          </div>
+          <div className="flex flex-col gap-1 mt-4">
+            <fieldset className="flex gap-2">
+              <input id="checkbox-late" type="checkbox" className="accent-blue-600 bg-gray-300 border-gray-300 rounded-sm dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600" />
+              <label htmlFor="checkbox-late" className="text-xs">
+                Terlambat Datang
+              </label>
+            </fieldset>
+            <fieldset className="flex gap-2">
+              <input id="checkbox-early" type="checkbox" className="accent-blue-600 bg-gray-300 border-gray-300 rounded-sm dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600" />
+              <label htmlFor="checkbox-early" className="text-xs">
+                Pulang Lebih Awal
+              </label>
+            </fieldset>
+          </div>
+        </DialogBody>
+        <DialogActions>
+          <div className="flex">
+            <button className="px-10 py-1.5 rounded bg-gray-600 text-white hover:bg-gray-400" onClick={() => setIsEditOpen(false)}>
+              Batal
+            </button>
+          </div>
+          <div className="flex justify-end">
+            <button className="px-10 py-1.5 rounded bg-[#508DA7] text-white hover:bg-[#6db7d4]">Simpan</button>
+          </div>
+        </DialogActions>
+      </Dialog>
+
+      {/* Dialog hapus */}
+      <Dialog open={isDeleteOpen} onClose={() => setIsDeleteOpen(false)}>
+        <DialogTitle className="text-red-500">Hapus Data</DialogTitle>
+        <hr className="border-1 text-red-500" />
+        <DialogBody>
+          <Label className={`py-3 text-red-500`}>Data ini akan dihapus dan Anda tidak dapat melihatnya lagi.</Label>
+        </DialogBody>
+        <DialogActions>
+          <div className="flex">
+            <button className="px-10 py-1.5 rounded bg-gray-600 text-white hover:bg-gray-400" onClick={() => setIsDeleteOpen(false)}>
+              Batal
+            </button>
+          </div>
+          <div className="flex justify-end">
+            <button className="px-10 py-1.5 rounded bg-[#a75050] text-white hover:bg-[#d46d6d]" onClick={() => setIsDeleteConfirmOpen(true) && setIsDeleteOpen(false)}>
+              Hapus
+            </button>
+          </div>
+        </DialogActions>
+      </Dialog>
+
+      {/* Konfirmasi hapus */}
+      <Dialog open={isDeleteConfirmOpen} onClose={() => setIsDeleteConfirmOpen(false)}>
+        <DialogTitle>Hapus Data</DialogTitle>
+        <hr className="border-1" />
+        <DialogBody>
+          <Label className={`py-3`}>Anda Yakin?</Label>
+        </DialogBody>
+        <DialogActions>
+          <div className="flex">
+            <button className="px-10 py-1.5 rounded bg-gray-600 text-white hover:bg-gray-400" onClick={() => setIsDeleteConfirmOpen(false)}>
+              Batal
+            </button>
+          </div>
+          <div className="flex justify-end">
+            <button className="px-10 py-1.5 rounded bg-[#a75050] text-white hover:bg-[#d46d6d]">Ya</button>
+          </div>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }
