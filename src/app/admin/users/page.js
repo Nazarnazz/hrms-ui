@@ -130,7 +130,7 @@ export default function Users() {
 
   //pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5; // jumlah data per halaman
+  const [itemsPerPage, setItemsPerPage] = useState(10); // default 10, bisa diubah user
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -138,9 +138,15 @@ export default function Users() {
   const paginatedPengguna = filteredAndSortedPengguna.slice(startIndex, endIndex);
   const totalPages = Math.ceil(filteredAndSortedPengguna.length / itemsPerPage);
 
+  // reset ke halaman pertama kalau search berubah
   useEffect(() => {
     setCurrentPage(1);
   }, [searchTerm]);
+
+  // reset ke halaman pertama kalau jumlah per halaman berubah
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [itemsPerPage]);
 
   //Loading
   const [data, setData] = useState([]);
@@ -225,7 +231,7 @@ export default function Users() {
                           <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                           </svg>
-                          <span className="text-xs">Tambah Data</span>
+                          <span className="text-xs">Tambah</span>
                         </div>
                       </button>
                     </div>
@@ -490,14 +496,44 @@ export default function Users() {
         <DialogTitle>Tambah Data</DialogTitle>
         <hr className="border-1" />
         <DialogBody>
-          <fieldset className="mt-2 py-5 flex items-center gap-6">
-            <Label htmlFor="name">Nama Department</Label>
-            <Input type="text" name="name" id="name" className="ps-4" placeholder="..." required={true} />
+          <fieldset className="mt-2 pt-5 flex items-center gap-6">
+            <Label htmlFor="email">Email</Label>
+            <Input type="email" name="email" id="email" className="ps-4 ml-8" placeholder="..." required={true} />
           </fieldset>
-          <fieldset className="py-3 items-center">
-            <Label htmlFor="name">Description</Label>
-            <textarea type="text" name="name" id="name" className="ps-4 bg-gray-200 rounded-sm w-full" placeholder="..." required={true} />
+          <fieldset className="mt-2 pb-5 flex items-center gap-6">
+            <Label htmlFor="username">Username</Label>
+            <Input type="text" name="username" id="username" className="ps-4" placeholder="..." required={true} />
           </fieldset>
+          <div className="grid grid-cols-2 gap-6">
+            <div>
+              <fieldset>
+                <Label htmlFor="first_name" className="mb-2">
+                  First Name
+                </Label>
+                <Input type="text" name="first_name" id="first_name" className="ps-4" placeholder="IT" required={true} />
+              </fieldset>
+              <fieldset className="mt-6">
+                <Label className="mb-2" htmlFor="joined_from">
+                  Joined From
+                </Label>
+                <Input type="date" name="joined_from" id="joined_from" className="ps-4" placeholder="" required={true} />
+              </fieldset>
+            </div>
+            <div>
+              <fieldset>
+                <Label className="mb-2" htmlFor="last_name">
+                  Last Name
+                </Label>
+                <Input type="text" name="last_name" id="last_name" placeholder="" required={true} />
+              </fieldset>
+              <fieldset className="mt-6">
+                <Label className="mb-2" htmlFor="joined_end">
+                  Joined End
+                </Label>
+                <Input type="date" name="joined_end" id="joined_end" className="ps-4" placeholder="" required={true} />
+              </fieldset>
+            </div>
+          </div>
         </DialogBody>
         <DialogActions>
           <div className="flex">
