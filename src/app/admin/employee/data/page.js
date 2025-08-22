@@ -6,7 +6,7 @@ import { Table, TableHead, TableHeader, TableBody, TableRow, TableCell } from "@
 import { Dialog, DialogActions, DialogBody, DialogTitle } from "@/app/components/admin/dialog";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
+// import Image from "next/image";
 import * as XLSX from "xlsx";
 import Datepicker from "react-datepicker";
 import { id } from "date-fns/locale";
@@ -623,79 +623,37 @@ export default function Riwayat() {
         <DialogBody>
           <fieldset className="mt-2 py-5 flex items-center gap-6">
             <Label htmlFor="name">Nama</Label>
-            <Input type="text" name="name" id="name" className="ps-4" placeholder="Nazar Aulia" required={true} />
+            <Input type="text" name="name" id="name" className="ps-4" placeholder="..." required={true} />
           </fieldset>
-          <div className="grid grid-cols-2 gap-6">
-            <div>
+          <div className="grid grid-cols-2 pb-4 gap-6">
+            <div className="flex flex-col">
               <fieldset>
-                <Label htmlFor="department" className="mb-2">
+                <Label htmlFor="department" className="my-2">
                   Department
                 </Label>
-                <Input type="text" name="department" id="department" className="ps-4" placeholder="IT" required={true} />
+                <Input type="text" name="department" id="department" className="ps-4" placeholder="..." required={true} />
               </fieldset>
-              <fieldset className="mt-6">
-                <Label className="mb-2" htmlFor="jabatan">
-                  Waktu Jabatan
+              <fieldset>
+                <Label htmlFor="jabatan" className="my-2">
+                  Jabatan
                 </Label>
-                <Input type="time" name="jabatan" id="jabatan" className="ps-4" placeholder="" required={true} />
+                <Input type="text" name="jabatan" id="jabatan" className="ps-4" placeholder="..." required={true} />
               </fieldset>
-              <fieldset className="mt-6">
-                <Label className="mb-2" htmlFor="status">
+            </div>
+            <div className="flex flex-col">
+              <fieldset>
+                <Label className="my-2" htmlFor="method">
                   Status
                 </Label>
-                <Input type="text" name="status" id="status" className="ps-4" placeholder="Aktif" required={true} />
+                <Input type="text" name="method" id="method" className="ps-4" placeholder="Nonaktif" required={true} />
               </fieldset>
-              <fieldset className="mt-6">
-                <Label className="mb-2 text-center" htmlFor="face_in">
-                  Face In
-                </Label>
-                <div className="flex justify-center">
-                  <Image alt="face_in" height={150} width={150} src="/assets/image/mrbean.jpg" />
-                </div>
-              </fieldset>
-            </div>
-            <div>
               <fieldset>
-                <Label className="mb-2" htmlFor="date">
-                  Tanggal
+                <Label className="my-2" htmlFor="tanggal">
+                  Tanggal Join
                 </Label>
-                <Input type="date" name="date" id="date" placeholder="" required={true} />
-              </fieldset>
-              <fieldset className="mt-6">
-                <Label className="mb-2" htmlFor="keluar">
-                  Waktu Keluar
-                </Label>
-                <Input type="time" name="keluar" id="keluar" className="ps-4" placeholder="" required={true} />
-              </fieldset>
-              <fieldset className="mt-6">
-                <Label className="mb-2" htmlFor="method">
-                  Method
-                </Label>
-                <Input type="text" name="method" id="method" className="ps-4" placeholder="both" required={true} />
-              </fieldset>
-              <fieldset className="mt-6">
-                <Label className="mb-2 text-center" htmlFor="face_out">
-                  Face Out
-                </Label>
-                <div className="flex justify-center">
-                  <Image alt="face_out" height={150} width={150} src="/assets/image/mrbean.jpg" />
-                </div>
+                <Input type="date" name="tanggal" id="tanggal" required={true} />
               </fieldset>
             </div>
-          </div>
-          <div className="flex flex-col gap-1 mt-4">
-            <fieldset className="flex gap-2">
-              <input id="checkbox-late" type="checkbox" className="accent-blue-600 bg-gray-300 border-gray-300 rounded-sm dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600" />
-              <label htmlFor="checkbox-late" className="text-xs">
-                Terlambat Datang
-              </label>
-            </fieldset>
-            <fieldset className="flex gap-2">
-              <input id="checkbox-early" type="checkbox" className="accent-blue-600 bg-gray-300 border-gray-300 rounded-sm dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600" />
-              <label htmlFor="checkbox-early" className="text-xs">
-                Pulang Lebih Awal
-              </label>
-            </fieldset>
           </div>
         </DialogBody>
         <DialogActions>

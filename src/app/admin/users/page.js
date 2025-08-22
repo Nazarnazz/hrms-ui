@@ -552,65 +552,43 @@ export default function Users() {
         <DialogTitle>Update Data</DialogTitle>
         <hr className="border-1" />
         <DialogBody>
-          <fieldset className="mt-2 py-5 flex items-center gap-6">
-            <Label htmlFor="name">Nama</Label>
-            <Input type="text" name="name" id="name" className="ps-4" placeholder="Nazar Aulia" required={true} />
+          <fieldset className="mt-2 pt-5 flex items-center gap-6">
+            <Label htmlFor="email">Email</Label>
+            <Input type="email" name="email" id="email" className="ps-4 ml-8" placeholder="..." required={true} />
+          </fieldset>
+          <fieldset className="mt-2 pb-5 flex items-center gap-6">
+            <Label htmlFor="username">Username</Label>
+            <Input type="text" name="username" id="username" className="ps-4" placeholder="..." required={true} />
           </fieldset>
           <div className="grid grid-cols-2 gap-6">
             <div>
               <fieldset>
-                <Label htmlFor="department" className="mb-2">
-                  Department
+                <Label htmlFor="first_name" className="mb-2">
+                  First Name
                 </Label>
-                <Input type="text" name="department" id="department" className="ps-4" placeholder="IT" required={true} />
+                <Input type="text" name="first_name" id="first_name" className="ps-4" placeholder="IT" required={true} />
               </fieldset>
               <fieldset className="mt-6">
-                <Label className="mb-2" htmlFor="masuk">
-                  Waktu Masuk
+                <Label className="mb-2" htmlFor="joined_from">
+                  Joined From
                 </Label>
-                <Input type="time" name="masuk" id="masuk" className="ps-4" placeholder="" required={true} />
-              </fieldset>
-              <fieldset className="mt-6">
-                <Label className="mb-2" htmlFor="status">
-                  Status
-                </Label>
-                <Input type="text" name="status" id="status" className="ps-4" placeholder="Hadir" required={true} />
+                <Input type="date" name="joined_from" id="joined_from" className="ps-4" placeholder="" required={true} />
               </fieldset>
             </div>
             <div>
               <fieldset>
-                <Label className="mb-2" htmlFor="date">
-                  Tanggal
+                <Label className="mb-2" htmlFor="last_name">
+                  Last Name
                 </Label>
-                <Input type="date" name="date" id="date" placeholder="" required={true} />
+                <Input type="text" name="last_name" id="last_name" placeholder="" required={true} />
               </fieldset>
               <fieldset className="mt-6">
-                <Label className="mb-2" htmlFor="keluar">
-                  Waktu Keluar
+                <Label className="mb-2" htmlFor="joined_end">
+                  Joined End
                 </Label>
-                <Input type="time" name="keluar" id="keluar" className="ps-4" placeholder="" required={true} />
-              </fieldset>
-              <fieldset className="mt-6">
-                <Label className="mb-2" htmlFor="method">
-                  Method
-                </Label>
-                <Input type="text" name="method" id="method" className="ps-4" placeholder="both" required={true} />
+                <Input type="date" name="joined_end" id="joined_end" className="ps-4" placeholder="" required={true} />
               </fieldset>
             </div>
-          </div>
-          <div className="flex flex-col gap-1 mt-4">
-            <fieldset className="flex gap-2">
-              <input id="checkbox-late" type="checkbox" className="accent-blue-600 bg-gray-300 border-gray-300 rounded-sm dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600" />
-              <label htmlFor="checkbox-late" className="text-xs">
-                Terlambat Datang
-              </label>
-            </fieldset>
-            <fieldset className="flex gap-2">
-              <input id="checkbox-early" type="checkbox" className="accent-blue-600 bg-gray-300 border-gray-300 rounded-sm dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600" />
-              <label htmlFor="checkbox-early" className="text-xs">
-                Pulang Lebih Awal
-              </label>
-            </fieldset>
           </div>
         </DialogBody>
         <DialogActions>

@@ -5,7 +5,7 @@ import { SearchBarNoPrint } from "@/app/components/admin/searchbar";
 import { Table, TableHead, TableHeader, TableBody, TableRow, TableCell } from "@/app/components/admin/table";
 import { Dialog, DialogActions, DialogBody, DialogTitle } from "@/app/components/admin/dialog";
 import { Input, Label } from "@/app/components/admin/input";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Datepicker from "react-datepicker";
@@ -253,6 +253,14 @@ export default function Setting() {
     // Lanjutkan logika delete di sini
   };
 
+  const [selectedDays] = useState([]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const Days = [{ name: "Senin" }, { name: "Selasa" }, { name: "Rabu" }, { name: "Kamis" }, { name: "Jumat" }, { name: "Sabtu" }, { name: "Minggu" }];
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
   // useEffect(() => {
   //   const fetchUsers = async () => {
   //     setIsLoading(true);
@@ -376,7 +384,14 @@ export default function Setting() {
                           <input type="checkbox" className="accent-blue-600" checked={selectedIds.length === data.length} onChange={handleSelectAll} />
                         </TableHeader>
                         <TableHeader className="text-center">Nama</TableHeader>
-                        <TableHeader className="text-center">Divisi</TableHeader>
+                        <TableHeader className="text-center">
+                          <div className="flex items-center">
+                            Divisi
+                            <svg onClick={() => handleSort("divisi")} className="w-3 h-3 ms-1.5 hover:text-blue-900 dark:hover:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                            </svg>
+                          </div>
+                        </TableHeader>
                         {visibleColumns.includes("Hari Kerja") && <TableHeader className="whitespace-nowrap text-center">Hari Kerja</TableHeader>}
                         {visibleColumns.includes("Masuk") && <TableHeader className="whitespace-nowrap text-center">Jam Masuk</TableHeader>}
                         {visibleColumns.includes("Keluar") && <TableHeader className="whitespace-nowrap text-center">Jam Pulang</TableHeader>}
@@ -661,10 +676,25 @@ export default function Setting() {
             </div>
             <div>
               <fieldset>
-                <Label className="mb-2" htmlFor="date">
-                  Tanggal
-                </Label>
-                <Input type="date" name="date" id="date" placeholder="" required={true} />
+                <Label className={`mb-2`}>Hari Kerja</Label>
+                <div className="relative" ref={dropdownRef}>
+                  <button onClick={toggleDropdown} className="w-full text-sm bg-[#e3e9ef] hover:bg-gray-300 shadow-gray-300 dark:shadow-gray-700  text-gray-900 px-4 py-2 rounded-lg dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600">
+                    <span className="font bold mr-0.5">Pilih</span>
+                    {/* <span className="rounded-full py-1 px-2 ml-1 mb-0.5 text-xs items-center bg-blue-500  text-white">{selectedDays.length} </span> */}
+                    {selectedDays.length > 0 && <span className="rounded-full py-1 px-2 ml-1 mb-0.5 text-xs items-center bg-blue-500 text-white">{selectedDays.length}</span>}
+                  </button>
+
+                  {isDropdownOpen && (
+                    <div className="absolute z-10 mt-2 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded shadow-lg max-h-60 overflow-y-auto">
+                      {Days.map((item) => (
+                        <label key={item.name} className="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-sm">
+                          <input type="checkbox" className="mr-2 accent-blue-600" />
+                          {item.name}
+                        </label>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </fieldset>
               <fieldset className="mt-6">
                 <Label className="mb-2" htmlFor="keluar">

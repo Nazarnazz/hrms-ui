@@ -4,7 +4,7 @@ import Layout from "@/app/components/menu-items/layout";
 import { SearchBarNoButton } from "@/app/components/admin/searchbar";
 import { Table, TableHead, TableHeader, TableBody, TableRow, TableCell } from "@/app/components/admin/table";
 import { Dialog, DialogActions, DialogBody, DialogTitle } from "@/app/components/admin/dialog";
-import { Input, Label } from "@/app/components/admin/input";
+import { Input, Label, TextArea } from "@/app/components/admin/input";
 import { useState, useEffect } from "react";
 
 // import Link from "next/link";
@@ -271,7 +271,7 @@ export default function Department() {
           </fieldset>
           <fieldset className="py-3 items-center">
             <Label htmlFor="name">Description</Label>
-            <textarea type="text" name="name" id="name" className="ps-4 bg-gray-200 rounded-sm w-full" placeholder="..." required={true} />
+            <TextArea type="text" name="name" id="name" className="ps-4" placeholder="..." required={true} />
           </fieldset>
         </DialogBody>
         <DialogActions>
@@ -291,27 +291,13 @@ export default function Department() {
         <hr className="border-1" />
         <DialogBody>
           <fieldset className="mt-2 py-5 flex items-center gap-6">
-            <Label htmlFor="name">Nama Perusahaan</Label>
-            <Input type="text" name="name" id="name" className="ps-4" placeholder="PT. MPP" required={true} />
+            <Label htmlFor="name">Nama Department</Label>
+            <Input type="text" name="name" id="name" className="ps-4" placeholder="..." required={true} />
           </fieldset>
-          <div className="grid grid-cols-2 gap-6">
-            <div>
-              <fieldset>
-                <Label htmlFor="department" className="mb-2">
-                  Kode
-                </Label>
-                <Input type="text" name="department" id="department" className="ps-4" placeholder="MPP-PKK" required={true} />
-              </fieldset>
-            </div>
-            <div>
-              <fieldset>
-                <Label className="mb-2" htmlFor="method">
-                  Status
-                </Label>
-                <Input type="text" name="method" id="method" className="ps-4" placeholder="Nonaktif" required={true} />
-              </fieldset>
-            </div>
-          </div>
+          <fieldset className="py-3 items-center">
+            <Label htmlFor="name">Description</Label>
+            <TextArea type="text" name="name" id="name" className="ps-4" placeholder="..." required={true} />
+          </fieldset>
         </DialogBody>
         <DialogActions>
           <div className="flex">
