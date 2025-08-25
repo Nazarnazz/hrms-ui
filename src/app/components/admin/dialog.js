@@ -17,7 +17,7 @@ export function Dialog({ open, onClose, children }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-      <div className="bg-white dark:bg-gray-800 rounded-lg max-h-[100vh] overflow-y-auto shadow-xl w-full max-w-md p-6 relative">
+      <div className="bg-white dark:bg-gray-800 rounded-lg max-h-[100vh] overflow-y-auto shadow-xl w-full max-w-lg p-6 relative">
         {/* Tombol close pojok kanan atas */}
         <button onClick={onClose} className="absolute px-3 py-1 text-lg rounded-md right-8 bg-gray-500 text-white hover:bg-gray-400">
           &times;

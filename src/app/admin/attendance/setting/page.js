@@ -5,9 +5,9 @@ import { SearchBarNoPrint } from "@/app/components/admin/searchbar";
 import { Table, TableHead, TableHeader, TableBody, TableRow, TableCell } from "@/app/components/admin/table";
 import { Dialog, DialogActions, DialogBody, DialogTitle } from "@/app/components/admin/dialog";
 import { Input, Label } from "@/app/components/admin/input";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
+// import Image from "next/image";
 import Datepicker from "react-datepicker";
 import { id } from "date-fns/locale";
 import { Pagination } from "@/app/components/admin/pagination";
@@ -80,6 +80,25 @@ export default function Setting() {
       tanggal: "2025-07-12",
     },
   ];
+
+  const [rows, setRows] = useState([{ day: "Senin", start: "08.00", end: "17.00", shiftName: "Shift Pagi" }]);
+
+  // tambah baris baru
+  const addRow = () => {
+    setRows([...rows, { day: "", start: "", end: "", shiftName: "" }]);
+  };
+
+  // hapus baris
+  const removeRow = (rowIndex) => {
+    setRows(rows.filter((_, i) => i !== rowIndex));
+  };
+
+  // update nilai cell
+  const handleChange = (rowIndex, field, value) => {
+    const newRows = [...rows];
+    newRows[rowIndex][field] = value;
+    setRows(newRows);
+  };
 
   const [visibleColumns, setVisibleColumns] = useState(["Hari Kerja", "Masuk", "Keluar"]);
 
@@ -251,14 +270,6 @@ export default function Setting() {
   const handleBulkDelete = () => {
     alert(`Menghapus ID: ${selectedIds.join(", ")}`);
     // Lanjutkan logika delete di sini
-  };
-
-  const [selectedDays] = useState([]);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const dropdownRef = useRef(null);
-  const Days = [{ name: "Senin" }, { name: "Selasa" }, { name: "Rabu" }, { name: "Kamis" }, { name: "Jumat" }, { name: "Sabtu" }, { name: "Minggu" }];
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
   };
 
   // useEffect(() => {
@@ -641,96 +652,78 @@ export default function Setting() {
         <DialogTitle>Update Data</DialogTitle>
         <hr className="border-1" />
         <DialogBody>
-          <fieldset className="mt-2 py-5 flex items-center gap-6">
-            <Label htmlFor="name">Nama</Label>
+          <fieldset className="mt-2 pt-5">
+            <Label htmlFor="name" className="mb-2">
+              Nama
+            </Label>
             <Input type="text" name="name" id="name" className="ps-4" placeholder="Nazar Aulia" required={true} />
           </fieldset>
-          <div className="grid grid-cols-2 gap-6">
-            <div>
-              <fieldset>
-                <Label htmlFor="department" className="mb-2">
-                  Department
-                </Label>
-                <Input type="text" name="department" id="department" className="ps-4" placeholder="IT" required={true} />
-              </fieldset>
-              <fieldset className="mt-6">
-                <Label className="mb-2" htmlFor="masuk">
-                  Waktu Masuk
-                </Label>
-                <Input type="time" name="masuk" id="masuk" className="ps-4" placeholder="" required={true} />
-              </fieldset>
-              <fieldset className="mt-6">
-                <Label className="mb-2" htmlFor="status">
-                  Status
-                </Label>
-                <Input type="text" name="status" id="status" className="ps-4" placeholder="Hadir" required={true} />
-              </fieldset>
-              <fieldset className="mt-6">
-                <Label className="mb-2 text-center" htmlFor="face_in">
-                  Face In
-                </Label>
-                <div className="flex justify-center">
-                  <Image alt="face_in" height={150} width={150} src="/assets/image/mrbean.jpg" />
-                </div>
-              </fieldset>
-            </div>
-            <div>
-              <fieldset>
-                <Label className={`mb-2`}>Hari Kerja</Label>
-                <div className="relative" ref={dropdownRef}>
-                  <button onClick={toggleDropdown} className="w-full text-sm bg-[#e3e9ef] hover:bg-gray-300 shadow-gray-300 dark:shadow-gray-700  text-gray-900 px-4 py-2 rounded-lg dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600">
-                    <span className="font bold mr-0.5">Pilih</span>
-                    {/* <span className="rounded-full py-1 px-2 ml-1 mb-0.5 text-xs items-center bg-blue-500  text-white">{selectedDays.length} </span> */}
-                    {selectedDays.length > 0 && <span className="rounded-full py-1 px-2 ml-1 mb-0.5 text-xs items-center bg-blue-500 text-white">{selectedDays.length}</span>}
-                  </button>
-
-                  {isDropdownOpen && (
-                    <div className="absolute z-10 mt-2 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded shadow-lg max-h-60 overflow-y-auto">
-                      {Days.map((item) => (
-                        <label key={item.name} className="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-sm">
-                          <input type="checkbox" className="mr-2 accent-blue-600" />
-                          {item.name}
-                        </label>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </fieldset>
-              <fieldset className="mt-6">
-                <Label className="mb-2" htmlFor="keluar">
-                  Waktu Keluar
-                </Label>
-                <Input type="time" name="keluar" id="keluar" className="ps-4" placeholder="" required={true} />
-              </fieldset>
-              <fieldset className="mt-6">
-                <Label className="mb-2" htmlFor="method">
-                  Method
-                </Label>
-                <Input type="text" name="method" id="method" className="ps-4" placeholder="both" required={true} />
-              </fieldset>
-              <fieldset className="mt-6">
-                <Label className="mb-2 text-center" htmlFor="face_out">
-                  Face Out
-                </Label>
-                <div className="flex justify-center">
-                  <Image alt="face_out" height={150} width={150} src="/assets/image/mrbean.jpg" />
-                </div>
-              </fieldset>
-            </div>
+          <div className="grid gird-cols-2">
+            <fieldset className="mt-4">
+              <Label className="mb-2" htmlFor="tolerance">
+                Tolerance
+              </Label>
+              <Input type="text" name="tolerance" id="tolerance" className="ps-4" placeholder="10 Min" required={true} />
+            </fieldset>
+            <fieldset className="mt-4">
+              <Label className="mb-2" htmlFor="method">
+                Method
+              </Label>
+              <Input type="text" name="method" id="method" className="ps-4" placeholder="both" required={true} />
+            </fieldset>
           </div>
-          <div className="flex flex-col gap-1 mt-4">
-            <fieldset className="flex gap-2">
-              <input id="checkbox-late" type="checkbox" className="accent-blue-600 bg-gray-300 border-gray-300 rounded-sm dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600" />
-              <label htmlFor="checkbox-late" className="text-xs">
-                Terlambat Datang
-              </label>
-            </fieldset>
-            <fieldset className="flex gap-2">
-              <input id="checkbox-early" type="checkbox" className="accent-blue-600 bg-gray-300 border-gray-300 rounded-sm dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600" />
-              <label htmlFor="checkbox-early" className="text-xs">
-                Pulang Lebih Awal
-              </label>
-            </fieldset>
+          <Label className="mb-2 mt-4" htmlFor="method">
+            Schedule
+          </Label>
+          <div className="relative mt-3 overflow-x-auto shadow-md sm:rounded-lg">
+            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+              <thead className="">
+                <tr className="text-center bg-blue-100 dark:bg-gray-700">
+                  <th scope="col" className="px-4 py-3">
+                    Day
+                  </th>
+                  <th scope="col" className="whitespace-nowrap px-4 py-3">
+                    Time in
+                  </th>
+                  <th scope="col" className="whitespace-nowrap px-4 py-3">
+                    Time out
+                  </th>
+                  <th scope="col" className="whitespace-nowrap px-4 py-3">
+                    Name
+                  </th>
+                  <th scope="col" className="px-3">
+                    <span className="sr-only">Action</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((row, rowIndex) => (
+                  <tr key={rowIndex} className="text-center">
+                    <td className="whitespace-nowrap px-4 py-3">
+                      <input type="text" value={row.day} onChange={(e) => handleChange(rowIndex, "day", e.target.value)} className="w-full text-center text-xs border rounded p-1" />
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-3">
+                      {" "}
+                      <input type="text" value={row.start} onChange={(e) => handleChange(rowIndex, "start", e.target.value)} className="w-full text-center text-xs border rounded p-1" />
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-3">
+                      <input type="text" value={row.end} onChange={(e) => handleChange(rowIndex, "end", e.target.value)} className="w-full text-center text-xs border rounded p-1" />
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-3">
+                      <input type="text" value={row.shiftName} onChange={(e) => handleChange(rowIndex, "shiftName", e.target.value)} className="w-full text-center text-xs border rounded p-1" />
+                    </td>
+                    <td className="px-3">
+                      <button onClick={() => removeRow(rowIndex)} className="bg-red-600 text-white px-2 py-0.5 rounded-full text-xs">
+                        x
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <button onClick={addRow} className="bg-green-800 ml-2 mb-2 text-white hover:bg-green-500 mt-2 inline-block rounded-full px-2.5 py-0.5">
+              +
+            </button>
           </div>
         </DialogBody>
         <DialogActions>
