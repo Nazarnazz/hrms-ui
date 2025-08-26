@@ -311,7 +311,7 @@ export default function Users() {
                           {visibleColumns.includes("First Name") && <TableCell>{item.first_name}</TableCell>}
                           {visibleColumns.includes("Last Name") && <TableCell>{item.last_name}</TableCell>}
                           {visibleColumns.includes("Username") && <TableCell>{item.username}</TableCell>}
-                          {visibleColumns.includes("Joined Start") && <TableCell>{item.join_start}</TableCell>}
+                          {visibleColumns.includes("Joined From") && <TableCell>{item.join_start}</TableCell>}
                           {visibleColumns.includes("Joined End") && <TableCell>{item.join_end}</TableCell>}
                           <TableCell>
                             <div className="flex gap-3">

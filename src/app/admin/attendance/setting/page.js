@@ -100,7 +100,7 @@ export default function Setting() {
     setRows(newRows);
   };
 
-  const [visibleColumns, setVisibleColumns] = useState(["Hari Kerja", "Masuk", "Keluar"]);
+  const [visibleColumns, setVisibleColumns] = useState(["Hari Kerja", "Method", "Toleransi"]);
 
   const allColumns = ["Hari Kerja", "Masuk", "Keluar", "Method", "Toleransi"];
 
@@ -626,32 +626,6 @@ export default function Setting() {
         <DialogTitle>Tambah Data</DialogTitle>
         <hr className="border-1" />
         <DialogBody>
-          <fieldset className="mt-2 py-5 flex items-center gap-6">
-            <Label htmlFor="name">Nama Department</Label>
-            <Input type="text" name="name" id="name" className="ps-4" placeholder="..." required={true} />
-          </fieldset>
-          <fieldset className="py-3 items-center">
-            <Label htmlFor="name">Description</Label>
-            <textarea type="text" name="name" id="name" className="ps-4 bg-gray-200 rounded-sm w-full" placeholder="..." required={true} />
-          </fieldset>
-        </DialogBody>
-        <DialogActions>
-          <div className="flex">
-            <button className="px-10 py-1.5 rounded bg-gray-600 text-white hover:bg-gray-400" onClick={() => setIsAddOpen(false)}>
-              Batal
-            </button>
-          </div>
-          <div className="flex justify-end">
-            <button className="px-10 py-1.5 rounded bg-[#508DA7] text-white hover:bg-[#6db7d4]">Tambahkan</button>
-          </div>
-        </DialogActions>
-      </Dialog>
-
-      {/* Modal Edit  */}
-      <Dialog open={isEditOpen} onClose={() => setIsEditOpen(false)}>
-        <DialogTitle>Update Data</DialogTitle>
-        <hr className="border-1" />
-        <DialogBody>
           <fieldset className="mt-2 pt-5">
             <Label htmlFor="name" className="mb-2">
               Nama
@@ -676,9 +650,9 @@ export default function Setting() {
             Schedule
           </Label>
           <div className="relative mt-3 overflow-x-auto shadow-md sm:rounded-lg">
-            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <table className="w-full text-sm text-left rtl:text-right text-gray-700 dark:text-gray-400">
               <thead className="">
-                <tr className="text-center bg-blue-100 dark:bg-gray-700">
+                <tr className="text-center bg-gray-300 dark:bg-gray-700">
                   <th scope="col" className="px-4 py-3">
                     Day
                   </th>
@@ -721,7 +695,98 @@ export default function Setting() {
                 ))}
               </tbody>
             </table>
-            <button onClick={addRow} className="bg-green-800 ml-2 mb-2 text-white hover:bg-green-500 mt-2 inline-block rounded-full px-2.5 py-0.5">
+            <button onClick={addRow} className="bg-gray-800 ml-2 mb-2 text-white hover:bg-gray-700 mt-2 inline-block rounded-full px-2.5 py-0.5">
+              +
+            </button>
+          </div>
+        </DialogBody>
+        <DialogActions>
+          <div className="flex">
+            <button className="px-10 py-1.5 rounded bg-gray-600 text-white hover:bg-gray-400" onClick={() => setIsAddOpen(false)}>
+              Batal
+            </button>
+          </div>
+          <div className="flex justify-end">
+            <button className="px-10 py-1.5 rounded bg-[#508DA7] text-white hover:bg-[#6db7d4]">Tambahkan</button>
+          </div>
+        </DialogActions>
+      </Dialog>
+
+      {/* Modal Edit  */}
+      <Dialog open={isEditOpen} onClose={() => setIsEditOpen(false)}>
+        <DialogTitle>Update Data</DialogTitle>
+        <hr className="border-1" />
+        <DialogBody>
+          <fieldset className="mt-2 pt-5">
+            <Label htmlFor="name" className="mb-2">
+              Nama
+            </Label>
+            <Input type="text" name="name" id="name" className="ps-4" placeholder="Nazar Aulia" required={true} />
+          </fieldset>
+          <div className="grid gird-cols-2">
+            <fieldset className="mt-4">
+              <Label className="mb-2" htmlFor="tolerance">
+                Tolerance
+              </Label>
+              <Input type="text" name="tolerance" id="tolerance" className="ps-4" placeholder="10 Min" required={true} />
+            </fieldset>
+            <fieldset className="mt-4">
+              <Label className="mb-2" htmlFor="method">
+                Method
+              </Label>
+              <Input type="text" name="method" id="method" className="ps-4" placeholder="both" required={true} />
+            </fieldset>
+          </div>
+          <Label className="mb-2 mt-4" htmlFor="method">
+            Schedule
+          </Label>
+          <div className="relative mt-3 overflow-x-auto shadow-md sm:rounded-lg">
+            <table className="w-full text-sm text-left rtl:text-right text-gray-700 dark:text-gray-400">
+              <thead className="">
+                <tr className="text-center bg-gray-300 dark:bg-gray-700">
+                  <th scope="col" className="px-4 py-3">
+                    Day
+                  </th>
+                  <th scope="col" className="whitespace-nowrap px-4 py-3">
+                    Time in
+                  </th>
+                  <th scope="col" className="whitespace-nowrap px-4 py-3">
+                    Time out
+                  </th>
+                  <th scope="col" className="whitespace-nowrap px-4 py-3">
+                    Name
+                  </th>
+                  <th scope="col" className="px-3">
+                    <span className="sr-only">Action</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((row, rowIndex) => (
+                  <tr key={rowIndex} className="text-center">
+                    <td className="whitespace-nowrap px-4 py-3">
+                      <input type="text" value={row.day} onChange={(e) => handleChange(rowIndex, "day", e.target.value)} className="w-full text-center text-xs border rounded p-1" />
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-3">
+                      {" "}
+                      <input type="text" value={row.start} onChange={(e) => handleChange(rowIndex, "start", e.target.value)} className="w-full text-center text-xs border rounded p-1" />
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-3">
+                      <input type="text" value={row.end} onChange={(e) => handleChange(rowIndex, "end", e.target.value)} className="w-full text-center text-xs border rounded p-1" />
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-3">
+                      <input type="text" value={row.shiftName} onChange={(e) => handleChange(rowIndex, "shiftName", e.target.value)} className="w-full text-center text-xs border rounded p-1" />
+                    </td>
+                    <td className="px-3">
+                      <button onClick={() => removeRow(rowIndex)} className="bg-red-600 text-white px-2 py-0.5 rounded-full text-xs">
+                        x
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <button onClick={addRow} className="bg-gray-800 ml-2 mb-2 text-white hover:bg-gray-700 mt-2 inline-block rounded-full px-2.5 py-0.5">
               +
             </button>
           </div>
