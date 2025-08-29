@@ -16,43 +16,87 @@ export default function Carousel() {
       <div className="embla__viewport overflow-hidden px-3 pb-3 pt-5" ref={emblaRef}>
         <div className="embla__container flex gap-6">
           <div className=" flex-[0_0_13%]  bg-blue-100 dark:bg-[#0d0f20] border dark:border-white shadow shadow-gray-600 dark:shadow-white rounded-lg px-3 py-5 flex flex-col items-center justify-center">
-            <span className="text-xs">Active Employees</span>
-            <span className="text-lg font-bold mt-2">1280</span>
+            <span className="text-xs text-center">MPP</span>
+            <span className="text-lg font-bold mt-2">321</span>
           </div>
           <div className=" flex-[0_0_13%]  bg-blue-100 dark:bg-[#0d0f20] border dark:border-white shadow shadow-gray-600 dark:shadow-white rounded-lg px-3 py-5 flex flex-col items-center justify-center">
-            <span className="text-xs">Today Attendance</span>
+            <span className="text-xs text-center">MA AHBABUL MUSTHOFA</span>
             <span className="text-lg font-bold mt-2">1180</span>
           </div>
           <div className=" flex-[0_0_13%]  bg-blue-100 dark:bg-[#0d0f20] border dark:border-white shadow shadow-gray-600 dark:shadow-white rounded-lg px-3 py-5 flex flex-col items-center justify-center">
-            <span className="text-xs">Today Attendance</span>
+            <span className="text-xs text-center">LPK PIS-CO</span>
             <span className="text-lg font-bold mt-2">1180</span>
           </div>
           <div className=" flex-[0_0_13%]  bg-blue-100 dark:bg-[#0d0f20] border dark:border-white shadow shadow-gray-600 dark:shadow-white rounded-lg px-3 py-5 flex flex-col items-center justify-center">
-            <span className="text-xs">Today Attendance</span>
+            <span className="text-xs text-center">KARYA ABADI</span>
             <span className="text-lg font-bold mt-2">1180</span>
           </div>
           <div className=" flex-[0_0_13%]  bg-blue-100 dark:bg-[#0d0f20] border dark:border-white shadow shadow-gray-600 dark:shadow-white rounded-lg px-3 py-5 flex flex-col items-center justify-center">
-            <span className="text-xs">Today Attendance</span>
+            <span className="text-xs text-center">SINAR ALAM RAYA</span>
             <span className="text-lg font-bold mt-2">1180</span>
           </div>
           <div className=" flex-[0_0_13%]  bg-blue-100 dark:bg-[#0d0f20] border dark:border-white shadow shadow-gray-600 dark:shadow-white rounded-lg px-3 py-5 flex flex-col items-center justify-center">
-            <span className="text-xs">Payroll This Month</span>
+            <span className="text-xs text-center">MSC BATOLA</span>
             <span className="text-lg font-bold mt-2">270</span>
           </div>
           <div className=" flex-[0_0_13%]  bg-blue-100 dark:bg-[#0d0f20] border dark:border-white shadow shadow-gray-600 dark:shadow-white rounded-lg px-3 py-5 flex flex-col items-center justify-center">
-            <span className="text-xs">Payroll This Month</span>
+            <span className="text-xs text-center">PERINTIS DUA</span>
             <span className="text-lg font-bold mt-2">270</span>
           </div>
           <div className=" flex-[0_0_13%]  bg-blue-100 dark:bg-[#0d0f20] border dark:border-white shadow shadow-gray-600 dark:shadow-white rounded-lg px-3 py-5 flex flex-col items-center justify-center">
-            <span className="text-xs">Payroll This Month</span>
+            <span className="text-xs text-center">CEMARA INDAH</span>
             <span className="text-lg font-bold mt-2">270</span>
           </div>
           <div className=" flex-[0_0_13%]  bg-blue-100 dark:bg-[#0d0f20] border dark:border-white shadow shadow-gray-600 dark:shadow-white rounded-lg px-3 py-5 flex flex-col items-center justify-center">
-            <span className="text-xs">Payroll This Month</span>
+            <span className="text-xs text-center">WPR FUEL</span>
             <span className="text-lg font-bold mt-2">270</span>
           </div>
           <div className=" flex-[0_0_13%]  bg-blue-100 dark:bg-[#0d0f20] border dark:border-white shadow shadow-gray-600 dark:shadow-white rounded-lg px-3 py-5 flex flex-col items-center justify-center">
-            <span className="text-xs">Payroll This Month</span>
+            <span className="text-xs text-center">WPR BATU BARA</span>
+            <span className="text-lg font-bold mt-2">270</span>
+          </div>
+          <div className=" flex-[0_0_13%]  bg-blue-100 dark:bg-[#0d0f20] border dark:border-white shadow shadow-gray-600 dark:shadow-white rounded-lg px-3 py-5 flex flex-col items-center justify-center">
+            <span className="text-xs text-center">BERKAH RETAIL SEJAHTERA</span>
+            <span className="text-lg font-bold mt-2">270</span>
+          </div>
+          <div className=" flex-[0_0_13%]  bg-blue-100 dark:bg-[#0d0f20] border dark:border-white shadow shadow-gray-600 dark:shadow-white rounded-lg px-3 py-5 flex flex-col items-center justify-center">
+            <span className="text-xs text-center">SSA</span>
+            <span className="text-lg font-bold mt-2">270</span>
+          </div>
+          <div className=" flex-[0_0_13%]  bg-blue-100 dark:bg-[#0d0f20] border dark:border-white shadow shadow-gray-600 dark:shadow-white rounded-lg px-3 py-5 flex flex-col items-center justify-center">
+            <span className="text-xs text-center">KUIIN</span>
+            <span className="text-lg font-bold mt-2">270</span>
+          </div>
+          <div className=" flex-[0_0_13%]  bg-blue-100 dark:bg-[#0d0f20] border dark:border-white shadow shadow-gray-600 dark:shadow-white rounded-lg px-3 py-5 flex flex-col items-center justify-center">
+            <span className="text-xs text-center">DEPO BANGUNAN PROPERTY JORONG</span>
+            <span className="text-lg font-bold mt-2">270</span>
+          </div>
+          <div className=" flex-[0_0_13%]  bg-blue-100 dark:bg-[#0d0f20] border dark:border-white shadow shadow-gray-600 dark:shadow-white rounded-lg px-3 py-5 flex flex-col items-center justify-center">
+            <span className="text-xs text-center">DEPO BANGUNAN PROPERTY PELAIHARI</span>
+            <span className="text-lg font-bold mt-2">270</span>
+          </div>
+          <div className=" flex-[0_0_13%]  bg-blue-100 dark:bg-[#0d0f20] border dark:border-white shadow shadow-gray-600 dark:shadow-white rounded-lg px-3 py-5 flex flex-col items-center justify-center">
+            <span className="text-xs text-center">BERKAH GAS ASAM-ASAM</span>
+            <span className="text-lg font-bold mt-2">270</span>
+          </div>
+          <div className=" flex-[0_0_13%]  bg-blue-100 dark:bg-[#0d0f20] border dark:border-white shadow shadow-gray-600 dark:shadow-white rounded-lg px-3 py-5 flex flex-col items-center justify-center">
+            <span className="text-xs text-center">KEDAI KOPI BERKAH</span>
+            <span className="text-lg font-bold mt-2">270</span>
+          </div>
+          <div className=" flex-[0_0_13%]  bg-blue-100 dark:bg-[#0d0f20] border dark:border-white shadow shadow-gray-600 dark:shadow-white rounded-lg px-3 py-5 flex flex-col items-center justify-center">
+            <span className="text-xs text-center">FAST PRINT</span>
+            <span className="text-lg font-bold mt-2">270</span>
+          </div>
+          <div className=" flex-[0_0_13%]  bg-blue-100 dark:bg-[#0d0f20] border dark:border-white shadow shadow-gray-600 dark:shadow-white rounded-lg px-3 py-5 flex flex-col items-center justify-center">
+            <span className="text-xs text-center">MITRA SEHAT ANGSANA</span>
+            <span className="text-lg font-bold mt-2">270</span>
+          </div>
+          <div className=" flex-[0_0_13%]  bg-blue-100 dark:bg-[#0d0f20] border dark:border-white shadow shadow-gray-600 dark:shadow-white rounded-lg px-3 py-5 flex flex-col items-center justify-center">
+            <span className="text-xs text-center">DARMA HENWA</span>
+            <span className="text-lg font-bold mt-2">270</span>
+          </div>
+          <div className=" flex-[0_0_13%]  bg-blue-100 dark:bg-[#0d0f20] border dark:border-white shadow shadow-gray-600 dark:shadow-white rounded-lg px-3 py-5 flex flex-col items-center justify-center">
+            <span className="text-xs text-center">HOT CHICKEN ASAM-ASAM</span>
             <span className="text-lg font-bold mt-2">270</span>
           </div>
         </div>
