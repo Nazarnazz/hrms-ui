@@ -51,7 +51,7 @@ export default function Dashboard() {
       {/* <Sidebar /> */}
 
       <div className="p-4">
-        <div className="p-4 rounded-lg bg-blue-200 dark:border dark:bg-gray-900 dark:border-gray-500 mt-14">
+        <div className="p-4 rounded-lg bg-blue-100 border border-gray-400 dark:bg-gray-900 dark:border-gray-500 mt-14">
           <div className="ps-3 flex gap-2 text-xs pt-1">
             <svg className="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
               <path fillRule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z" clipRule="evenodd" />
@@ -61,7 +61,7 @@ export default function Dashboard() {
           <Carousel />
         </div>
         <div className="flex gap-8 mt-4">
-          <div className="p-4 items-center bg-gray-100 border border-gray-400 dark:border-gray-500 justify-center flex flex-col gap-4 rounded-lg">
+          <div className="p-4 items-center bg-blue-100 dark:bg-gray-100 border border-gray-400 dark:border-gray-500 justify-center flex flex-col gap-4 rounded-lg">
             <span className="text-center text-gray-800 font-bold">Calendar</span>
             <Calendar onChange={setValue} value={value} className="rounded-lg text-blue-950 p-2" />
           </div>
