@@ -58,6 +58,7 @@ export default function Dashboard() {
             </svg>
             <span className="font-bold">{visible ? time : ""}</span>
           </div>
+          {/* carousel */}
           <Carousel />
         </div>
         <div className="flex gap-8 mt-4">
