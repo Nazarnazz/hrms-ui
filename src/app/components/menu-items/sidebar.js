@@ -133,7 +133,7 @@ export default function Sidebar({ isOpen }) {
       children: [
         {
           label: "Requests",
-          path: "/admin/cuti",
+          path: "/admin/cuti/request",
         },
         {
           label: "Quotas",
