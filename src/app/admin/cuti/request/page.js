@@ -108,15 +108,8 @@ export default function Setting() {
     setVisibleColumns((prev) => (prev.includes(col) ? prev.filter((c) => c !== col) : [...prev, col]));
   };
 
-  const statusColorMap = {
-    both: "bg-pink-100 text-pink-600 border border-pink-600",
-    face: "bg-blue-100 text-blue-600 border border-blue-600",
-    gps: "bg-yellow-100 text-yellow-600 border border-yellow-600",
-  };
-
   //modal edit
   const [isEditOpen, setIsEditOpen] = useState(false);
-  const [isAddOpen, setIsAddOpen] = useState(false);
 
   //hapus
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
@@ -358,34 +351,18 @@ export default function Setting() {
                   {selectedIds.length > 0 && (
                     <>
                       <div className="mb-2 flex items-center gap-2">
-                        <button onClick={handleBulkDelete} className="bg-red-100 text-red-600 font-bold text-xs border border-red-500 px-3 py-1 rounded">
-                          Hapus Terpilih ({selectedIds.length})
+                        <button onClick={handleBulkDelete} className="bg-red-100 text-red-600 font-bold dark:bg-gray-900 text-xs border border-red-500 px-3 py-1 rounded">
+                          Tolak Terpilih ({selectedIds.length})
                         </button>
                       </div>
                       <div className="mb-2 flex items-center gap-2">
-                        <button onClick={handleBulkDelete} className="bg-blue-100 text-blue-600 font-bold text-xs border border-blue-500 px-3 py-1 rounded">
-                          Edit Terpilih ({selectedIds.length})
+                        <button onClick={handleBulkDelete} className="bg-green-100 text-green-600 font-bold dark:bg-gray-900 text-xs border border-green-500 px-3 py-1 rounded">
+                          Setujui Terpilih ({selectedIds.length})
                         </button>
                       </div>
                     </>
                   )}
-                  <div className="inline-block ml-auto">
-                    <div className="pe-4">
-                      <button
-                        onClick={() => {
-                          setIsAddOpen(true);
-                        }}
-                        className="items-center border border-gray-200 shadow dark:bg-gray-800 dark:hover:bg-gray-500 text-white px-3 rounded-lg bg-[#436cb2] hover:bg-[#5783cf]"
-                      >
-                        <div className="flex py-1 gap-2">
-                          <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                          </svg>
-                          <span className="text-xs">Tambah</span>
-                        </div>
-                      </button>
-                    </div>
-                  </div>
+                  <div className="inline-block ml-auto"></div>
                 </div>
                 <div onClick={() => setIsVisibleOpen(false) || setIsFilterOpen(false)} className="relative overflow-x-auto shadow-md sm:rounded-lg">
                   <Table>
@@ -403,11 +380,10 @@ export default function Setting() {
                             </svg>
                           </div>
                         </TableHeader>
-                        {visibleColumns.includes("Hari Kerja") && <TableHeader className="whitespace-nowrap text-center">Hari Kerja</TableHeader>}
-                        {visibleColumns.includes("Masuk") && <TableHeader className="whitespace-nowrap text-center">Jam Masuk</TableHeader>}
-                        {visibleColumns.includes("Keluar") && <TableHeader className="whitespace-nowrap text-center">Jam Pulang</TableHeader>}
-                        {visibleColumns.includes("Toleransi") && <TableHeader className="whitespace-nowrap text-center">Toleransi</TableHeader>}
-                        {visibleColumns.includes("Method") && <TableHeader className="whitespace-nowrap text-center">Method</TableHeader>}
+                        {visibleColumns.includes("Hari Kerja") && <TableHeader className="whitespace-nowrap text-center">Jenis Cuti</TableHeader>}
+                        {visibleColumns.includes("Keluar") && <TableHeader className="whitespace-nowrap text-center">Cuti Tersisa</TableHeader>}
+                        {visibleColumns.includes("Toleransi") && <TableHeader className="whitespace-nowrap text-center">Urgensi</TableHeader>}
+                        {visibleColumns.includes("Method") && <TableHeader className="whitespace-nowrap text-center">Pengajuan</TableHeader>}
                         <TableHeader>
                           <span className="sr-only">Action</span>
                         </TableHeader>
@@ -422,25 +398,15 @@ export default function Setting() {
                           </TableCell>
                           <TableCell className="whitespace-nowrap">{item.nama}</TableCell>
                           <TableCell>{item.divisi}</TableCell>
-                          {visibleColumns.includes("Hari Kerja") && (
-                            <TableCell className="whitespace-nowrap text-center">
-                              <span className="bg-blue-50 p-1 dark:bg-gray-800 text-blue-500 border border-blue-500 rounded-md">Senin</span>,{" "}
-                              <span className="bg-yellow-50 dark:bg-gray-800 p-1 text-yellow-500 border border-yellow-500 rounded-md">Selasa</span>,{" "}
-                              <span className="bg-green-50 dark:bg-gray-800 p-1 text-green-500 border border-green-500 rounded-md">Rabu</span>,{" "}
-                              <span className="bg-pink-50 dark:bg-gray-800 p-1 text-pink-500 border0 border border-pink-500 rounded-md">Kamis</span>,{" "}
-                              <span className="bg-gray-50 dark:bg-gray-800 p-1 dark:text-gray-300 text-gray-500 border border-gray-500 rounded-md">Jumat</span>,{" "}
-                              <span className="bg-purple-50 dark:bg-gray-800 p-1 text-purple-500 border border-purple-500 rounded-md">Sabtu</span>,{" "}
-                              <span className=" bg-orange-50 p-1 dark:bg-gray-800 text-orange-500 border border-orange-500 rounded-md">Minggu</span>
+                          {visibleColumns.includes("Hari Kerja") && <TableCell className="whitespace-nowrap text-center">Cuti Bulanan</TableCell>}
+
+                          {visibleColumns.includes("Keluar") && <TableCell className="whitespace-nowrap text-center">12 Hari</TableCell>}
+                          {visibleColumns.includes("Toleransi") && (
+                            <TableCell className="text-center">
+                              <span className="border border-red-600 bg-red-50 dark:bg-gray-800 text-red-600 rounded-lg p-2">Urgent</span>
                             </TableCell>
                           )}
-                          {visibleColumns.includes("Masuk") && <TableCell>{item.masuk}</TableCell>}
-                          {visibleColumns.includes("Keluar") && <TableCell>{item.keluar}</TableCell>}
-                          {visibleColumns.includes("Toleransi") && <TableCell className="text-center">10 Minutes</TableCell>}
-                          {visibleColumns.includes("Method") && (
-                            <TableCell>
-                              <span className={`rounded-md text-[11px] p-1 inline-block ${statusColorMap[item.method]} `}>{item.method}</span>
-                            </TableCell>
-                          )}
+                          {visibleColumns.includes("Method") && <TableCell className="whitespace-nowrap text-center">4 Hari</TableCell>}
 
                           <TableCell>
                             <div className="flex gap-3">
@@ -448,33 +414,20 @@ export default function Setting() {
                                 onClick={() => {
                                   setIsEditOpen(true);
                                 }}
-                                className="hover:bg-blue-200 bg-blue-50 border dark:bg-gray-800 border-blue-600 rounded group"
+                                className="hover:bg-green-200 bg-green-50 border-2 dark:bg-gray-800 border-green-600 rounded group"
                               >
-                                <svg className="w-6 h-6 text-blue-700 group-hover:text-blue-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                  <path
-                                    fillRule="evenodd"
-                                    d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z"
-                                    clipRule="evenodd"
-                                  />
-                                  <path
-                                    fillRule="evenodd"
-                                    d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z"
-                                    clipRule="evenodd"
-                                  />
+                                <svg className="w-6 h-6 text-green-700 group-hover:text-green-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 11.917 9.724 16.5 19 7.5" />
                                 </svg>
                               </button>
                               <button
                                 onClick={() => {
                                   setIsDeleteOpen(true);
                                 }}
-                                className="bg-red-50 border dark:bg-gray-800 border-red-600 hover:bg-red-200 rounded group"
+                                className="bg-red-50 border-2 dark:bg-gray-800 border-red-600 hover:bg-red-200 rounded group"
                               >
-                                <svg className="w-6 h-6 text-red-600 group-hover:text-red-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                  <path
-                                    fillRule="evenodd"
-                                    d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z"
-                                    clipRule="evenodd"
-                                  />
+                                <svg className="w-6 h-6 text-red-600 group-hover:text-red-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M6 18 17.94 6M18 18 6.06 6" />
                                 </svg>
                               </button>
                             </div>
@@ -484,7 +437,6 @@ export default function Setting() {
                     </TableBody>
                   </Table>
                 </div>
-
                 <Pagination setCurrentPage={setCurrentPage} currentPage={currentPage} totalPages={totalPages} />
               </div>
             </div>
@@ -620,97 +572,6 @@ export default function Setting() {
           </div>
         )}
       </Layout>
-
-      {/* Modal Tambah  */}
-      <Dialog open={isAddOpen} onClose={() => setIsAddOpen(false)}>
-        <DialogTitle>Tambah Data</DialogTitle>
-        <hr className="border-1" />
-        <DialogBody>
-          <fieldset className="mt-2 pt-5">
-            <Label htmlFor="name" className="mb-2">
-              Nama
-            </Label>
-            <Input type="text" name="name" id="name" className="ps-4" placeholder="Nazar Aulia" required={true} />
-          </fieldset>
-          <div className="grid gird-cols-2">
-            <fieldset className="mt-4">
-              <Label className="mb-2" htmlFor="tolerance">
-                Tolerance
-              </Label>
-              <Input type="text" name="tolerance" id="tolerance" className="ps-4" placeholder="10 Min" required={true} />
-            </fieldset>
-            <fieldset className="mt-4">
-              <Label className="mb-2" htmlFor="method">
-                Method
-              </Label>
-              <Input type="text" name="method" id="method" className="ps-4" placeholder="both" required={true} />
-            </fieldset>
-          </div>
-          <Label className="mb-2 mt-4" htmlFor="method">
-            Schedule
-          </Label>
-          <div className="relative mt-3 overflow-x-auto shadow-md sm:rounded-lg">
-            <table className="w-full text-sm text-left rtl:text-right text-gray-700 dark:text-gray-400">
-              <thead className="">
-                <tr className="text-center bg-gray-300 dark:bg-gray-700">
-                  <th scope="col" className="px-4 py-3">
-                    Day
-                  </th>
-                  <th scope="col" className="whitespace-nowrap px-4 py-3">
-                    Time in
-                  </th>
-                  <th scope="col" className="whitespace-nowrap px-4 py-3">
-                    Time out
-                  </th>
-                  <th scope="col" className="whitespace-nowrap px-4 py-3">
-                    Name
-                  </th>
-                  <th scope="col" className="px-3">
-                    <span className="sr-only">Action</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map((row, rowIndex) => (
-                  <tr key={rowIndex} className="text-center">
-                    <td className="whitespace-nowrap px-4 py-3">
-                      <input type="text" value={row.day} onChange={(e) => handleChange(rowIndex, "day", e.target.value)} className="w-full text-center text-xs border rounded p-1" />
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-3">
-                      {" "}
-                      <input type="text" value={row.start} onChange={(e) => handleChange(rowIndex, "start", e.target.value)} className="w-full text-center text-xs border rounded p-1" />
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-3">
-                      <input type="text" value={row.end} onChange={(e) => handleChange(rowIndex, "end", e.target.value)} className="w-full text-center text-xs border rounded p-1" />
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-3">
-                      <input type="text" value={row.shiftName} onChange={(e) => handleChange(rowIndex, "shiftName", e.target.value)} className="w-full text-center text-xs border rounded p-1" />
-                    </td>
-                    <td className="px-3">
-                      <button onClick={() => removeRow(rowIndex)} className="bg-red-600 text-white px-2 py-0.5 rounded-full text-xs">
-                        x
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <button onClick={addRow} className="bg-gray-800 ml-2 mb-2 text-white hover:bg-gray-700 mt-2 inline-block rounded-full px-2.5 py-0.5">
-              +
-            </button>
-          </div>
-        </DialogBody>
-        <DialogActions>
-          <div className="flex">
-            <button className="px-10 py-1.5 rounded bg-gray-600 text-white hover:bg-gray-400" onClick={() => setIsAddOpen(false)}>
-              Batal
-            </button>
-          </div>
-          <div className="flex justify-end">
-            <button className="px-10 py-1.5 rounded bg-[#508DA7] text-white hover:bg-[#6db7d4]">Tambahkan</button>
-          </div>
-        </DialogActions>
-      </Dialog>
 
       {/* Modal Edit  */}
       <Dialog open={isEditOpen} onClose={() => setIsEditOpen(false)}>
