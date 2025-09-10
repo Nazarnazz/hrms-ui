@@ -1,4 +1,27 @@
+import { useState } from "react";
+
 export function SearchBar({ searchTerm, setSearchTerm, onToggleVisible, onToggleFilter, onRefresh, onExport, onPrint, placeholder, className = "", ...props }) {
+  // Data dummy (bisa diganti API)
+  const data = ["Alfian Sujantan", "Zeanda Hendro", "Tailwind", "Node.js", "Express", "MongoDB"];
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+
+    if (value.length > 0) {
+      const filtered = data.filter((item) => item.toLowerCase().includes(value.toLowerCase()));
+      setSuggestions(filtered);
+    } else {
+      setSuggestions([]);
+    }
+  };
+
+  const handleSelect = (item) => {
+    setSearchTerm(item);
+    setSuggestions([]); // sembunyikan setelah dipilih
+  };
+  const [suggestions, setSuggestions] = useState([]);
+
   return (
     <div className="grid grid-cols-10 md:grid-cols-20 lg:grid-cols-25">
       <div className="col-span-5 md:col-span-15 lg:col-span-20">
@@ -13,11 +36,17 @@ export function SearchBar({ searchTerm, setSearchTerm, onToggleVisible, onToggle
               type="search"
               id="search"
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={handleChange}
               className={`block w-full p-2 ps-10 mt-2 text-sm text-gray-900 border border-gray-300 rounded-l-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${className}`}
               placeholder={placeholder}
             />
           </form>
+
+          {suggestions.length > 0 && (
+            <ul className="absolute z-10 w-full bg-white dark:bg-gray-800 border border-gray-300 rounded-lg mt-1 max-h-40 overflow-y-auto shadow-lg">
+              <li className="px-3 py-2 cursor-pointer dark:hover:bg-gray-500 hover:bg-blue-100">{searchTerm}</li>
+            </ul>
+          )}
         </div>
       </div>
 

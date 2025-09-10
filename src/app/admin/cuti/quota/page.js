@@ -292,7 +292,7 @@ export default function Setting() {
             </div>
           ) : (
             <div>
-              <span className="text-[20px] mt-4 ">Leave Requests</span>
+              <span className="text-[20px] mt-4 ">Leave Quota</span>
               <div className="md:col-span-8">
                 <SearchBarNoPrint
                   searchTerm={searchTerm}
