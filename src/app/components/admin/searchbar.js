@@ -1,29 +1,6 @@
-import { useState } from "react";
-
 export function SearchBar({ searchTerm, setSearchTerm, onToggleVisible, onToggleFilter, onRefresh, onExport, onPrint, placeholder, className = "", ...props }) {
-  // Data dummy (bisa diganti API)
-  const data = ["Alfian Sujantan", "Zeanda Hendro", "Tailwind", "Node.js", "Express", "MongoDB"];
-
-  const handleChange = (e) => {
-    const value = e.target.value;
-    setSearchTerm(value);
-
-    if (value.length > 0) {
-      const filtered = data.filter((item) => item.toLowerCase().includes(value.toLowerCase()));
-      setSuggestions(filtered);
-    } else {
-      setSuggestions([]);
-    }
-  };
-
-  const handleSelect = (item) => {
-    setSearchTerm(item);
-    setSuggestions([]); // sembunyikan setelah dipilih
-  };
-  const [suggestions, setSuggestions] = useState([]);
-
   return (
-    <div className="grid grid-cols-10 md:grid-cols-20 lg:grid-cols-25">
+    <div className={`grid grid-cols-10 md:grid-cols-20 lg:grid-cols-25 ${searchTerm && "mb-15"}`}>
       <div className="col-span-5 md:col-span-15 lg:col-span-20">
         <div className={`relative ${className}`} {...props}>
           <div className="absolute inset-y-0 start-0 flex items-center ps-3">
@@ -36,15 +13,26 @@ export function SearchBar({ searchTerm, setSearchTerm, onToggleVisible, onToggle
               type="search"
               id="search"
               value={searchTerm}
-              onChange={handleChange}
-              className={`block w-full p-2 ps-10 mt-2 text-sm text-gray-900 border border-gray-300 rounded-l-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${className}`}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className={`block w-full p-2 ps-10 mt-2 text-sm text-gray-900 border border-gray-300 rounded-l-lg bg-gray-50 focus:ring-blue-500 focus:dark:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:dark:border-blue-500 ${className}`}
               placeholder={placeholder}
             />
           </form>
 
-          {suggestions.length > 0 && (
-            <ul className="absolute z-10 w-full bg-white dark:bg-gray-800 border border-gray-300 rounded-lg mt-1 max-h-40 overflow-y-auto shadow-lg">
-              <li className="px-3 py-2 cursor-pointer dark:hover:bg-gray-500 hover:bg-blue-100">{searchTerm}</li>
+          {searchTerm && (
+            <ul className="absolute z-10 w-full dark:bg-gray-800 border dark:border-gray-500 rounded-sm mt-1 max-h-40 overflow-y-auto shadow-lg">
+              <li className="px-3 py-2 cursor-pointer dark:border-b bg-red-50 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-500 text-xs hover:bg-red-100">
+                <span className="px-2 ps-2 mr-5 rounded-lg py-1 dark:bg-red-50 text-red-600 border font-bold border-red-600">#id</span>
+                {searchTerm}
+              </li>
+              <li className="px-3 py-2 cursor-pointer dark:border-b bg-green-50 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-500 text-xs hover:bg-green-100">
+                <span className="px-2 ps-2 mr-5 rounded-lg py-1 dark:bg-green-50 text-green-600 border font-bold border-green-600">#nama</span>
+                {searchTerm}
+              </li>
+              <li className="px-3 py-2 cursor-pointer bg-blue-50 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-500 text-xs hover:bg-blue-100">
+                <span className="px-2 ps-2 mr-5 rounded-lg py-1 dark:bg-blue-50 text-blue-600 border font-bold dark:border-blue-600">#department</span>
+                {searchTerm}
+              </li>
             </ul>
           )}
         </div>
@@ -106,7 +94,7 @@ export function SearchBar({ searchTerm, setSearchTerm, onToggleVisible, onToggle
 
 export function SearchBarNoPrint({ searchTerm, setSearchTerm, onToggleVisible, onToggleFilter, onRefresh, placeholder, className = "", ...props }) {
   return (
-    <div className="grid grid-cols-10 md:grid-cols-20 lg:grid-cols-25">
+    <div className={`grid grid-cols-10 md:grid-cols-20 lg:grid-cols-25 ${searchTerm && "mb-15"}`}>
       <div className="col-span-7 md:col-span-17 lg:col-span-22">
         <div className={`relative ${className}`} {...props}>
           <div className="absolute inset-y-0 start-0 flex items-center ps-3">
@@ -120,10 +108,26 @@ export function SearchBarNoPrint({ searchTerm, setSearchTerm, onToggleVisible, o
               id="search"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className={`block w-full p-2 ps-10 mt-2 text-sm text-gray-900 border border-gray-300 rounded-l-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${className}`}
+              className={`block w-full p-2 ps-10 mt-2 text-sm text-gray-900 border border-gray-300 rounded-l-lg bg-gray-50 focus:ring-blue-500 focus:dark:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:dark:border-blue-500 ${className}`}
               placeholder={placeholder}
             />
           </form>
+          {searchTerm && (
+            <ul className="absolute z-10 w-full dark:bg-gray-800 border dark:border-gray-500 rounded-sm mt-1 max-h-40 overflow-y-auto shadow-lg">
+              <li className="px-3 py-2 cursor-pointer dark:border-b bg-red-50 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-500 text-xs hover:bg-red-100">
+                <span className="px-2 ps-2 mr-5 rounded-lg py-1 dark:bg-red-50 text-red-600 border font-bold border-red-600">#id</span>
+                {searchTerm}
+              </li>
+              <li className="px-3 py-2 cursor-pointer dark:border-b bg-green-50 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-500 text-xs hover:bg-green-100">
+                <span className="px-2 ps-2 mr-5 rounded-lg py-1 dark:bg-green-50 text-green-600 border font-bold border-green-600">#nama</span>
+                {searchTerm}
+              </li>
+              <li className="px-3 py-2 cursor-pointer bg-blue-50 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-500 text-xs hover:bg-blue-100">
+                <span className="px-2 ps-2 mr-5 rounded-lg py-1 dark:bg-blue-50 text-blue-600 border font-bold dark:border-blue-600">#department</span>
+                {searchTerm}
+              </li>
+            </ul>
+          )}
         </div>
       </div>
 
@@ -170,7 +174,7 @@ export function SearchBarNoButton({ searchTerm, setSearchTerm, placeholder, clas
           id="search"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className={`block w-full p-2 ps-10 mt-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${className}`}
+          className={`block w-full p-2 ps-10 mt-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:dark:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:dark:border-blue-500 ${className}`}
           placeholder={placeholder}
         />
       </form>
