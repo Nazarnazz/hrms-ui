@@ -223,29 +223,6 @@ export default function Setting() {
     }, 100);
   });
 
-  // bulk action
-  const [selectedIds, setSelectedIds] = useState([]);
-  const handleSelectAll = (e) => {
-    if (e.target.checked) {
-      setSelectedIds(data.map((item) => item.id));
-    } else {
-      setSelectedIds([]);
-    }
-  };
-
-  const handleSelectRow = (id) => {
-    if (selectedIds.includes(id)) {
-      setSelectedIds(selectedIds.filter((sid) => sid !== id));
-    } else {
-      setSelectedIds([...selectedIds, id]);
-    }
-  };
-
-  const handleBulkDelete = () => {
-    alert(`Menghapus ID: ${selectedIds.join(", ")}`);
-    // Lanjutkan logika delete di sini
-  };
-
   // useEffect(() => {
   //   const fetchUsers = async () => {
   //     setIsLoading(true);
@@ -329,29 +306,14 @@ export default function Setting() {
                       <span className="text-xs">per halaman</span>
                     </div>
                   </div>
-                  {selectedIds.length > 0 && (
-                    <>
-                      <div className="mb-2 flex items-center gap-2">
-                        <button onClick={handleBulkDelete} className="bg-red-100 text-red-600 font-bold dark:bg-gray-900 text-xs border border-red-500 px-3 py-1 rounded">
-                          Tolak Terpilih ({selectedIds.length})
-                        </button>
-                      </div>
-                      <div className="mb-2 flex items-center gap-2">
-                        <button onClick={handleBulkDelete} className="bg-green-100 text-green-600 font-bold dark:bg-gray-900 text-xs border border-green-500 px-3 py-1 rounded">
-                          Setujui Terpilih ({selectedIds.length})
-                        </button>
-                      </div>
-                    </>
-                  )}
+
                   <div className="inline-block ml-auto"></div>
                 </div>
                 <div onClick={() => setIsVisibleOpen(false) || setIsFilterOpen(false)} className="relative overflow-x-auto shadow-md sm:rounded-lg">
                   <Table>
                     <TableHead>
                       <TableRow>
-                        <TableHeader className={`text-center`}>
-                          <input type="checkbox" className="accent-blue-600" checked={selectedIds.length === data.length} onChange={handleSelectAll} />
-                        </TableHeader>
+                        <TableHeader className={`text-center`}>No.</TableHeader>
                         <TableHeader className="text-center">Nama</TableHeader>
                         <TableHeader className="text-center">
                           <div className="flex items-center">
@@ -371,12 +333,10 @@ export default function Setting() {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {data.map((item) => (
+                      {data.map((item, index) => (
                         <TableRow key={item.id}>
                           {/* <TableHeader className={`text-center`}>{startIndex + index + 1}</TableHeader> */}
-                          <TableCell className={`text-center`}>
-                            <input type="checkbox" className="accent-blue-600" checked={selectedIds.includes(item.id)} onChange={() => handleSelectRow(item.id)} />
-                          </TableCell>
+                          <TableCell className={`text-center`}>{startIndex + index + 1}</TableCell>
                           <TableCell className="whitespace-nowrap">{item.nama}</TableCell>
                           <TableCell>{item.divisi}</TableCell>
                           {visibleColumns.includes("Hari Kerja") && <TableCell className="whitespace-nowrap text-center">Cuti Bulanan</TableCell>}

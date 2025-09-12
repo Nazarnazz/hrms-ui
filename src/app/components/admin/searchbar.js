@@ -20,7 +20,7 @@ export function SearchBar({ searchTerm, setSearchTerm, onToggleVisible, onToggle
           </form>
 
           {searchTerm && (
-            <ul className="absolute z-10 w-full dark:bg-gray-800 border dark:border-gray-500 rounded-sm mt-1 max-h-40 overflow-y-auto shadow-lg">
+            <ul className="absolute z-10 w-full dark:bg-gray-800 border border-gray-100 dark:border-gray-500 rounded-sm mt-1 max-h-40 overflow-y-auto shadow-lg">
               <li className="px-3 py-2 cursor-pointer dark:border-b bg-red-50 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-500 text-xs hover:bg-red-100">
                 <span className="px-2 ps-2 mr-5 rounded-lg py-1 dark:bg-red-50 text-red-600 border font-bold border-red-600">#id</span>
                 {searchTerm}
@@ -113,7 +113,7 @@ export function SearchBarNoPrint({ searchTerm, setSearchTerm, onToggleVisible, o
             />
           </form>
           {searchTerm && (
-            <ul className="absolute z-10 w-full dark:bg-gray-800 border dark:border-gray-500 rounded-sm mt-1 max-h-40 overflow-y-auto shadow-lg">
+            <ul className="absolute z-10 w-full dark:bg-gray-800 border border-gray-100 dark:border-gray-500 rounded-sm mt-1 max-h-40 overflow-y-auto shadow-lg">
               <li className="px-3 py-2 cursor-pointer dark:border-b bg-red-50 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-500 text-xs hover:bg-red-100">
                 <span className="px-2 ps-2 mr-5 rounded-lg py-1 dark:bg-red-50 text-red-600 border font-bold border-red-600">#id</span>
                 {searchTerm}
