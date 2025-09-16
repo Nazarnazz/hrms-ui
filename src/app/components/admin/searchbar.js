@@ -3,21 +3,19 @@ export function SearchBar({ searchTerm, setSearchTerm, onToggleVisible, onToggle
     <div className={`grid grid-cols-10 md:grid-cols-20 lg:grid-cols-25 ${searchTerm && "mb-15"}`}>
       <div className="col-span-5 md:col-span-15 lg:col-span-20">
         <div className={`relative ${className}`} {...props}>
-          <div className="absolute inset-y-0 start-0 flex items-center ps-3">
+          <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
             <svg className="w-3 h-3 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
             </svg>
           </div>
-          <form>
-            <input
-              type="search"
-              id="search"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className={`block w-full p-2 ps-10 mt-2 text-sm text-gray-900 border border-gray-300 rounded-l-lg bg-gray-50 focus:ring-blue-500 focus:dark:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:dark:border-blue-500 ${className}`}
-              placeholder={placeholder}
-            />
-          </form>
+          <input
+            type="search"
+            id="search"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className={`block w-full p-2 ps-10 mt-2 text-sm text-gray-900 border border-gray-300 rounded-l-lg bg-gray-50 focus:ring-blue-500 focus:dark:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:dark:border-blue-500 ${className}`}
+            placeholder={placeholder}
+          />
 
           {searchTerm && (
             <ul className="absolute z-10 w-full dark:bg-gray-800 border border-gray-100 dark:border-gray-500 rounded-sm mt-1 max-h-40 overflow-y-auto shadow-lg">

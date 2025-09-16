@@ -20,7 +20,7 @@ export default function Setting() {
       divisi: "IT",
       masuk: "07:43",
       keluar: "17:02",
-      method: "both",
+      pengajuan: "both",
       notes: "keterangan lain",
       status: "hadir",
       face_in: "model-1-masuk.png",
@@ -33,7 +33,7 @@ export default function Setting() {
       divisi: "Asset",
       masuk: "07:43",
       keluar: "17:02",
-      method: "both",
+      pengajuan: "both",
       notes: "keterangan lain",
       status: "hadir",
       face_in: "model-2-masuk.png",
@@ -46,7 +46,7 @@ export default function Setting() {
       divisi: "General Admin",
       masuk: " - ",
       keluar: " - ",
-      method: "gps",
+      pengajuan: "gps",
       notes: "keterangan lain",
       status: "alfa",
       face_in: ".",
@@ -59,7 +59,7 @@ export default function Setting() {
       divisi: "LPG",
       masuk: "07:43",
       keluar: "17:02",
-      method: "face",
+      pengajuan: "face",
       notes: "keterangan lain",
       status: "hadir",
       face_in: "model-4-masuk.png",
@@ -72,7 +72,7 @@ export default function Setting() {
       divisi: "Purchasing",
       masuk: "07:43",
       keluar: "17:02",
-      method: "face",
+      pengajuan: "face",
       notes: "keterangan lain",
       status: "hadir",
       face_in: "model-3-masuk.png",
@@ -81,9 +81,9 @@ export default function Setting() {
     },
   ];
 
-  const [visibleColumns, setVisibleColumns] = useState(["Hari Kerja", "Method", "Toleransi"]);
+  const [visibleColumns, setVisibleColumns] = useState(["Jenis Cuti", "Pengajuan", "Urgensi"]);
 
-  const allColumns = ["Hari Kerja", "Masuk", "Keluar", "Method", "Toleransi"];
+  const allColumns = ["Jenis Cuti", "Cuti Tersisa", "Pengajuan", "Urgensi"];
 
   const toggleColumn = (col) => {
     setVisibleColumns((prev) => (prev.includes(col) ? prev.filter((c) => c !== col) : [...prev, col]));
@@ -368,10 +368,10 @@ export default function Setting() {
                             </svg>
                           </div>
                         </TableHeader>
-                        {visibleColumns.includes("Hari Kerja") && <TableHeader className="whitespace-nowrap text-center">Jenis Cuti</TableHeader>}
-                        {visibleColumns.includes("Keluar") && <TableHeader className="whitespace-nowrap text-center">Cuti Tersisa</TableHeader>}
-                        {visibleColumns.includes("Toleransi") && <TableHeader className="whitespace-nowrap text-center">Urgensi</TableHeader>}
-                        {visibleColumns.includes("Method") && <TableHeader className="whitespace-nowrap text-center">Pengajuan</TableHeader>}
+                        {visibleColumns.includes("Jenis Cuti") && <TableHeader className="whitespace-nowrap text-center">Jenis Cuti</TableHeader>}
+                        {visibleColumns.includes("Cuti Tersisa") && <TableHeader className="whitespace-nowrap text-center">Cuti Tersisa</TableHeader>}
+                        {visibleColumns.includes("Urgensi") && <TableHeader className="whitespace-nowrap text-center">Urgensi</TableHeader>}
+                        {visibleColumns.includes("Pengajuan") && <TableHeader className="whitespace-nowrap text-center">Pengajuan</TableHeader>}
                         <TableHeader>
                           <span className="sr-only">Action</span>
                         </TableHeader>
@@ -386,15 +386,15 @@ export default function Setting() {
                           </TableCell>
                           <TableCell className="whitespace-nowrap">{item.nama}</TableCell>
                           <TableCell>{item.divisi}</TableCell>
-                          {visibleColumns.includes("Hari Kerja") && <TableCell className="whitespace-nowrap text-center">Cuti Bulanan</TableCell>}
+                          {visibleColumns.includes("Jenis Cuti") && <TableCell className="whitespace-nowrap text-center">Cuti Bulanan</TableCell>}
 
-                          {visibleColumns.includes("Keluar") && <TableCell className="whitespace-nowrap text-center">12 Hari</TableCell>}
-                          {visibleColumns.includes("Toleransi") && (
+                          {visibleColumns.includes("Cuti Tersisa") && <TableCell className="whitespace-nowrap text-center">12 Hari</TableCell>}
+                          {visibleColumns.includes("Urgensi") && (
                             <TableCell className="text-center">
                               <span className="border border-red-600 bg-red-50 dark:bg-gray-800 text-red-600 rounded-lg p-2">Urgent</span>
                             </TableCell>
                           )}
-                          {visibleColumns.includes("Method") && <TableCell className="whitespace-nowrap text-center">4 Hari</TableCell>}
+                          {visibleColumns.includes("Pengajuan") && <TableCell className="whitespace-nowrap text-center">4 Hari</TableCell>}
 
                           <TableCell>
                             <div className="flex gap-3">

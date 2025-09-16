@@ -330,10 +330,8 @@ export default function Setting() {
                             </svg>
                           </div>
                         </TableHeader>
-                        {visibleColumns.includes("Hari Kerja") && <TableHeader className="whitespace-nowrap text-center">Jenis Cuti</TableHeader>}
-                        {visibleColumns.includes("Keluar") && <TableHeader className="whitespace-nowrap text-center">Cuti Tersisa</TableHeader>}
-                        {visibleColumns.includes("Toleransi") && <TableHeader className="whitespace-nowrap text-center">Urgensi</TableHeader>}
-                        {visibleColumns.includes("Method") && <TableHeader className="whitespace-nowrap text-center">Pengajuan</TableHeader>}
+                        {visibleColumns.includes("Toleransi") && <TableHeader className="whitespace-nowrap text-center">Quota Left</TableHeader>}
+                        {visibleColumns.includes("Method") && <TableHeader className="whitespace-nowrap text-center">On Hold Quota</TableHeader>}
                         <TableHeader>
                           <span className="sr-only">Action</span>
                         </TableHeader>
@@ -346,9 +344,6 @@ export default function Setting() {
                           <TableCell className={`text-center`}>{startIndex + index + 1}</TableCell>
                           <TableCell className="whitespace-nowrap">{item.nama}</TableCell>
                           <TableCell>{item.divisi}</TableCell>
-                          {visibleColumns.includes("Hari Kerja") && <TableCell className="whitespace-nowrap text-center">Cuti Bulanan</TableCell>}
-
-                          {visibleColumns.includes("Keluar") && <TableCell className="whitespace-nowrap text-center">12 Hari</TableCell>}
                           {visibleColumns.includes("Toleransi") && (
                             <TableCell className="text-center">
                               <span className="border border-red-600 bg-red-50 dark:bg-gray-800 text-red-600 rounded-lg p-2">Urgent</span>
