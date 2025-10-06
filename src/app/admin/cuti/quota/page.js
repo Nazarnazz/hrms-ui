@@ -92,10 +92,6 @@ export default function Setting() {
   //modal edit
   const [isEditOpen, setIsEditOpen] = useState(false);
 
-  //hapus
-  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-  const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
-
   //searching
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -346,7 +342,7 @@ export default function Setting() {
                           <TableCell>{item.divisi}</TableCell>
                           {visibleColumns.includes("Toleransi") && (
                             <TableCell className="text-center">
-                              <span className="border border-red-600 bg-red-50 dark:bg-gray-800 text-red-600 rounded-lg p-2">Urgent</span>
+                              <span className="border border-indigo-600 bg-indigo-50 dark:bg-gray-800 text-indigo-600 rounded-lg p-2">14 Hari</span>
                             </TableCell>
                           )}
                           {visibleColumns.includes("Method") && <TableCell className="whitespace-nowrap text-center">4 Hari</TableCell>}
@@ -357,21 +353,9 @@ export default function Setting() {
                                 onClick={() => {
                                   setIsEditOpen(true);
                                 }}
-                                className="hover:bg-green-200 bg-green-50 border-2 dark:bg-gray-800 border-green-600 rounded group"
+                                className="hover:bg-blue-200 bg-blue-50 border-2 dark:bg-gray-800 border-blue-600 p-1.5 rounded group"
                               >
-                                <svg className="w-6 h-6 text-green-700 group-hover:text-green-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 11.917 9.724 16.5 19 7.5" />
-                                </svg>
-                              </button>
-                              <button
-                                onClick={() => {
-                                  setIsDeleteOpen(true);
-                                }}
-                                className="bg-red-50 border-2 dark:bg-gray-800 border-red-600 hover:bg-red-200 rounded group"
-                              >
-                                <svg className="w-6 h-6 text-red-600 group-hover:text-red-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M6 18 17.94 6M18 18 6.06 6" />
-                                </svg>
+                                <span className="text-blue-600 group-hover:font-bold">Update</span>
                               </button>
                             </div>
                           </TableCell>
@@ -518,13 +502,23 @@ export default function Setting() {
 
       {/* Modal Edit  */}
       <Dialog open={isEditOpen} onClose={() => setIsEditOpen(false)}>
-        <DialogTitle className="text-green-500">Konfirmasi</DialogTitle>
-        <hr className="border-1 text-green-500" />
+        <DialogTitle className="text-blue-500">Update Kuota</DialogTitle>
+        <hr className="border-1 text-blue-500" />
         <DialogBody>
-          <Label className={`py-3`}>
-            Menyetujui cuti ini akan mengurangi kuota cuti karyawan tersebut dan karyawan akan mendapatkan hak cuti sesuai persetujuan. <br />
-            <br /> <span className="text-green-500 font-bold">Setujui Cuti?</span>{" "}
-          </Label>
+          <div className="grid grid-cols-8 gap-4">
+            <div className="col-span-6">
+              <Label className={`p-2`}>Nama</Label>
+              <input className={`bg-gray-800 border text-sm border-gray-600 rounded w-full py-1.5 ps-4 placeholder:italic`} value={`Nazar Aulia`} disabled placeholder={`Nazar Aulia`}></input>
+            </div>
+            <div className="col-span-2">
+              <Label className={`p-2`}>Quota</Label>
+              <div className="w-full bg-gray-800 rounded py-1 border border-gray-600 grid grid-cols-3">
+                <div className="items-center text-center">-</div>
+                <div className="items-center text-center">18</div>
+                <div className="items-center text-center">+</div>
+              </div>
+            </div>
+          </div>
         </DialogBody>
         <DialogActions>
           <div className="flex">
@@ -533,47 +527,7 @@ export default function Setting() {
             </button>
           </div>
           <div className="flex justify-end">
-            <button className="px-10 py-1.5 rounded bg-[#50a767] text-white hover:bg-[#7cd46d]">Ya</button>
-          </div>
-        </DialogActions>
-      </Dialog>
-
-      {/* Dialog hapus */}
-      <Dialog open={isDeleteOpen} onClose={() => setIsDeleteOpen(false)}>
-        <DialogTitle className="text-red-500">Konfirmasi</DialogTitle>
-        <hr className="border-1 text-red-500" />
-        <DialogBody>
-          <Label className={`py-3 text-red-500`}>Apakah Anda yakin ingin menolak cuti yang telah diajukan?</Label>
-        </DialogBody>
-        <DialogActions>
-          <div className="flex">
-            <button className="px-10 py-1.5 rounded bg-gray-600 text-white hover:bg-gray-400" onClick={() => setIsDeleteOpen(false)}>
-              Batal
-            </button>
-          </div>
-          <div className="flex justify-end">
-            <button className="px-10 py-1.5 rounded bg-[#a75050] text-white hover:bg-[#d46d6d]" onClick={() => setIsDeleteConfirmOpen(true) && setIsDeleteOpen(false)}>
-              Ya
-            </button>
-          </div>
-        </DialogActions>
-      </Dialog>
-
-      {/* Konfirmasi hapus */}
-      <Dialog open={isDeleteConfirmOpen} onClose={() => setIsDeleteConfirmOpen(false)}>
-        <DialogTitle>Konfirmasi</DialogTitle>
-        <hr className="border-1" />
-        <DialogBody>
-          <Label className={`py-3`}>Anda Yakin?</Label>
-        </DialogBody>
-        <DialogActions>
-          <div className="flex">
-            <button className="px-10 py-1.5 rounded bg-gray-600 text-white hover:bg-gray-400" onClick={() => setIsDeleteConfirmOpen(false)}>
-              Batal
-            </button>
-          </div>
-          <div className="flex justify-end">
-            <button className="px-10 py-1.5 rounded bg-[#a75050] text-white hover:bg-[#d46d6d]">Ya</button>
+            <button className="px-10 py-1.5 rounded bg-[#2f45af] text-white hover:bg-[#718df0]">Simpan</button>
           </div>
         </DialogActions>
       </Dialog>
