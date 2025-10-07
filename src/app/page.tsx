@@ -24,7 +24,7 @@ export default function Auth() {
     formData.append("password", password);
 
     try {
-      const res = await fetch("https://pslg211r-8000.asse.devtunnels.ms/api/auth/login/", {
+      const res = await fetch("https://r15w893q-8000.asse.devtunnels.ms/api/auth/login/", {
         method: "POST",
         body: formData,
         headers: {

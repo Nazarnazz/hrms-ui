@@ -4,7 +4,7 @@ import Layout from "@/app/components/menu-items/layout";
 import { SearchBar } from "@/app/components/admin/searchbar";
 import { Table, TableHead, TableHeader, TableBody, TableRow, TableCell } from "@/app/components/admin/table";
 import { Dialog, DialogActions, DialogBody, DialogTitle } from "@/app/components/admin/dialog";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import * as XLSX from "xlsx";
@@ -109,6 +109,36 @@ export default function Riwayat() {
     gps: "bg-yellow-100 dark:bg-gray-800 text-yellow-600 border border-yellow-600",
   };
 
+  const tableRef = useRef(null); // ✅ ini untuk menangkap elemen tabel
+
+  const handlePrint = () => {
+    const printContent = tableRef.current.innerHTML; // ambil isi tabel
+    const printWindow = window.open("", "_blank"); // buka jendela baru
+    printWindow.document.write(`
+      <html>
+        <head>
+          <title>Print Riwayat Absensi</title>
+          <style>
+            table { width: 100%; border-collapse: collapse; }
+            th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+            img { max-width: 70px; height: auto; }
+            body { font-family: sans-serif; margin: 20px; }
+          </style>
+        </head>
+        <body>
+        <div>
+        
+        </div>
+          <h2 style="text-align:center;">Riwayat Absensi</h2>
+          ${printContent}
+        </body>
+      </html>
+    `);
+    printWindow.document.close();
+    printWindow.focus();
+    printWindow.print();
+  };
+
   //modal edit
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isAddOpen, setIsAddOpen] = useState(false);
@@ -133,9 +163,9 @@ export default function Riwayat() {
   };
 
   // print
-  const handlePrint = () => {
-    window.print();
-  };
+  // const handlePrint = () => {
+  //   window.print();
+  // };
 
   //sorting by tanggal di awal dengan order descending
   const [sortBy, setSortBy] = useState("tanggal");
@@ -839,6 +869,75 @@ export default function Riwayat() {
           </div>
         </DialogActions>
       </Dialog>
+
+      <div hidden ref={tableRef}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableHeader>No</TableHeader>
+              <TableHeader>Nama</TableHeader>
+              <TableHeader>
+                <div className="flex items-center">Divisi</div>
+              </TableHeader>
+              <TableHeader>
+                <div className="flex items-center">Tanggal</div>
+              </TableHeader>
+              <TableHeader>
+                <div className="flex items-center">Status</div>
+              </TableHeader>
+              <TableHeader>
+                <div className="flex items-center">Masuk</div>
+              </TableHeader>
+              <TableHeader>
+                <div className="flex items-center">Keluar</div>
+              </TableHeader>
+              <TableHeader>
+                <div className="flex items-center">Method</div>
+              </TableHeader>
+              <TableHeader>
+                <div className="flex items-center">Face In</div>
+              </TableHeader>
+              <TableHeader>
+                <div className="flex items-center">Face Out</div>
+              </TableHeader>
+              <TableHeader>
+                <div className="flex items-center">Notes</div>
+              </TableHeader>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {data.map((item, index) => (
+              <TableRow key={item.id}>
+                <TableHeader className={`text-center`}>{startIndex + index + 1}</TableHeader>
+                <TableCell className="whitespace-nowrap">{item.nama}</TableCell>
+                <TableCell>{item.divisi}</TableCell>
+                <TableCell className="whitespace-nowrap">{item.tanggal}</TableCell>
+                <TableCell>
+                  <span
+                    className={`rounded-md text-[11px] p-1 inline-block ${
+                      item.status === "hadir" ? "bg-green-100 dark:bg-gray-800 border border-green-500 text-green-500" : "bg-red-100 border dark:bg-gray-800 border-red-500 text-red-500"
+                    } `}
+                  >
+                    {item.status === "hadir" ? "Hadir" : " Absen "}
+                  </span>
+                </TableCell>
+                <TableCell>{item.masuk}</TableCell>
+                <TableCell>{item.keluar}</TableCell>
+                <TableCell>
+                  <span className={`rounded-md text-[11px] p-1 inline-block ${statusColorMap[item.method]} `}>{item.method}</span>
+                </TableCell>
+                <TableCell>
+                  <Image alt="masuk" width={70} height={70} src={`/assets/presensi/${item.face_in}`} />
+                </TableCell>
+                <TableCell>
+                  <Image alt="keluar" width={70} height={70} src={`/assets/presensi/${item.face_out}`} />
+                </TableCell>
+                <TableCell>{item.notes}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     </>
   );
 }
